@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.ParticleSystem;
 
-public class SkierController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
 
     [SerializeField] private GameObject ControlledPawn;
@@ -32,7 +32,6 @@ public class SkierController : MonoBehaviour
             if (!Physics.Raycast(ray, 10.0f, ~m_LayerMask))
             {
                 NextPos = MainCam.ScreenToWorldPoint(new Vector3(Input.touches[0].position.x, Input.touches[0].position.y, 10.0f));
-                Debug.Log(NextPos.ToString());
 
                 ControlledPawnTransform.position = NextPos;
             }
