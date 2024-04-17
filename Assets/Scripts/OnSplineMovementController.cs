@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -44,6 +45,11 @@ public class OnSplineMovementController : MonoBehaviour
     [SerializeField] private float _velocity = 0;
     [SerializeField] private float _accelerationRatio = 0;
     [SerializeField] private float _decelerationRatio = 0;
+
+    [Header("Test")]
+    [SerializeField] private float normalAccel;
+    [SerializeField] private float deceleration;
+
 
     private Camera _mainCam;
     private float _direction = 0;
@@ -100,11 +106,33 @@ public class OnSplineMovementController : MonoBehaviour
 
     private void Update()
     {
-        UpdateMovement(_velocity);
+        TestUpdate();
+        //UpdateMovement(_velocity);
         if(!_isShortTapAvailable)
         {
             UpdateSideLaunchCooldown();
         }
+    }
+
+    private void TestUpdate()
+    {
+        float accel = normalAccel;
+        if(Mathf.Sign(_velocity) != Mathf.Sign(_direction))//_velocity != 0f &&  
+        {
+            accel = deceleration;
+        }
+        else if(_direction == 0)
+        {
+            accel = deceleration;
+        }
+        _velocity = Mathf.Clamp(_velocity + accel * _direction * Time.deltaTime, -_maxSpeed, _maxSpeed);
+
+        AddSplinePositionOffset(_velocity);
+        
+        //Set player on corresponding spline position
+        _playerObject.transform.position = _spline.EvaluatePosition(_positionOnSpline);
+        _playerObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, _spline.EvaluateUpVector(_positionOnSpline));
+
     }
 
     private void UpdateSideLaunchCooldown()
@@ -205,6 +233,7 @@ public class OnSplineMovementController : MonoBehaviour
 
     public void StopAcceleration()
     {
+        _direction = 0;
         _playerMoveState = PlayerMoveState.DECELERATING;
         _tempDeceleration = _decelerationTime;
     }

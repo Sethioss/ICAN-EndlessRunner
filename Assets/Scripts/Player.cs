@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
         if(other.gameObject.CompareTag("Obstacle"))
         {
             isSpecialStatus = true;
+            tempSpecialStatusTime = 0;
             other.gameObject.SetActive(false);
             PlayerMesh.material = HurtMat;
         }
@@ -29,6 +30,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("Bonus"))
         {
             isSpecialStatus = true;
+            tempSpecialStatusTime = 0;
             other.gameObject.SetActive(false);
             PlayerMesh.material = RichMat;
         }
