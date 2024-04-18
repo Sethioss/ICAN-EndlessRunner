@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Obstacle
   - Bonus
+  - RemoveTrigger
+  - Tile
   layers:
   - Default
   - TransparentFX

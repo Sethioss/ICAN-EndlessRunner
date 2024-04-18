@@ -44,11 +44,14 @@ public class OnSplineMovementController : MonoBehaviour
     //[SerializeField] private float _accelerationRatio = 0;
     //[SerializeField] private float _decelerationRatio = 0;
 
-    [Header("Controls")]
     private float _velocity = 0;
+    [Header("Controls - Higher values = More drag")]
     [SerializeField] private float _maxSpeed;
+    [Tooltip("Acceleration on Start")]
     [SerializeField] private float normalAccel;
+    [Tooltip("Deceleration in Direction change")]
     [SerializeField] private float changeSideDeceleration;
+    [Tooltip("Deceleration when being stopped")]
     [SerializeField] private float deceleration;
 
 
