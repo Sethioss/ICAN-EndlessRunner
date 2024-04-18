@@ -1693,10 +1693,10 @@ MonoBehaviour:
   _playerObject: {fileID: 1541713924}
   _splineManager: {fileID: 998183721}
   _loopsBack: 0
-  _maxSpeed: 0.005
-  normalAccel: 0.05
-  changeSideDeceleration: 0.02
-  deceleration: 0.015
+  _maxSpeed: 0.01
+  normalAccel: 0.1
+  changeSideDeceleration: 0.05
+  deceleration: 0.03
 --- !u!4 &890258505
 Transform:
   m_ObjectHideFlags: 0
@@ -2099,7 +2099,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1003334994}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42ef1100370890e4582b8ca94c06ec66, type: 3}
   m_Name: 
@@ -2170,7 +2170,7 @@ MonoBehaviour:
   splineManager: {fileID: 998183721}
   OldObstacleManager: {fileID: 1003334996}
   ObstacleManager: {fileID: 1960053952}
-  ScrollSpeed: 5
+  ScrollSpeed: 8
 --- !u!1 &1050705479
 GameObject:
   m_ObjectHideFlags: 0
@@ -3772,16 +3772,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1960053951}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62946ee329a19184884a3ed6bd6dbf7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FirstTileLocation: {x: 0, y: 0, z: 0}
+  FirstTileLocation: {x: 0, y: -3, z: 0}
   Tiles:
   - {fileID: 143675473974111701, guid: 41f6c92e58e55444d9b85105af40717d, type: 3}
+  - {fileID: 143675473974111701, guid: 4d9fd62541f4be84987cc3a32a4ebe21, type: 3}
+  - {fileID: 143675473974111701, guid: 2c971021362d2904f98b34ed78abe1fd, type: 3}
   InstantiatedTiles: []
-  NumberOfTilesSpawnedAtOnce: 3
+  NumberOfTilesSpawnedAtOnce: 8
 --- !u!4 &1960053953
 Transform:
   m_ObjectHideFlags: 0
