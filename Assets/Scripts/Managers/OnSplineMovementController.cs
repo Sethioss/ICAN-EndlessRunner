@@ -21,6 +21,8 @@ public class OnSplineMovementController : MonoBehaviour
 
     [SerializeField] private SplineManager _splineManager;
     private SplineContainer _spline;
+
+    [SerializeField] private bool _loopsBack;
     //
     //[Header("Acceleration")]
     //[SerializeField] private float _accelerationTime = 0;
@@ -235,14 +237,16 @@ public class OnSplineMovementController : MonoBehaviour
     {
         //Spline is reversed
         _positionOnSpline -= value;
-        if (_positionOnSpline > 1)
+
+        if (_loopsBack)
         {
-            _positionOnSpline = 0;
+            _positionOnSpline = Mathf.Repeat(_positionOnSpline, 1.0f);
         }
-        else if (_positionOnSpline < 0)
+        else
         {
-            _positionOnSpline = 1;
+            _positionOnSpline = Mathf.Clamp(_positionOnSpline, 0.0f, 1.0f);
         }
+
     }
     //#endregion
     //

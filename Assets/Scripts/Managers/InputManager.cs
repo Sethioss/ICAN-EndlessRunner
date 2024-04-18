@@ -44,6 +44,21 @@ public class InputManager : MonoBehaviour
 
     public void HandleFingerDown(LeanFinger finger)
     {
+        if (finger.Index == 0)
+        {
+            float Dir = GetNormalisedXDirection(finger.ScreenPosition.x);
+            if(Dir < 0)
+            {
+                //LancerSonGauche
+                FMODUnity.RuntimeManager.PlayOneShot("event:/Player/SOUND-GlisseTurn");
+            }
+            else if (Dir != 0)
+            {
+                //LancerSonDroite
+                FMODUnity.RuntimeManager.PlayOneShot("event:/Player/SOUND-GlisseTurn");
+            }
+        }
+
         //_PlayerOnSplineController.StartAccelerating(GetNormalisedXDirection(finger.ScreenPosition.x));
     }
 }
