@@ -1,0 +1,16 @@
+SplineManager with a list of gameplay related splines?
+
+Player Controller on Spline
+Spline
+Velocity (1D)
+Position (1D)
+Acceleration (1D)
+EvaluateSpline gets a position on the spline
+
+When released from the spline, swap to RigidBody for gravity?
+
+Collision detection
+If physics, character movement must be projected onto the spline
+
+LevelScroller
+ScrollSpeed
