@@ -14,11 +14,11 @@ public struct ObstacleInfo
     public float moveAlongSplineSpeed;
 }
 
-public class ObstacleManager : MonoBehaviour
+public class OldObstacleManager : MonoBehaviour
 {
     [SerializeField] private SplineManager splineManager;
     [SerializeField] public List<ObstacleInfo> obstacleInfos = new List<ObstacleInfo>();
-    [SerializeField] public List<GameObject> instantiatedGOs = new List<GameObject>();
+    [HideInInspector] public List<GameObject> instantiatedGOs = new List<GameObject>();
     private void Start()
     {
         SplineInfo cachedSplineInfo = splineManager.PlayerSpline;
@@ -27,10 +27,5 @@ public class ObstacleManager : MonoBehaviour
             Vector3 posOnSpline = splineManager.PlayerSpline.PlayerSpline.EvaluatePosition(Mathf.Repeat(info.locationOnSpline + splineManager.PlayerSpline.Origin, 1.0f));
             instantiatedGOs.Add(Instantiate(info.obstacle, new Vector3(posOnSpline.x, posOnSpline.y, info.depth), Quaternion.LookRotation(info.obstacle.transform.forward, cachedSplineInfo.PlayerSpline.EvaluateUpVector(info.locationOnSpline))));
         }
-    }
-
-    private void Update()
-    {
-        
     }
 }

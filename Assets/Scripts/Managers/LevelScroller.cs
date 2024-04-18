@@ -6,30 +6,29 @@ using UnityEngine;
 public class LevelScroller : MonoBehaviour
 {
     [SerializeField] SplineManager splineManager;
-    [SerializeField] ObstacleManager obstacleManager;
+    [SerializeField] OldObstacleManager OldObstacleManager;
     [SerializeField] float ScrollSpeed;
 
     List<float> TempFloats = new List<float>();
 
     private void Start()
     {
-        for(int i = 0; i < obstacleManager.obstacleInfos.Count; i++)
+        for(int i = 0; i < OldObstacleManager.obstacleInfos.Count; i++)
         {
-            TempFloats.Insert(i, obstacleManager.obstacleInfos[i].locationOnSpline);
+            TempFloats.Insert(i, OldObstacleManager.obstacleInfos[i].locationOnSpline);
         }
     }
 
     private void Update()
     {
-        for(int i = 0; i < obstacleManager.obstacleInfos.Count; ++i)
+        for(int i = 0; i < OldObstacleManager.obstacleInfos.Count; ++i)
         {
-            ObstacleInfo info = obstacleManager.obstacleInfos[i];
-            GameObject obj = obstacleManager.instantiatedGOs[i];
+            ObstacleInfo info = OldObstacleManager.obstacleInfos[i];
+            GameObject obj = OldObstacleManager.instantiatedGOs[i];
             obj.transform.position += ((-obj.transform.forward) * ScrollSpeed) * Time.deltaTime;
             if (info.movesAlongSpline)
             {
                 TempFloats[i] = Mathf.Repeat(TempFloats[i] + (info.moveAlongSplineSpeed * Time.deltaTime), 1.0f);
-                Debug.Log(TempFloats[i]);
 
                 Vector3 PosAlongSpline = new Vector3(splineManager.PlayerSpline.PlayerSpline.EvaluatePosition(TempFloats[i]).x,
                     splineManager.PlayerSpline.PlayerSpline.EvaluatePosition(TempFloats[i]).y,

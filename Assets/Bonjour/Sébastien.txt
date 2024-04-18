@@ -14,3 +14,16 @@ If physics, character movement must be projected onto the spline
 
 LevelScroller
 ScrollSpeed
+
+ObstacleTileManager:
+Liste Tiles
+
+Leading Tile
+
+Spawner uniquement un certain nombre en même temps.
+Pour chaque tile dans liste:
+	Spawner tile à la position tail de la leading tile
+	Leading tile = this tile
+
+Dans le level scroller:
+	Faire avancer la tile à la vitesse du niveau

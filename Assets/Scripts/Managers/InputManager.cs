@@ -7,7 +7,6 @@ using static CW.Common.CwInputManager;
 
 public class InputManager : MonoBehaviour
 {
-    [SerializeField] private PlayerController _PlayerController;
     [SerializeField] private OnSplineMovementController _PlayerOnSplineController;
 
     // Start is called before the first frame update
@@ -27,7 +26,7 @@ public class InputManager : MonoBehaviour
 
     public void HandleFingerTap(LeanFinger finger)
     {
-        _PlayerOnSplineController.Launch(GetNormalisedXDirection(finger.ScreenPosition.x));
+       // _PlayerOnSplineController.Launch(GetNormalisedXDirection(finger.ScreenPosition.x));
     }
 
     public void HandleFingerUp(LeanFinger finger)
@@ -45,6 +44,6 @@ public class InputManager : MonoBehaviour
 
     public void HandleFingerDown(LeanFinger finger)
     {
-        _PlayerOnSplineController.StartAccelerating(GetNormalisedXDirection(finger.ScreenPosition.x));
+        //_PlayerOnSplineController.StartAccelerating(GetNormalisedXDirection(finger.ScreenPosition.x));
     }
 }
