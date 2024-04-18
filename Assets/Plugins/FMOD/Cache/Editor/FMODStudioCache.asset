@@ -1,0 +1,177 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6406903823527771057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/SOUND-GlisseTurn
+  m_EditorClassIdentifier: 
+  Path: event:/Player/SOUND-GlisseTurn
+  Guid:
+    Data1: 2082618231
+    Data2: 1305520438
+    Data3: 484410523
+    Data4: 1242473850
+  Banks:
+  - {fileID: -2335213182580111215}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 800
+--- !u!114 &-2335213182580111215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: D:/ICAN/Runner/FMODSOUND/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 638490519410023217
+  FileSizes:
+  - Name: Desktop
+    Value: 2922272
+  Exists: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: 
+  EditorBanks:
+  - {fileID: 1229128123231242950}
+  - {fileID: -2335213182580111215}
+  EditorEvents:
+  - {fileID: 628165161435434278}
+  - {fileID: 3597006732200485491}
+  - {fileID: 7849262161404573896}
+  - {fileID: -6406903823527771057}
+  EditorParameters: []
+  MasterBanks:
+  - {fileID: -2335213182580111215}
+  StringsBanks:
+  - {fileID: 1229128123231242950}
+  cacheTime: 638490519410043278
+  cacheVersion: 131617
+--- !u!114 &628165161435434278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Musics/MUSIQUE1
+  m_EditorClassIdentifier: 
+  Path: event:/Musics/MUSIQUE1
+  Guid:
+    Data1: -1719194257
+    Data2: 1327385415
+    Data3: 977000113
+    Data4: 1772606813
+  Banks:
+  - {fileID: -2335213182580111215}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 136843
+--- !u!114 &1229128123231242950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: D:/ICAN/Runner/FMODSOUND/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 638490519410043278
+  FileSizes:
+  - Name: Desktop
+    Value: 920
+  Exists: 1
+--- !u!114 &3597006732200485491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enviro/SOUND-Wind
+  m_EditorClassIdentifier: 
+  Path: event:/Enviro/SOUND-Wind
+  Guid:
+    Data1: -1108480169
+    Data2: 1269570300
+    Data3: 1880570551
+    Data4: -697697337
+  Banks:
+  - {fileID: -2335213182580111215}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 91995
+--- !u!114 &7849262161404573896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/SOUND-Glisse
+  m_EditorClassIdentifier: 
+  Path: event:/Player/SOUND-Glisse
+  Guid:
+    Data1: -336205302
+    Data2: 1126766415
+    Data3: -1972613968
+    Data4: 1062422215
+  Banks:
+  - {fileID: -2335213182580111215}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 5896
