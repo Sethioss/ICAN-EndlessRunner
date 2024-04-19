@@ -5120,7 +5120,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &1637433769231745509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5133,6 +5133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce48279da0fd9c40abb87943c3b5512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LevelScroller: {fileID: 0}
   PlayerMesh: {fileID: 5515578617373481121}
   StandardMat: {fileID: 2100000, guid: 661a492d1422e844db7325246d305903, type: 2}
   HurtMat: {fileID: 2100000, guid: f8a69983df61d2c4a90d5c1dca03a1ca, type: 2}

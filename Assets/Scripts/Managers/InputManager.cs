@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static CW.Common.CwInputManager;
 
 public class InputManager : MonoBehaviour
@@ -18,6 +19,7 @@ public class InputManager : MonoBehaviour
     protected virtual void OnEnable()
     {
         // Hook into the events we need
+        LeanTouch.OnGesture += HandleFingerDebug;
         LeanTouch.OnFingerUpdate += UpdateFinger;
         LeanTouch.OnFingerDown += HandleFingerDown;
         LeanTouch.OnFingerUp += HandleFingerUp;
@@ -32,6 +34,19 @@ public class InputManager : MonoBehaviour
     public void HandleFingerTap(LeanFinger finger)
     {
        // _PlayerOnSplineController.Launch(GetNormalisedXDirection(finger.ScreenPosition.x));
+    }
+
+    public void HandleFingerDebug(List<LeanFinger> Fingers)
+    {
+        if(Fingers.Count > 2)
+        {
+            if (Fingers[1].Age > 2.0f)
+            {
+                Fingers[1].Age = 0.0f;
+                string currentSceneName = SceneManager.GetActiveScene().name;
+                SceneManager.LoadScene(currentSceneName);
+            }
+        }
     }
 
     public void HandleFingerUp(LeanFinger finger)

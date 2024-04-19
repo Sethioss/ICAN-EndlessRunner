@@ -1,20 +1,42 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using UnityEditor.UIElements;
 using UnityEngine;
-using static UnityEngine.AdaptivePerformance.Provider.AdaptivePerformanceSubsystemDescriptor;
 
 public class LevelScroller : MonoBehaviour
 {
+    [SerializeField] float ScrollSpeed;
+
+    [Header("Level scrolling slowing down when player hits an obstacle")]
+    [SerializeField] float OnDamageTargetScroll = 0.0f;
+    [SerializeField] float ScroolResumeTime;
+    float MaxScrollSpeed;
+    bool slowed = false;
+    [SerializeField] AnimationCurve ScrollResumeCurve;
+    float temp;
+
+    [Header("Managers")]
     [SerializeField] SplineManager splineManager;
     [SerializeField] ObstacleManager ObstacleManager;
 
-    [SerializeField] float ScrollSpeed;
-
     List<float> TempFloats = new List<float>();
+
+    private void Start()
+    {
+        MaxScrollSpeed = ScrollSpeed;
+    }
 
     private void Update()
     {
+        if(slowed)
+        {
+            temp = Mathf.Max(temp - Time.deltaTime, 0.0f);
+            ScrollSpeed = Mathf.Lerp(MaxScrollSpeed, OnDamageTargetScroll, ScrollResumeCurve.Evaluate(temp / ScroolResumeTime));
+            if(temp < 0.0f )
+            { 
+                slowed = false;
+            }
+        }
+
         if(ObstacleManager.LeadingTileObject != null)
         {
             GameObject obj = ObstacleManager.LeadingTileObject;
@@ -26,5 +48,12 @@ public class LevelScroller : MonoBehaviour
             GameObject obj = ObstacleManager.InstantiatedTiles[i];
             obj.transform.position += ((-obj.transform.forward) * ScrollSpeed) * Time.deltaTime;
         }
+    }
+
+    public void SlowLevelBecauseOfHit()
+    {
+        slowed = true;
+        ScrollSpeed = OnDamageTargetScroll;
+        temp = ScroolResumeTime;
     }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589245, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2217,9 +2217,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1940fce3f6b4ae4cba66d00a77d782f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ScrollSpeed: 10
+  OnDamageTargetScroll: 4
+  ScroolResumeTime: 1.2
+  ScrollResumeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   splineManager: {fileID: 998183721}
   ObstacleManager: {fileID: 1960053952}
-  ScrollSpeed: 6
 --- !u!1 &1050705479
 GameObject:
   m_ObjectHideFlags: 0
@@ -3746,8 +3772,6 @@ MonoBehaviour:
   - {fileID: 143675473974111701, guid: 41f6c92e58e55444d9b85105af40717d, type: 3}
   - {fileID: 143675473974111701, guid: 4d9fd62541f4be84987cc3a32a4ebe21, type: 3}
   - {fileID: 143675473974111701, guid: 2c971021362d2904f98b34ed78abe1fd, type: 3}
-  - {fileID: 143675473974111701, guid: ad0430a358d8bf0499fb5602cf23ed37, type: 3}
-  - {fileID: 143675473974111701, guid: 53e3489be071b1e47a8b3c9528763bb0, type: 3}
   InstantiatedTiles: []
   NumberOfTilesSpawnedAtOnce: 3
 --- !u!4 &1960053953
@@ -4276,6 +4300,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1637433769231745509, guid: ca74dc5fa19da014c811900edb46e235,
+        type: 3}
+      propertyPath: LevelScroller
+      value: 
+      objectReference: {fileID: 1003334997}
     - target: {fileID: 5622765432106063603, guid: ca74dc5fa19da014c811900edb46e235,
         type: 3}
       propertyPath: m_LocalPosition.x
