@@ -6,8 +6,8 @@ public class ObstacleManager : MonoBehaviour
 {
     [SerializeField] Vector3 FirstTileLocation;
     private ObstacleTile LeadingTile;
-    [SerializeField] private List<ObstacleTile> Tiles = new List<ObstacleTile>();
-    private List<GameObject> InstantiatedTiles = new List<GameObject>();
+    [SerializeField] public List<ObstacleTile> Tiles = new List<ObstacleTile>();
+    public List<GameObject> InstantiatedTiles = new List<GameObject>();
     private List<ObstacleTile> EasyTiles = new List<ObstacleTile>();
     private List<ObstacleTile> MediumTiles = new List<ObstacleTile>();
     private List<ObstacleTile> HardTiles = new List<ObstacleTile>();
@@ -27,7 +27,7 @@ public class ObstacleManager : MonoBehaviour
             }
             else
             {
-                InstantiatedTiles.Insert(i, Instantiate(Tiles[randomID].gameObject, LeadingTile.tail.position, Quaternion.identity));
+                InstantiatedTiles.Insert(i, Instantiate(Tiles[randomID].gameObject, LeadingTile.tail.position, LeadingTile.tail.rotation));
                 LeadingTile = InstantiatedTiles[i].GetComponent<ObstacleTile>();
             }
         }
