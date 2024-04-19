@@ -8,6 +8,11 @@ using static CW.Common.CwInputManager;
 public class InputManager : MonoBehaviour
 {
     [SerializeField] private OnSplineMovementController _PlayerOnSplineController;
+    [Header("Particles Test")]
+    [SerializeField] private ParticleSystem _ParticleRight;
+    [SerializeField] private ParticleSystem _ParticleLeft;
+
+
 
     // Start is called before the first frame update
     protected virtual void OnEnable()
@@ -51,11 +56,17 @@ public class InputManager : MonoBehaviour
             {
                 //LancerSonGauche
                 FMODUnity.RuntimeManager.PlayOneShot("event:/Player/SOUND-GlisseTurn");
+                //ParticuleAGauche
+                _ParticleLeft.Play();
+                _ParticleRight.Stop();
             }
             else if (Dir != 0)
             {
                 //LancerSonDroite
                 FMODUnity.RuntimeManager.PlayOneShot("event:/Player/SOUND-GlisseTurn");
+                //ParticuleAGauche
+                _ParticleLeft.Stop();
+                _ParticleRight.Play();
             }
         }
 

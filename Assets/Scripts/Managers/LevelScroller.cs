@@ -32,7 +32,7 @@ public class LevelScroller : MonoBehaviour
         for(int i = 0; i < OldObstacleManager.obstacleInfos.Count; ++i)
         {
             ObstacleInfo info = OldObstacleManager.obstacleInfos[i];
-            GameObject obj = OldObstacleManager.instantiatedGOs[i];
+           /* GameObject obj = OldObstacleManager.instantiatedGOs[i];
             obj.transform.position += ((-obj.transform.forward) * ScrollSpeed) * Time.deltaTime;
             if (info.movesAlongSpline)
             {
@@ -43,7 +43,7 @@ public class LevelScroller : MonoBehaviour
                     obj.transform.position.z);
 
                 obj.transform.position = PosAlongSpline;
-            }
+            }*/
         }
     }
 }
