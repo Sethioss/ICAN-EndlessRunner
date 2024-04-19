@@ -36,12 +36,12 @@ public class TestTrail : MonoBehaviour
     }
     void UpdateLine()
     {
-        for (int i = 1; i < _Resolution; i++)
+        /*for (int i = 1; i < _Resolution; i++)
         {
             Vector3 pos = lineRenderer.GetPosition(i - 1);
             pos.z = transform.position.z + res * i;
             lineRenderer.SetPosition(i, pos);
         }
-        lineRenderer.SetPosition(0, transform.position);
+        lineRenderer.SetPosition(0, transform.position);*/
     }
 }
