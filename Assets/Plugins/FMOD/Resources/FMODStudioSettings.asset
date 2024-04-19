@@ -161,8 +161,8 @@ MonoBehaviour:
   switchSettingsMigration: 1
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: ../../Ican/Annee3/Semaine T - Mobile/ExploBato/FMOD/CuttingThroughLine.fspro
-  sourceBankPath: ../../Ican/Annee3/Semaine T - Mobile/ExploBato/FMOD/Build
+  sourceProjectPath: ../../FMODSOUND/FMODSOUND.fspro
+  sourceBankPath: ../../FMODSOUND/Build
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1

@@ -1,49 +1,59 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using UnityEditor.UIElements;
 using UnityEngine;
-using static UnityEngine.AdaptivePerformance.Provider.AdaptivePerformanceSubsystemDescriptor;
 
 public class LevelScroller : MonoBehaviour
 {
-    [SerializeField] SplineManager splineManager;
-    [SerializeField] OldObstacleManager OldObstacleManager;
-    [SerializeField] ObstacleManager ObstacleManager;
-
     [SerializeField] float ScrollSpeed;
+
+    [Header("Level scrolling slowing down when player hits an obstacle")]
+    [SerializeField] float OnDamageTargetScroll = 0.0f;
+    [SerializeField] float ScroolResumeTime;
+    float MaxScrollSpeed;
+    bool slowed = false;
+    [SerializeField] AnimationCurve ScrollResumeCurve;
+    float temp;
+
+    [Header("Managers")]
+    [SerializeField] SplineManager splineManager;
+    [SerializeField] ObstacleManager ObstacleManager;
 
     List<float> TempFloats = new List<float>();
 
     private void Start()
     {
-        for(int i = 0; i < OldObstacleManager.obstacleInfos.Count; i++)
-        {
-            TempFloats.Insert(i, OldObstacleManager.obstacleInfos[i].locationOnSpline);
-        }
+        MaxScrollSpeed = ScrollSpeed;
     }
 
     private void Update()
     {
-        for(int i = 0; i < ObstacleManager.InstantiatedTiles.Count; ++i)
+        if(slowed)
+        {
+            temp = Mathf.Max(temp - Time.deltaTime, 0.0f);
+            ScrollSpeed = Mathf.Lerp(MaxScrollSpeed, OnDamageTargetScroll, ScrollResumeCurve.Evaluate(temp / ScroolResumeTime));
+            if(temp < 0.0f )
+            { 
+                slowed = false;
+            }
+        }
+
+        if(ObstacleManager.LeadingTileObject != null)
+        {
+            GameObject obj = ObstacleManager.LeadingTileObject;
+            obj.transform.position += ((-obj.transform.forward) * ScrollSpeed) * Time.deltaTime;
+        }
+
+        for (int i = 0; i < ObstacleManager.InstantiatedTiles.Count; ++i)
         {
             GameObject obj = ObstacleManager.InstantiatedTiles[i];
             obj.transform.position += ((-obj.transform.forward) * ScrollSpeed) * Time.deltaTime;
         }
-        for(int i = 0; i < OldObstacleManager.obstacleInfos.Count; ++i)
-        {
-            ObstacleInfo info = OldObstacleManager.obstacleInfos[i];
-           /* GameObject obj = OldObstacleManager.instantiatedGOs[i];
-            obj.transform.position += ((-obj.transform.forward) * ScrollSpeed) * Time.deltaTime;
-            if (info.movesAlongSpline)
-            {
-                TempFloats[i] = Mathf.Repeat(TempFloats[i] + (info.moveAlongSplineSpeed * Time.deltaTime), 1.0f);
+    }
 
-                Vector3 PosAlongSpline = new Vector3(splineManager.PlayerSpline.PlayerSpline.EvaluatePosition(TempFloats[i]).x,
-                    splineManager.PlayerSpline.PlayerSpline.EvaluatePosition(TempFloats[i]).y,
-                    obj.transform.position.z);
-
-                obj.transform.position = PosAlongSpline;
-            }*/
-        }
+    public void SlowLevelBecauseOfHit()
+    {
+        slowed = true;
+        ScrollSpeed = OnDamageTargetScroll;
+        temp = ScroolResumeTime;
     }
 }
