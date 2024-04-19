@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] LevelScroller LevelScroller;
+
     [SerializeField] MeshRenderer PlayerMesh;
     [SerializeField] Material StandardMat;
     [SerializeField] Material HurtMat;
@@ -25,6 +27,7 @@ public class Player : MonoBehaviour
             tempSpecialStatusTime = 0;
             other.gameObject.SetActive(false);
             PlayerMesh.material = HurtMat;
+            LevelScroller.SlowLevelBecauseOfHit();
         }
 
         if (other.gameObject.CompareTag("Bonus"))
