@@ -324,7 +324,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 140252913300124294}
-  - component: {fileID: 5329768182698192300}
+  - component: {fileID: 2514335743928341272}
   m_Layer: 0
   m_Name: HeliceTest
   m_TagString: Obstacle
@@ -350,7 +350,7 @@ Transform:
   - {fileID: 7899338430152885662}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5329768182698192300
+--- !u!114 &2514335743928341272
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -359,7 +359,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8061816306441789532}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5267d32167d1f9248b5c7533c967b9d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 33a8ffb08537ceb40bf9b8439408a60b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 100
