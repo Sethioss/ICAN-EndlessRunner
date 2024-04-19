@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589245, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2219,7 +2219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   splineManager: {fileID: 998183721}
   ObstacleManager: {fileID: 1960053952}
-  ScrollSpeed: 25
+  ScrollSpeed: 6
 --- !u!1 &1050705479
 GameObject:
   m_ObjectHideFlags: 0
@@ -3739,13 +3739,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FirstTileLocation: {x: 0, y: -3, z: 0}
-  LeadingTile: {fileID: 143675473974111701, guid: 4d9fd62541f4be84987cc3a32a4ebe21,
+  LeadingTile: {fileID: 143675473974111701, guid: 18fd4e93ecdd23648b9ff44796579fbf,
     type: 3}
   LeadingTileObject: {fileID: 0}
   Tiles:
   - {fileID: 143675473974111701, guid: 41f6c92e58e55444d9b85105af40717d, type: 3}
   - {fileID: 143675473974111701, guid: 4d9fd62541f4be84987cc3a32a4ebe21, type: 3}
   - {fileID: 143675473974111701, guid: 2c971021362d2904f98b34ed78abe1fd, type: 3}
+  - {fileID: 143675473974111701, guid: ad0430a358d8bf0499fb5602cf23ed37, type: 3}
+  - {fileID: 143675473974111701, guid: 53e3489be071b1e47a8b3c9528763bb0, type: 3}
   InstantiatedTiles: []
   NumberOfTilesSpawnedAtOnce: 3
 --- !u!4 &1960053953
