@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
             isSpecialStatus = true;
             tempSpecialStatusTime = 0;
             other.gameObject.SetActive(false);
+            FMODUnity.RuntimeManager.PlayOneShot("event:/Player/SOUND-HitPlayer");
             PlayerMesh.material = HurtMat;
         }
 
