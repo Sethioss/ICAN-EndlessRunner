@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589245, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3772,8 +3772,11 @@ MonoBehaviour:
   - {fileID: 143675473974111701, guid: 41f6c92e58e55444d9b85105af40717d, type: 3}
   - {fileID: 143675473974111701, guid: 4d9fd62541f4be84987cc3a32a4ebe21, type: 3}
   - {fileID: 143675473974111701, guid: 2c971021362d2904f98b34ed78abe1fd, type: 3}
+  - {fileID: 143675473974111701, guid: ad0430a358d8bf0499fb5602cf23ed37, type: 3}
+  - {fileID: 143675473974111701, guid: 53e3489be071b1e47a8b3c9528763bb0, type: 3}
+  - {fileID: 143675473974111701, guid: c0c33febc86462b4781dc110191f37b1, type: 3}
   InstantiatedTiles: []
-  NumberOfTilesSpawnedAtOnce: 3
+  NumberOfTilesSpawnedAtOnce: 5
 --- !u!4 &1960053953
 Transform:
   m_ObjectHideFlags: 0
