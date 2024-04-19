@@ -2218,7 +2218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScrollSpeed: 10
-  OnDamageTargetScroll: 2
+  OnDamageTargetScroll: 4
   ScroolResumeTime: 1.2
   ScrollResumeCurve:
     serializedVersion: 2
@@ -3765,7 +3765,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FirstTileLocation: {x: 0, y: -3, z: 0}
-  LeadingTile: {fileID: 143675473974111701, guid: 4d9fd62541f4be84987cc3a32a4ebe21,
+  LeadingTile: {fileID: 143675473974111701, guid: 18fd4e93ecdd23648b9ff44796579fbf,
     type: 3}
   LeadingTileObject: {fileID: 0}
   Tiles:
