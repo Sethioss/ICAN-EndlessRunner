@@ -161,8 +161,13 @@ MonoBehaviour:
   switchSettingsMigration: 1
   HasSourceProject: 1
   HasPlatforms: 1
+<<<<<<< Updated upstream
   sourceProjectPath: D:/ICAN/Runner/FMODSOUND/FMODSOUND.fspro
   sourceBankPath: D:/ICAN/Runner/FMODSOUND/Build
+=======
+  sourceProjectPath: C:/Users/ADMIN/Desktop/FMODSOUND-20240419T133756Z-001/FMODSOUND/FMODSOUND.fspro
+  sourceBankPath: C:/Users/ADMIN/Desktop/FMODSOUND-20240419T133756Z-001/FMODSOUND/Build
+>>>>>>> Stashed changes
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1
