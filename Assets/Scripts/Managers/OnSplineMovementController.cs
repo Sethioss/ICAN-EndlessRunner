@@ -59,7 +59,6 @@ public class OnSplineMovementController : MonoBehaviour
 
     private Camera _mainCam;
     private float _direction = 0;
-    private float _previousDirection = 0;
 
     private float _positionOnSpline = 0;
 
