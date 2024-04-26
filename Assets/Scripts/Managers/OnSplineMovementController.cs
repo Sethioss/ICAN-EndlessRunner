@@ -140,6 +140,7 @@ public class OnSplineMovementController : MonoBehaviour
         else
         {
             _positionOnSpline = Mathf.Clamp(_positionOnSpline, 0.0f, 1.0f);
+
         }
 
     }
