@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class ManagerSingleton : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    private static ManagerSingleton _instance;
+    private static GameManager _instance;
 
-    [SerializeField] InputManager inputManager;
     [SerializeField] SplineManager splineManager;
     [SerializeField] ObstacleManager obstacleManager;
     [SerializeField] OnSplineMovementController onSplineMovementController;
     [SerializeField] LevelScroller levelScroller;
 
-    public void Start()
+    [SerializeField] UnityEvent onGameSceneLoaded;
+
+    public void Awake()
     {
         if(_instance == null)
         {
@@ -24,7 +26,8 @@ public class ManagerSingleton : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public ManagerSingleton GetInstance()
+
+    public GameManager GetInstance()
     {
         return _instance;
     }

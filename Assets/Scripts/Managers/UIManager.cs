@@ -1,18 +1,35 @@
+using System.ComponentModel;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
+    private static UIManager _instance;
+
     [SerializeField] Canvas Canva;
 
-    public void DisableCanvas(Scene arg0, Scene arg1)
+    private void Awake()
     {
-        Canva.gameObject.SetActive(false);
-        Debug.Log("Disabling Canvas");
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
-    public void EnableCanvas(Scene arg0, Scene arg1)
+
+    public void HideAllMenus()
     {
-        Canva.gameObject.SetActive(true);
-        Debug.Log("Enabling Canvas");
+        for (int i = 0; i < Canva.transform.childCount; ++i)
+        {
+            Canva.transform.GetChild(i).gameObject.SetActive(false);
+        }
+    }
+
+    public UIManager GetInstance()
+    {
+        return _instance;
     }
 }

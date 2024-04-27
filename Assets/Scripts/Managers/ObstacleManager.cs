@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ObstacleManager : MonoBehaviour
 {
@@ -17,6 +18,11 @@ public class ObstacleManager : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
+    {
+        StartSpawningObstacles();
+    }
+
+    public void StartSpawningObstacles()
     {
         LeadingTileObject = Instantiate(LeadingTile.gameObject, FirstTileLocation.position, Quaternion.identity);
         LeadingTile = LeadingTileObject.GetComponent<ObstacleTile>();

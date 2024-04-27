@@ -1,8 +1,7 @@
-using System;
-using System.Collections;
+using Lean.Touch;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Splines;
 
 public enum PlayerMoveState
@@ -22,29 +21,8 @@ public class OnSplineMovementController : MonoBehaviour
     [SerializeField] private SplineManager _splineManager;
     private SplineContainer _spline;
 
+    //Whether the loop is closed (Loops the player's position on spline between 0 and 1) or not
     [SerializeField] private bool _loopsBack;
-    //
-    //[Header("Acceleration")]
-    //[SerializeField] private float _accelerationTime = 0;
-    //[SerializeField] private float _tempAcceleration = 0;
-    //
-    //private float _finalAcceleration = 0;
-    //
-    //[Header("Deceleration")]
-    //[SerializeField] private float _decelerationTime = 0;
-    //[SerializeField] private float _tempDeceleration = 0;
-    //
-    //
-    //[Header("Side launch")]
-    //[SerializeField] private float _sideLaunchSpeed;
-    //[SerializeField] private float _sideLaunchCooldown = 0;
-    //private float _tempSideLaunchCooldown = 0;
-    //private bool _isShortTapAvailable = false;
-    //
-    //
-    //[Header("Debug")]
-    //[SerializeField] private float _accelerationRatio = 0;
-    //[SerializeField] private float _decelerationRatio = 0;
 
     private float _velocity = 0;
     [Header("Controls - Higher values = More drag")]
@@ -62,6 +40,19 @@ public class OnSplineMovementController : MonoBehaviour
 
     private float _positionOnSpline = 0;
 
+    [Header("Particles Test")]
+    [SerializeField] private ParticleSystem _ParticleRight;
+    [SerializeField] private ParticleSystem _ParticleLeft;
+
+    // Start is called before the first frame update
+    protected virtual void OnEnable()
+    {
+        // Hook into the events we need
+        LeanTouch.OnGesture += HandleFingerDebug;
+        LeanTouch.OnFingerUpdate += UpdateFinger;
+        LeanTouch.OnFingerDown += HandleFingerDown;
+        LeanTouch.OnFingerUp += HandleFingerUp;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -148,6 +139,58 @@ public class OnSplineMovementController : MonoBehaviour
     {
         _direction = 0;
     }
-    
+
     #endregion
+
+    public void HandleFingerDebug(List<LeanFinger> Fingers)
+    {
+        if (Fingers.Count > 2)
+        {
+            if (Fingers[1].Age > 2.0f)
+            {
+                Fingers[1].Age = 0.0f;
+                string currentSceneName = SceneManager.GetActiveScene().name;
+                SceneManager.LoadScene(currentSceneName);
+            }
+        }
+    }
+
+    public void HandleFingerUp(LeanFinger finger)
+    {
+        StopAcceleration();
+    }
+
+    public void UpdateFinger(LeanFinger finger)
+    {
+        if (finger.Index == 0)
+        {
+            UpdateXDirection(GetNormalisedXDirection(finger.ScreenPosition.x));
+        }
+    }
+
+    public void HandleFingerDown(LeanFinger finger)
+    {
+        if (finger.Index == 0)
+        {
+            float Dir = GetNormalisedXDirection(finger.ScreenPosition.x);
+            if (Dir < 0)
+            {
+                //LancerSonGauche
+                FMODUnity.RuntimeManager.PlayOneShot("event:/Player/SOUND-GlisseTurn");
+                //ParticuleAGauche
+                _ParticleLeft.Play();
+                _ParticleRight.Stop();
+            }
+            else if (Dir != 0)
+            {
+                //LancerSonDroite
+                FMODUnity.RuntimeManager.PlayOneShot("event:/Player/SOUND-GlisseTurn");
+                //ParticuleAGauche
+                _ParticleLeft.Stop();
+                _ParticleRight.Play();
+            }
+        }
+
+        //_PlayerOnSplineController.StartAccelerating(GetNormalisedXDirection(finger.ScreenPosition.x));
+    }
 }

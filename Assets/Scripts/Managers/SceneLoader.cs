@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using System;
 
 [System.Serializable]
 public enum ESceneLoadingActionType : uint
@@ -20,17 +21,17 @@ public struct SceneLoadingAction
     public string SceneToLoad;
     public bool LoadSceneOnStart;
     public bool ChangeActiveSceneOnLoad;
+    public UnityEvent onSceneChanged;
 }
 
 public class SceneLoader : MonoBehaviour
 {
-    public UnityEvent<Scene, Scene> OnActiveSceneChangedEvent;
+    public UnityEvent<Scene, LoadSceneMode> onSceneLoadEvent;
     public SceneLoadingAction[] LoadActions;
     EventSystem[] _es;
 
     public void Start()
     {
-        SceneManager.activeSceneChanged += OnActiveSceneChangedEvent.Invoke;
         for (int i = 0; i < LoadActions.Length; ++i)
         {
             if (LoadActions[i].LoadSceneOnStart)
@@ -65,9 +66,11 @@ public class SceneLoader : MonoBehaviour
             {
                 case ESceneLoadingActionType.ASYNCHRONOUSADDITIVE:
                     Debug.LogWarning("SCENE_LOADER::WARNING::Can't set an asynchronous Additive scene as active, since it is not loaded yet");
+                    LoadActions[Index].onSceneChanged?.Invoke();
                     return;
                 case ESceneLoadingActionType.ASYNCHRONOUSSINGLE:
                     Debug.LogWarning("SCENE_LOADER::WARNING::Can't set an asynchronous Single scene as active, since it is not loaded yet");
+                    LoadActions[Index].onSceneChanged?.Invoke();
                     return;
             }
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(CurrentSceneName));
@@ -76,6 +79,7 @@ public class SceneLoader : MonoBehaviour
         {
             SceneManager.SetActiveScene(SceneManager.GetActiveScene());
         }
+        LoadActions[Index].onSceneChanged?.Invoke();
     }
 
     public void LoadScenes()
@@ -114,9 +118,11 @@ public class SceneLoader : MonoBehaviour
                 {
                     case ESceneLoadingActionType.ASYNCHRONOUSADDITIVE:
                         Debug.LogWarning("SCENE_LOADER::WARNING::Can't set an asynchronous Additive scene as active, since it is not loaded yet");
+                        LoadActions[i].onSceneChanged?.Invoke();
                         return;
                     case ESceneLoadingActionType.ASYNCHRONOUSSINGLE:
                         Debug.LogWarning("SCENE_LOADER::WARNING::Can't set an asynchronous Single scene as active, since it is not loaded yet");
+                        LoadActions[i].onSceneChanged?.Invoke();
                         return;
                 }
                 SceneManager.SetActiveScene(SceneManager.GetSceneByName(CurrentSceneName));
@@ -125,6 +131,7 @@ public class SceneLoader : MonoBehaviour
             {
                 SceneManager.SetActiveScene(SceneManager.GetActiveScene());
             }
+            LoadActions[i].onSceneChanged?.Invoke();
         }
     }
 }

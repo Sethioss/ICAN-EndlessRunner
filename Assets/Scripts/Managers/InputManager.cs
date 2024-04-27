@@ -1,10 +1,7 @@
 using Lean.Touch;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static CW.Common.CwInputManager;
 
 public class InputManager : MonoBehaviour
 {

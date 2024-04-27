@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589245, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -406,11 +406,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f321b5ab0b73414f8cfaae3471b8451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onSceneLoadEvent:
+    m_PersistentCalls:
+      m_Calls: []
   LoadActions:
   - SceneLoadingActionType: 1
     SceneToLoad: StartScene
     LoadSceneOnStart: 0
     ChangeActiveSceneOnLoad: 0
+    onSceneChanged:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!4 &328499783
 Transform:
   m_ObjectHideFlags: 0
@@ -662,40 +668,14 @@ GameObject:
   m_Component:
   - component: {fileID: 731077849}
   - component: {fileID: 731077848}
-  - component: {fileID: 731077847}
+  - component: {fileID: 731077850}
   m_Layer: 0
   m_Name: InputManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &731077847
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 731077846}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fc98219a83dff145947365dc914d06e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tapThreshold: 0.1
-  swipeThreshold: 100
-  referenceDpi: 200
-  guiLayers:
-    serializedVersion: 2
-    m_Bits: 32
-  useTouch: 1
-  useHover: 1
-  useMouse: 1
-  useSimulator: 1
-  disableMouseEmulation: 1
-  recordFingers: 1
-  recordThreshold: 5
-  recordLimit: 10
+  m_IsActive: 0
 --- !u!114 &731077848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -726,6 +706,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &731077850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 731077846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fc98219a83dff145947365dc914d06e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tapThreshold: 0.1
+  swipeThreshold: 100
+  referenceDpi: 200
+  guiLayers:
+    serializedVersion: 2
+    m_Bits: 32
+  useTouch: 1
+  useHover: 1
+  useMouse: 1
+  useSimulator: 1
+  disableMouseEmulation: 1
+  recordFingers: 1
+  recordThreshold: 5
+  recordLimit: 10
 --- !u!1 &769240185
 GameObject:
   m_ObjectHideFlags: 0
@@ -988,6 +994,7 @@ GameObject:
   m_Component:
   - component: {fileID: 890258505}
   - component: {fileID: 890258504}
+  - component: {fileID: 890258506}
   m_Layer: 0
   m_Name: OnSplinePlayerController
   m_TagString: Untagged
@@ -1014,6 +1021,8 @@ MonoBehaviour:
   normalAccel: 0.03
   changeSideDeceleration: 0.3
   deceleration: 0.15
+  _ParticleRight: {fileID: 268387478}
+  _ParticleLeft: {fileID: 58217686}
 --- !u!4 &890258505
 Transform:
   m_ObjectHideFlags: 0
@@ -1029,6 +1038,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &890258506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 890258503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fc98219a83dff145947365dc914d06e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tapThreshold: 0.1
+  swipeThreshold: 100
+  referenceDpi: 200
+  guiLayers:
+    serializedVersion: 2
+    m_Bits: 32
+  useTouch: 1
+  useHover: 1
+  useMouse: 1
+  useSimulator: 1
+  disableMouseEmulation: 1
+  recordFingers: 1
+  recordThreshold: 5
+  recordLimit: 10
 --- !u!1 &953924292
 GameObject:
   m_ObjectHideFlags: 0
@@ -1872,55 +1907,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1114308233811826973}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1554716795
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1554716797}
-  - component: {fileID: 1554716796}
-  m_Layer: 0
-  m_Name: ManagerSingleton
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1554716796
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1554716795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a31d6fc9dd2b4f4d882f9d68af2ca83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputManager: {fileID: 0}
-  splineManager: {fileID: 0}
-  obstacleManager: {fileID: 0}
-  onSplineMovementController: {fileID: 0}
-  levelScroller: {fileID: 0}
---- !u!4 &1554716797
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1554716795}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.467325, y: 0.9171716, z: -8.489016}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1732945693
 GameObject:
   m_ObjectHideFlags: 0
@@ -2173,6 +2159,7 @@ MonoBehaviour:
   - {fileID: 143675473974111701, guid: c0c33febc86462b4781dc110191f37b1, type: 3}
   InstantiatedTiles: []
   NumberOfTilesSpawnedAtOnce: 5
+  SceneWorkflowTest: 1
 --- !u!4 &1960053953
 Transform:
   m_ObjectHideFlags: 0
@@ -2618,6 +2605,94 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca74dc5fa19da014c811900edb46e235, type: 3}
+--- !u!1001 &3147977917778219607
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4877823696998335364, guid: a8c3c4a97d941694fa30b9f622eb447c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.9199657
+      objectReference: {fileID: 0}
+    - target: {fileID: 4877823696998335364, guid: a8c3c4a97d941694fa30b9f622eb447c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.5047174
+      objectReference: {fileID: 0}
+    - target: {fileID: 4877823696998335364, guid: a8c3c4a97d941694fa30b9f622eb447c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 11.9425
+      objectReference: {fileID: 0}
+    - target: {fileID: 4877823696998335364, guid: a8c3c4a97d941694fa30b9f622eb447c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4877823696998335364, guid: a8c3c4a97d941694fa30b9f622eb447c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4877823696998335364, guid: a8c3c4a97d941694fa30b9f622eb447c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4877823696998335364, guid: a8c3c4a97d941694fa30b9f622eb447c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4877823696998335364, guid: a8c3c4a97d941694fa30b9f622eb447c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4877823696998335364, guid: a8c3c4a97d941694fa30b9f622eb447c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4877823696998335364, guid: a8c3c4a97d941694fa30b9f622eb447c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4919597814148950794, guid: a8c3c4a97d941694fa30b9f622eb447c,
+        type: 3}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7772759373568651197, guid: a8c3c4a97d941694fa30b9f622eb447c,
+        type: 3}
+      propertyPath: levelScroller
+      value: 
+      objectReference: {fileID: 1003334997}
+    - target: {fileID: 7772759373568651197, guid: a8c3c4a97d941694fa30b9f622eb447c,
+        type: 3}
+      propertyPath: splineManager
+      value: 
+      objectReference: {fileID: 998183721}
+    - target: {fileID: 7772759373568651197, guid: a8c3c4a97d941694fa30b9f622eb447c,
+        type: 3}
+      propertyPath: obstacleManager
+      value: 
+      objectReference: {fileID: 1960053952}
+    - target: {fileID: 7772759373568651197, guid: a8c3c4a97d941694fa30b9f622eb447c,
+        type: 3}
+      propertyPath: onSplineMovementController
+      value: 
+      objectReference: {fileID: 890258504}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a8c3c4a97d941694fa30b9f622eb447c, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2625,7 +2700,7 @@ SceneRoots:
   - {fileID: 963194228}
   - {fileID: 705507995}
   - {fileID: 252285542}
-  - {fileID: 1554716797}
+  - {fileID: 3147977917778219607}
   - {fileID: 328499783}
   - {fileID: 1003334995}
   - {fileID: 998183722}
