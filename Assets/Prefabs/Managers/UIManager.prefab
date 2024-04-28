@@ -1039,10 +1039,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   LoadActions:
-  - SceneLoadingActionType: 4
+  - SceneLoadingActionType: 3
     SceneToLoad: GameScene
     LoadSceneOnStart: 0
-    ChangeActiveSceneOnLoad: 0
+    ChangeActiveSceneOnLoad: 1
     onSceneChanged:
       m_PersistentCalls:
         m_Calls:

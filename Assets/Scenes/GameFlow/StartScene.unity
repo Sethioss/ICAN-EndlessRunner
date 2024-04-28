@@ -160,10 +160,16 @@ MonoBehaviour:
     SceneToLoad: UIScene
     LoadSceneOnStart: 1
     ChangeActiveSceneOnLoad: 0
+    onSceneChanged:
+      m_PersistentCalls:
+        m_Calls: []
   - SceneLoadingActionType: 4
     SceneToLoad: GameScene
     LoadSceneOnStart: 0
     ChangeActiveSceneOnLoad: 1
+    onSceneChanged:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!4 &1610387852
 Transform:
   m_ObjectHideFlags: 0

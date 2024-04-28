@@ -28,7 +28,8 @@ public class SceneLoader : MonoBehaviour
 {
     public UnityEvent<Scene, LoadSceneMode> onSceneLoadEvent;
     public SceneLoadingAction[] LoadActions;
-    EventSystem[] _es;
+    private string upcomingSceneName;
+    private int upcomingSceneIndex;
 
     public void Start()
     {
@@ -41,10 +42,25 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
+    public void SetAsActiveScene(Scene scene1, LoadSceneMode mode)
+    {
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(upcomingSceneName));
+        SceneManager.sceneLoaded -= SetAsActiveScene;
+    }
+
+    public void AddSceneChangeEventToDelegate(Scene scene1, LoadSceneMode mode)
+    {
+        LoadActions[upcomingSceneIndex].onSceneChanged?.Invoke();
+        SceneManager.sceneLoaded -= AddSceneChangeEventToDelegate;
+    }
+
     public void LoadSceneSpecific(int Index)
     {
         ESceneLoadingActionType CurrentType = LoadActions[Index].SceneLoadingActionType;
         string CurrentSceneName = LoadActions[Index].SceneToLoad;
+
+        
+
         switch (CurrentType)
         {
             case ESceneLoadingActionType.ASYNCHRONOUSSINGLE:
@@ -60,26 +76,15 @@ public class SceneLoader : MonoBehaviour
                 SceneManager.LoadScene(CurrentSceneName, LoadSceneMode.Additive);
                 break;
         }
+
         if (LoadActions[Index].ChangeActiveSceneOnLoad)
         {
-            switch (CurrentType)
-            {
-                case ESceneLoadingActionType.ASYNCHRONOUSADDITIVE:
-                    Debug.LogWarning("SCENE_LOADER::WARNING::Can't set an asynchronous Additive scene as active, since it is not loaded yet");
-                    LoadActions[Index].onSceneChanged?.Invoke();
-                    return;
-                case ESceneLoadingActionType.ASYNCHRONOUSSINGLE:
-                    Debug.LogWarning("SCENE_LOADER::WARNING::Can't set an asynchronous Single scene as active, since it is not loaded yet");
-                    LoadActions[Index].onSceneChanged?.Invoke();
-                    return;
-            }
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName(CurrentSceneName));
+            upcomingSceneName = CurrentSceneName;
+            SceneManager.sceneLoaded += SetAsActiveScene;
         }
-        else
-        {
-            SceneManager.SetActiveScene(SceneManager.GetActiveScene());
-        }
-        LoadActions[Index].onSceneChanged?.Invoke();
+
+        upcomingSceneIndex = Index;
+        SceneManager.sceneLoaded += AddSceneChangeEventToDelegate;
     }
 
     public void LoadScenes()
@@ -127,10 +132,7 @@ public class SceneLoader : MonoBehaviour
                 }
                 SceneManager.SetActiveScene(SceneManager.GetSceneByName(CurrentSceneName));
             }
-            else
-            {
-                SceneManager.SetActiveScene(SceneManager.GetActiveScene());
-            }
+
             LoadActions[i].onSceneChanged?.Invoke();
         }
     }
