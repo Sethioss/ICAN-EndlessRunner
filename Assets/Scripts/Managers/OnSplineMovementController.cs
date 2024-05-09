@@ -1,5 +1,6 @@
 using Lean.Touch;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Splines;
@@ -33,6 +34,10 @@ public class OnSplineMovementController : MonoBehaviour
     [SerializeField] private float changeSideDeceleration;
     [Tooltip("Deceleration when being stopped")]
     [SerializeField] private float deceleration;
+    [SerializeField] private AnimationCurve accelCurve;
+    [SerializeField] private AnimationCurve decelCurve;
+
+    [SerializeField] private float t;
 
 
     private Camera _mainCam;
@@ -80,6 +85,8 @@ public class OnSplineMovementController : MonoBehaviour
     private void Update()
     {
         UpdateMove();
+        Debug.Log("Accel" + accelCurve.Evaluate(t));
+        Debug.Log("Decel" + decelCurve.Evaluate(t));
     }
 
     private void UpdateMove()
@@ -89,14 +96,16 @@ public class OnSplineMovementController : MonoBehaviour
         {
             accel = changeSideDeceleration;
         }
-        _velocity = Mathf.Clamp(_velocity + accel * _direction * Time.deltaTime, -_maxSpeed, _maxSpeed);
+        _velocity = Mathf.Clamp(_velocity + _direction * Time.deltaTime* accelCurve.Evaluate(t) , -_maxSpeed, _maxSpeed);
+        t += Time.deltaTime;
 
         if (_direction == 0f)
         {
             if (_velocity > 0.001f || _velocity < -0.001f)
             {
                 accel = deceleration;
-                _velocity = Mathf.Clamp(_velocity + accel * -(Mathf.Sign(_velocity)) * Time.deltaTime, -_maxSpeed, _maxSpeed);
+                _velocity = Mathf.Clamp(_velocity + decelCurve.Evaluate(t) * -(Mathf.Sign(_velocity)) * Time.deltaTime, -_maxSpeed, _maxSpeed);
+                t += Time.deltaTime;
             }
             else
             {
@@ -158,6 +167,7 @@ public class OnSplineMovementController : MonoBehaviour
     public void HandleFingerUp(LeanFinger finger)
     {
         StopAcceleration();
+        t = 0;
     }
 
     public void UpdateFinger(LeanFinger finger)
@@ -190,6 +200,7 @@ public class OnSplineMovementController : MonoBehaviour
                 _ParticleRight.Play();
             }
         }
+        t=0;
 
         //_PlayerOnSplineController.StartAccelerating(GetNormalisedXDirection(finger.ScreenPosition.x));
     }

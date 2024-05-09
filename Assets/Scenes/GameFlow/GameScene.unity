@@ -900,9 +900,58 @@ MonoBehaviour:
   _splineManager: {fileID: 998183721}
   _loopsBack: 0
   _maxSpeed: 0.25
-  normalAccel: 0.03
-  changeSideDeceleration: 0.3
-  deceleration: 0.15
+  normalAccel: 0.025
+  changeSideDeceleration: 0.1
+  deceleration: 0.005
+  accelCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: -0.0040390366
+      outSlope: -0.0040390366
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.493678
+    - serializedVersion: 3
+      time: 0.9791667
+      value: 0.050471697
+      inSlope: -0.0010376195
+      outSlope: -0.0010376195
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.21666664
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  decelCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0083351135
+      value: 0.0039978027
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0.05
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  t: 0
   _ParticleRight: {fileID: 268387478}
   _ParticleLeft: {fileID: 58217686}
 --- !u!4 &890258505
