@@ -13,4 +13,6 @@ public struct SplineInfo
 public class SplineManager : MonoBehaviour
 {
     [SerializeField] public SplineInfo PlayerSpline;
+    [SerializeField] public List<SplineBounds> AppliedBounds;
+    [SerializeField] public SplineBounds CurrentBounds;
 }
