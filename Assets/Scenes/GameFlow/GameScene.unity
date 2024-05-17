@@ -1429,6 +1429,14 @@ MonoBehaviour:
   PlayerSpline:
     PlayerSpline: {fileID: 274389662}
     Origin: 0.5
+  AppliedBounds:
+  - _minValue: 0
+    _maxValue: 0
+  - _minValue: 0
+    _maxValue: 0
+  CurrentBounds:
+    _minValue: 0
+    _maxValue: 0
 --- !u!4 &998183722
 Transform:
   m_ObjectHideFlags: 0
