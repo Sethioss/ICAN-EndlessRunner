@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589245, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -377,61 +377,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &328499781
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 328499783}
-  - component: {fileID: 328499782}
-  m_Layer: 0
-  m_Name: SceneLoader
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &328499782
+--- !u!114 &334274908 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 7772759373568651197, guid: a8c3c4a97d941694fa30b9f622eb447c,
+    type: 3}
+  m_PrefabInstance: {fileID: 3147977917778219607}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 328499781}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f321b5ab0b73414f8cfaae3471b8451, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a31d6fc9dd2b4f4d882f9d68af2ca83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onSceneLoadEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  LoadActions:
-  - SceneLoadingActionType: 1
-    SceneToLoad: StartScene
-    LoadSceneOnStart: 0
-    ChangeActiveSceneOnLoad: 0
-    onSceneChanged:
-      m_PersistentCalls:
-        m_Calls: []
---- !u!4 &328499783
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 328499781}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.467325, y: 0.9171716, z: -8.489016}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &339921852
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,6 +718,74 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &784110175
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 784110178}
+  - component: {fileID: 784110177}
+  - component: {fileID: 784110176}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &784110176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784110175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
+--- !u!114 &784110177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784110175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!4 &784110178
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784110175}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &791621145
 GameObject:
   m_ObjectHideFlags: 0
@@ -1254,9 +1279,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1940fce3f6b4ae4cba66d00a77d782f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScrollSpeed: 10
+  ScrollSpeed: 15
+  DistanceTraveled: 0
   OnDamageTargetScroll: 4
-  ScroolResumeTime: 1.2
+  ScrollResumeTime: 0.5
   ScrollResumeCurve:
     serializedVersion: 2
     m_Curve:
@@ -1282,7 +1308,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   splineManager: {fileID: 998183721}
-  ObstacleManager: {fileID: 1960053952}
+  ActivitiesSequenceGenerator: {fileID: 1960053952}
 --- !u!1 &1090697826
 GameObject:
   m_ObjectHideFlags: 0
@@ -2010,7 +2036,7 @@ GameObject:
   - component: {fileID: 1960053953}
   - component: {fileID: 1960053952}
   m_Layer: 0
-  m_Name: ObstacleManager
+  m_Name: ActivitiesSequenceGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2041,6 +2067,91 @@ MonoBehaviour:
   - {fileID: 143675473974111701, guid: c0c33febc86462b4781dc110191f37b1, type: 3}
   InstantiatedTiles: []
   NumberOfTilesSpawnedAtOnce: 5
+  _gameManager: {fileID: 334274908}
+  LeadingActivityGeometry: {fileID: 5496859885997138862, guid: 18fd4e93ecdd23648b9ff44796579fbf,
+    type: 3}
+  LeadingActivityObject: {fileID: 0}
+  InstantiatedActivities: []
+  GenerationPools:
+  - _minDistance: 0
+    _activities:
+    - weightCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 1
+          outSlope: 1
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 1
+          outSlope: 1
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      activitySO: {fileID: 11400000, guid: 5cbe4a11bdbf83a47a5976d20135f8db, type: 2}
+    - weightCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: -1
+          outSlope: -1
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 0
+          inSlope: -1
+          outSlope: -1
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      activitySO: {fileID: 11400000, guid: 47013a0f9d542b5498e3958b4f1dd959, type: 2}
+  - _minDistance: 500
+    _activities:
+    - weightCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      activitySO: {fileID: 11400000, guid: d4d71adb0561aae47b835384a12eab5f, type: 2}
 --- !u!4 &1960053953
 Transform:
   m_ObjectHideFlags: 0
@@ -2699,7 +2810,6 @@ SceneRoots:
   - {fileID: 963194228}
   - {fileID: 252285542}
   - {fileID: 3147977917778219607}
-  - {fileID: 328499783}
   - {fileID: 1003334995}
   - {fileID: 998183722}
   - {fileID: 731077849}
@@ -2725,3 +2835,4 @@ SceneRoots:
   - {fileID: 551835041}
   - {fileID: 149239903}
   - {fileID: 2101706373}
+  - {fileID: 784110178}

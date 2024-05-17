@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RemoveTrigger : MonoBehaviour
 {
-    [SerializeField] public ObstacleManager om;
+    [SerializeField] public ActivitiesSequenceGenerator om;
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Tile"))
