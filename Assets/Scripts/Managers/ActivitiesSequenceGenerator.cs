@@ -6,12 +6,8 @@ using UnityEngine;
 public class ActivitiesSequenceGenerator : MonoBehaviour
 {
     [SerializeField] Transform FirstTileLocation;
-    [SerializeField] private ObstacleTile LeadingTile;
-    [HideInInspector] public GameObject LeadingTileObject;
-    [SerializeField] public List<ObstacleTile> Tiles = new List<ObstacleTile>();
-    [HideInInspector] public List<GameObject> InstantiatedTiles = new List<GameObject>();
 
-    [SerializeField] private int NumberOfTilesSpawnedAtOnce = 5;
+    [SerializeField] private int NumberOfActivitiesSpawnedOnStart = 5;
 
     [Header("New activity system")]
     //New activity system
@@ -65,7 +61,7 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
         ReachedLastPool = GetReachedLastPool();
         if (!ReachedLastPool)
         {
-            CurrentPool = SelectPool();
+            CurrentPool = GetCurrentPool();
         }
 
         ActivityGenerationPool CurrentGenPool = GenerationPools[CurrentPool];
@@ -73,11 +69,13 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
         PossibleActivities = CurrentGenPool._activities;
 
         float RandomNumber = Random.Range(0.0f, 1.0f);
-        float PoolLength = NextPoolMinDistance - CurrentGenPool._minDistance;
+        float PoolLength = ReachedLastPool ? (NextPoolMinDistance - CurrentGenPool._minDistance) + 999.0f :
+            NextPoolMinDistance - CurrentGenPool._minDistance;
+
         float PlayerPosInPool = _gameManager.GetInstance().levelScroller.DistanceTraveled - CurrentGenPool._minDistance;
         float CurrentPoolRatio = PlayerPosInPool / PoolLength;
 
-        for (int i = 0; i < NumberOfTilesSpawnedAtOnce; ++i)
+        for (int i = 0; i < NumberOfActivitiesSpawnedOnStart; ++i)
         {
             IncomingActivities.Add(SelectActivity(CurrentGenPool).activitySO);
         }
@@ -115,7 +113,7 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
         }
     }
 
-    public int SelectPool()
+    public int GetCurrentPool()
     {
         float distance = _gameManager.GetInstance().levelScroller.DistanceTraveled;
         if (distance >= NextPoolMinDistance)
@@ -129,19 +127,8 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
         return CurrentPool;
 
     }
-    public void StartSpawningObstacles()
-    {
-        LeadingTileObject = Instantiate(LeadingTile.gameObject, FirstTileLocation.position, Quaternion.identity);
-        LeadingTile = LeadingTileObject.GetComponent<ObstacleTile>();
 
-        for (int i = 0; i < NumberOfTilesSpawnedAtOnce; i++)
-        {
-            int randomID = Random.Range(0, i % Tiles.Count + 1);
-            InstantiatedTiles.Insert(0, Instantiate(Tiles[randomID].gameObject, LeadingTile.tail.position, LeadingTile.tail.rotation));
-            LeadingTile = InstantiatedTiles[0].GetComponent<ObstacleTile>();
-        }
-    }
-    public void CreateNewObstacle(GameObject RemovedGO)
+    public void CreateNewActivity(GameObject RemovedGO)
     {
         ActivityData NewActivity = SelectActivity(GetActivityGenerationPoolAt(CurrentPool));
 
@@ -151,7 +138,7 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
 
         Destroy(RemovedGO);
 
-        if(SelectPool() != CurrentPool)
+        if(GetCurrentPool() != CurrentPool)
         {
             MakeNewIncomingActivitiesList();
         }

@@ -2055,18 +2055,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FirstTileLocation: {fileID: 339921853}
-  LeadingTile: {fileID: 143675473974111701, guid: 18fd4e93ecdd23648b9ff44796579fbf,
-    type: 3}
-  LeadingTileObject: {fileID: 0}
-  Tiles:
-  - {fileID: 143675473974111701, guid: 41f6c92e58e55444d9b85105af40717d, type: 3}
-  - {fileID: 143675473974111701, guid: 4d9fd62541f4be84987cc3a32a4ebe21, type: 3}
-  - {fileID: 143675473974111701, guid: 2c971021362d2904f98b34ed78abe1fd, type: 3}
-  - {fileID: 143675473974111701, guid: ad0430a358d8bf0499fb5602cf23ed37, type: 3}
-  - {fileID: 143675473974111701, guid: 53e3489be071b1e47a8b3c9528763bb0, type: 3}
-  - {fileID: 143675473974111701, guid: c0c33febc86462b4781dc110191f37b1, type: 3}
-  InstantiatedTiles: []
-  NumberOfTilesSpawnedAtOnce: 5
+  NumberOfActivitiesSpawnedOnStart: 5
   _gameManager: {fileID: 334274908}
   LeadingActivityGeometry: {fileID: 5496859885997138862, guid: 18fd4e93ecdd23648b9ff44796579fbf,
     type: 3}
@@ -2125,7 +2114,7 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       activitySO: {fileID: 11400000, guid: 47013a0f9d542b5498e3958b4f1dd959, type: 2}
-  - _minDistance: 500
+  - _minDistance: 200
     _activities:
     - weightCurve:
         serializedVersion: 2

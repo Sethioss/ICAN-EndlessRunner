@@ -9,7 +9,7 @@ public class RemoveTrigger : MonoBehaviour
     {
         if(other.CompareTag("Tile"))
         {
-            om.CreateNewObstacle(other.gameObject);
+            om.CreateNewActivity(other.gameObject);
         }
     }
 }
