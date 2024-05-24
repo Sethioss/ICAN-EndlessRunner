@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5373699142788002625}
   - component: {fileID: 1856682948816533228}
   m_Layer: 0
-  m_Name: CamCam
+  m_Name: CamPipe_Normal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,14 +25,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1344218757264623682}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0028880483, y: 0, z: 0, w: 0.9999958}
+  m_LocalRotation: {x: -0.002888569, y: 0, z: 0, w: 0.9999958}
   m_LocalPosition: {x: 0, y: 0.47000003, z: -4.74}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5669539126739057763}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.331, y: 0, z: 0}
 --- !u!114 &1856682948816533228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,9 +132,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damping: {x: 0, y: 0, z: 0}
   ShoulderOffset: {x: 1, y: 0, z: 0}
-  VerticalArmLength: 2.22
+  VerticalArmLength: 3.21
   CameraSide: 0.5
-  CameraDistance: 7.06
+  CameraDistance: 6.86
   CameraCollisionFilter:
     serializedVersion: 2
     m_Bits: 0
