@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] OnSplineMovementController MovementController;
     [SerializeField] LevelScroller LevelScroller;
 
     [SerializeField] MeshRenderer PlayerMesh;
