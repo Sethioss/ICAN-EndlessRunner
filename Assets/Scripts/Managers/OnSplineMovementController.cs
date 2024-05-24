@@ -243,6 +243,29 @@ public class OnSplineMovementController : MonoBehaviour
     }
     #endregion
 
+    public void SwapPhysicsToRB()
+    {
+        _Airborne = true;
+        Debug.Log($"<color=#00FF00>Begin Airborne</color>");
+        _LastValidPointPosition = _spline.EvaluatePosition(_positionOnSpline);
+        _rb.useGravity = true;
+        _rb.isKinematic = false;
+        _rb.AddForce(new Vector3(0.0f, (Mathf.Abs(_velocity) * -1) * (_sideJumpImpulseForce * -1), 0.0f), ForceMode.Impulse);
+        _tempPostSideLaunchCooldownBeforeGroundCheck = _postSideLaunchCooldownBeforeGroundCheck;
+    }
+
+    public void ResumePositionOnSpline()
+    {
+        _Airborne = false;
+        _CanAirAgain = false;
+        Debug.Log($"<color=#00FF00>End Airborne</color>");
+        _rb.useGravity = false;
+        _rb.isKinematic = true;
+        _playerObject.transform.position = _spline.EvaluatePosition(0.5f);
+        _playerObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, _spline.EvaluateUpVector(_lastVelocity));
+        _tempPostSideLaunchCooldownAfterGroundCheck = _postSideLaunchCooldownAfterGroundCheck;
+    }
+
     #region Movement
 
     private void UpdateMove()
