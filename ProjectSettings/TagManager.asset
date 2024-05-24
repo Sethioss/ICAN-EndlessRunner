@@ -8,6 +8,7 @@ TagManager:
   - Bonus
   - RemoveTrigger
   - Tile
+  - SideJumpTrigger
   layers:
   - Default
   - TransparentFX
