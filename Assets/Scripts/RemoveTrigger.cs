@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class RemoveTrigger : MonoBehaviour
 {
-    [SerializeField] public ActivitiesSequenceGenerator om;
+    [SerializeField] public ObstacleManager om;
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Tile"))
         {
-            om.CreateNewActivity(other.gameObject);
+            om.CreateNewObstacle(other.gameObject);
         }
     }
 }

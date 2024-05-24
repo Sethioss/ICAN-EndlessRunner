@@ -1,15 +1,13 @@
-using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelScroller : MonoBehaviour
 {
     [SerializeField] float ScrollSpeed;
-    [SerializeField] public float DistanceTraveled = 0.0f;
 
     [Header("Level scrolling slowing down when player hits an obstacle")]
     [SerializeField] float OnDamageTargetScroll = 0.0f;
-    [SerializeField] [MinValue(0.00001f)] float ScrollResumeTime = 0.001f;
+    [SerializeField] float ScroolResumeTime;
     float MaxScrollSpeed;
     bool slowed = false;
     [SerializeField] AnimationCurve ScrollResumeCurve;
@@ -17,7 +15,7 @@ public class LevelScroller : MonoBehaviour
 
     [Header("Managers")]
     [SerializeField] SplineManager splineManager;
-    [SerializeField] ActivitiesSequenceGenerator ActivitiesSequenceGenerator;
+    [SerializeField] ObstacleManager ObstacleManager;
 
     List<float> TempFloats = new List<float>();
 
@@ -28,29 +26,25 @@ public class LevelScroller : MonoBehaviour
 
     private void Update()
     {
-        DistanceTraveled += ScrollSpeed * Time.deltaTime;
-
         if(slowed)
         {
             temp = Mathf.Max(temp - Time.deltaTime, 0.0f);
-            if(ScrollResumeTime > 0.0f)
-            {
-                ScrollSpeed = Mathf.Lerp(MaxScrollSpeed, OnDamageTargetScroll, ScrollResumeCurve.Evaluate(temp / ScrollResumeTime));
-            }
-            else
-            {
-                ScrollSpeed = MaxScrollSpeed;
-            }
-
+            ScrollSpeed = Mathf.Lerp(MaxScrollSpeed, OnDamageTargetScroll, ScrollResumeCurve.Evaluate(temp / ScroolResumeTime));
             if(temp < 0.0f )
             { 
                 slowed = false;
             }
         }
 
-        for (int i = 0; i < ActivitiesSequenceGenerator.InstantiatedActivities.Count; ++i)
+        if(ObstacleManager.LeadingTileObject != null)
         {
-            GameObject obj = ActivitiesSequenceGenerator.InstantiatedActivities[i].gameObject;
+            GameObject obj = ObstacleManager.LeadingTileObject;
+            obj.transform.position += ((-obj.transform.forward) * ScrollSpeed) * Time.deltaTime;
+        }
+
+        for (int i = 0; i < ObstacleManager.InstantiatedTiles.Count; ++i)
+        {
+            GameObject obj = ObstacleManager.InstantiatedTiles[i];
             obj.transform.position += ((-obj.transform.forward) * ScrollSpeed) * Time.deltaTime;
         }
     }
@@ -59,6 +53,6 @@ public class LevelScroller : MonoBehaviour
     {
         slowed = true;
         ScrollSpeed = OnDamageTargetScroll;
-        temp = ScrollResumeTime;
+        temp = ScroolResumeTime;
     }
 }
