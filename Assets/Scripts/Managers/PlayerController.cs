@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Splines;
-using static CW.Common.CwInputManager;
-using static UnityEngine.ParticleSystem;
 
 public class PlayerController : MonoBehaviour
 {

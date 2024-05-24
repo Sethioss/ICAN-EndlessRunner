@@ -7,12 +7,12 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
 
-    [SerializeField] SplineManager splineManager;
-    [SerializeField] ObstacleManager obstacleManager;
-    [SerializeField] OnSplineMovementController onSplineMovementController;
-    [SerializeField] LevelScroller levelScroller;
+    [SerializeField] public SplineManager splineManager;
+    [SerializeField] public ActivitiesSequenceGenerator obstacleManager;
+    [SerializeField] public OnSplineMovementController onSplineMovementController;
+    [SerializeField] public LevelScroller levelScroller;
 
-    [SerializeField] UnityEvent onGameSceneLoaded;
+    [SerializeField] public UnityEvent onGameSceneLoaded;
 
     public void Awake()
     {
