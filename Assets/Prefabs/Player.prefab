@@ -5144,6 +5144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce48279da0fd9c40abb87943c3b5512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MovementController: {fileID: 0}
   LevelScroller: {fileID: 0}
   PlayerMesh: {fileID: 5515578617373481121}
   StandardMat: {fileID: 2100000, guid: 661a492d1422e844db7325246d305903, type: 2}

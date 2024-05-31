@@ -15,20 +15,34 @@ public enum PlayerMoveState
 
 public class OnSplineMovementController : MonoBehaviour
 {
+    [Header("Side jump")]
+    [SerializeField] private bool _SideJumpEnabled = false;
     [HideInInspector] public bool _Airborne = false;
+    [SerializeField] private float _sideJumpImpulseForce = 400.0f;
+    [SerializeField] private float _sideJumpMaxHeight = 3.0f;
 
-    [SerializeField] private float _sideJumpImpulseForce = 400;
-    [SerializeField] private float _lastVelocity;
+    [Range(0.9985f, 1.0030f)]
+    [SerializeField] private float _LandingVelocityBoostMultiplier = 1.0015f;
 
-    private Vector3 _LastValidPointPosition;
-    [SerializeField] private float _postSideLaunchCooldownBeforeGroundCheck = 0.2f;
-    private float _tempPostSideLaunchCooldownBeforeGroundCheck = 0.0f;
+    private float _cooldownBeforeGroundCheck = 0.2f;
+    private float _tempcooldownBeforeGroundCheck = 0.0f;
 
-    [SerializeField] private float _postSideLaunchCooldownAfterGroundCheck = 1.0f;
-    private float _tempPostSideLaunchCooldownAfterGroundCheck = 0.0f;
-    [SerializeField] bool _CanAirAgain = true;
+    private float _cooldownAfterGroundCheck = 0.2f;
+    private float _tempCooldownAfterGroundCheck = 0.0f;
 
-    bool PostSideJump = false;
+    [Tooltip("Deceleration when landing from a side jump")]
+    [SerializeField] private float _landingDeceleration = 0.1f;
+
+    [Tooltip("Time taken to go from post jump deceleration to standard deceleration")]
+    [SerializeField] private float _postLandingDecelerationTransitionTime = 0.5f;
+    private float _tempPostLandingDecelerationTransitionTime = 0.0f;
+
+    [Tooltip("VelocityBasedRotationMultiplier")]
+    [SerializeField] private float _AngularRotationMultiplierOnAir = 2.0f;
+
+    private Vector3 _pointPositionBeforeLaunch;
+    private float _splinePositionToGoBackTo;
+    bool _CanAirAgain = true;
 
     [SerializeField] private GameObject _playerObject;
     //[SerializeField] private PlayerMoveState _playerMoveState;
@@ -42,6 +56,8 @@ public class OnSplineMovementController : MonoBehaviour
 
     private float _velocity = 0;
     [Header("Controls - Higher values = More drag")]
+    [Tooltip("VelocityBasedRotationMultiplier")]
+    [SerializeField] private float _AngularRotationMultiplier = 10000.0f;
     [SerializeField] private float _maxSpeed;
     [Tooltip("Acceleration on Start")]
     [SerializeField] private float normalAccel;
@@ -49,6 +65,7 @@ public class OnSplineMovementController : MonoBehaviour
     [SerializeField] private float changeSideDeceleration;
     [Tooltip("Deceleration when being stopped")]
     [SerializeField] private float deceleration;
+    private float tempDeceleration;
     [SerializeField] private AnimationCurve accelCurve;
     [SerializeField] private AnimationCurve decelCurve;
 
@@ -83,6 +100,9 @@ public class OnSplineMovementController : MonoBehaviour
 
         _rb = _playerObject.GetComponent<Rigidbody>();
 
+        tempDeceleration = deceleration;
+        _CanAirAgain = true;
+
         //_positionOnSpline = _splineManager.PlayerSpline.Origin;
         //_playerObject.transform.position = _spline.EvaluatePosition(_positionOnSpline);
     }
@@ -97,36 +117,83 @@ public class OnSplineMovementController : MonoBehaviour
 
     public void SwapPhysicsToRB()
     {
+        float _JumpForce = Mathf.Min((Mathf.Abs(_velocity) * -1) * (_sideJumpImpulseForce * -1), _sideJumpMaxHeight);
+
         _Airborne = true;
-        Debug.Log($"<color=#00FF00>Begin Airborne</color>");
-        _LastValidPointPosition = _spline.EvaluatePosition(_positionOnSpline);
+        //Debug.Log($"<color=#00FF00>Begin Airborne</color>");
         _rb.useGravity = true;
         _rb.isKinematic = false;
-        _rb.AddForce(new Vector3(0.0f, (Mathf.Abs(_velocity) * -1) * (_sideJumpImpulseForce * -1), 0.0f), ForceMode.Impulse);
-        _tempPostSideLaunchCooldownBeforeGroundCheck = _postSideLaunchCooldownBeforeGroundCheck;
+        _rb.AddForce(new Vector3(0.0f, _JumpForce, 0.0f), ForceMode.Impulse);
+
+        if(_JumpForce < 1)
+        {
+            _tempcooldownBeforeGroundCheck = 0.0f;
+        }
+        else
+        {
+            _tempcooldownBeforeGroundCheck = _cooldownBeforeGroundCheck;
+        }
     }
 
     public void ResumePositionOnSpline()
     {
         _Airborne = false;
         _CanAirAgain = false;
-        Debug.Log($"<color=#00FF00>End Airborne</color>");
+        float _landingVelocity = _rb.velocity.y * (_LandingVelocityBoostMultiplier - 1);
+        //Debug.Log($"<color=#00FF00>End Airborne</color>");
+        _tempCooldownAfterGroundCheck = _cooldownAfterGroundCheck;
+
+        _tempPostLandingDecelerationTransitionTime = _postLandingDecelerationTransitionTime;
+
+        _velocity = _landingVelocity * GetPositionSideBasedOnSplineValue(_positionOnSpline);
+        deceleration = _landingDeceleration;
+
         _rb.useGravity = false;
         _rb.isKinematic = true;
-        _playerObject.transform.position = _spline.EvaluatePosition(0.5f);
-        _playerObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, _spline.EvaluateUpVector(_lastVelocity));
-        _tempPostSideLaunchCooldownAfterGroundCheck = _postSideLaunchCooldownAfterGroundCheck;
+
+        SetSplinePositionOffset(_splinePositionToGoBackTo);
+        _playerObject.transform.position = _spline.EvaluatePosition(_splinePositionToGoBackTo);
+        _playerObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, _spline.EvaluateUpVector(_splinePositionToGoBackTo));
+    }
+
+    private int GetPositionSideBasedOnSplineValue(float SplineValue)
+    {
+        return _positionOnSpline < 0.5f ? -1 : 1;
+    }
+
+    private void RotatePlayerBasedOnVelocity(bool isAirborne)
+    {
+        Transform playerMeshTransform = _playerObject.GetComponent<Player>().PlayerMesh.gameObject.transform;
+        if(isAirborne)
+        {
+            float zRotation = ((_rb.velocity.y * _AngularRotationMultiplierOnAir) * GetPositionSideBasedOnSplineValue(_positionOnSpline));
+            playerMeshTransform.localRotation = Quaternion.Euler(-90.0f, 0, Mathf.Clamp(zRotation, -80f, 80f));
+        }
+        else
+        {
+            float zRotation = _velocity * _AngularRotationMultiplier;
+            playerMeshTransform.localRotation = Quaternion.Euler(-90.0f, 0, Mathf.Clamp(zRotation, -80f, 80f));
+        }
     }
 
     #region Movement
 
     private void Update()
     {
-        if(!_Airborne)
+        if(_Airborne)
         {
-            if(_tempPostSideLaunchCooldownAfterGroundCheck > 0)
+            CheckForLanding();
+        }
+        else
+        {
+            //if(_tempPostLandingDecelerationTransitionTime > 0)
+            //{
+            //    _tempPostLandingDecelerationTransitionTime -= Time.deltaTime;
+            //    deceleration = Mathf.Lerp(tempDeceleration, _landingDeceleration, (float)_tempPostLandingDecelerationTransitionTime / (float)_postLandingDecelerationTransitionTime);
+            //}
+            if(_tempCooldownAfterGroundCheck > 0)
             {
-                _tempPostSideLaunchCooldownAfterGroundCheck -= Time.deltaTime;
+                _tempCooldownAfterGroundCheck -= Time.deltaTime;
             }
             else
             {
@@ -134,25 +201,22 @@ public class OnSplineMovementController : MonoBehaviour
             }
             UpdateMove();
         }
-        else
-        {
-            CheckForLanding();
-        }
+        RotatePlayerBasedOnVelocity(_Airborne);
     }
 
     private void CheckForLanding()
     {
-        if(_tempPostSideLaunchCooldownBeforeGroundCheck < 0 )
+        if(_tempcooldownBeforeGroundCheck < 0 )
         {
-            if (Mathf.Abs(Vector3.Distance(_playerObject.transform.position, _LastValidPointPosition)) < 0.02f)
+            if (Mathf.Abs(Vector3.Distance(_playerObject.transform.position, _pointPositionBeforeLaunch)) < 0.1f)
             {
                 ResumePositionOnSpline();
-                _tempPostSideLaunchCooldownBeforeGroundCheck = _postSideLaunchCooldownBeforeGroundCheck;
+                _tempcooldownBeforeGroundCheck = _cooldownBeforeGroundCheck;
             }
         }
         else
         {
-            _tempPostSideLaunchCooldownBeforeGroundCheck -= Time.deltaTime;
+            _tempcooldownBeforeGroundCheck -= Time.deltaTime;
         }
 
 
@@ -185,17 +249,20 @@ public class OnSplineMovementController : MonoBehaviour
 
         }
 
-
         AddSplinePositionOffset(_velocity);
 
         //Set player on corresponding spline position
         _playerObject.transform.position = _spline.EvaluatePosition(_positionOnSpline);
-        _playerObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, _spline.EvaluateUpVector(_positionOnSpline));
-
+        _playerObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, _spline.EvaluateUpVector(_positionOnSpline)) /* _playerObject.transform.rotation*/;
     }
     public void UpdateXDirection(float XDirection)
     {
         _direction = XDirection;
+    }
+
+    public void SetSplinePositionOffset(float value)
+    {
+        _positionOnSpline = value;
     }
     public void AddSplinePositionOffset(float value)
     {
@@ -207,18 +274,19 @@ public class OnSplineMovementController : MonoBehaviour
             _positionOnSpline = Mathf.Repeat(_positionOnSpline, 1.0f);
             //Debug.Log($"<color=#FF0000>Position on spline: {_positionOnSpline}</color>");
 
-            if (_positionOnSpline > 0.15f && _positionOnSpline < 0.8f)
+            if(_SideJumpEnabled)
             {
-                if(_CanAirAgain) 
+                // > 0.17f = left; < 0.833f = right
+                if (_positionOnSpline > 0.17f && _positionOnSpline < 0.837f)
                 {
-                    _lastVelocity = Mathf.Sign(_velocity);
-                    SwapPhysicsToRB();
-                }
+                    if (_CanAirAgain)
+                    {
+                        _splinePositionToGoBackTo = _positionOnSpline < 0.5f ? 0.16606f : 0.8392131f;
+                        _pointPositionBeforeLaunch = _spline.EvaluatePosition(_positionOnSpline);
+                        SwapPhysicsToRB();
+                    }
 
-            }
-            else
-            {
-                _lastVelocity = _positionOnSpline;
+                }
             }
         }
         else
@@ -226,7 +294,6 @@ public class OnSplineMovementController : MonoBehaviour
             //Standard behaviour
             _positionOnSpline = Mathf.Clamp(_positionOnSpline, 0.0f, 1.0f);
             Debug.Log($"<color=#FF0000>Position on spline: {_positionOnSpline}</color>");
-
         }
 
     }
