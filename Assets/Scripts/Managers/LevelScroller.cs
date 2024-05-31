@@ -9,7 +9,7 @@ public class LevelScroller : MonoBehaviour
 
     [Header("Level scrolling slowing down when player hits an obstacle")]
     [SerializeField] float OnDamageTargetScroll = 0.0f;
-    [SerializeField] float ScrollResumeTime = 0.001f;
+    [SerializeField][Min(0.1f)] float ScrollResumeTime;
     float MaxScrollSpeed;
     bool slowed = false;
     [SerializeField] AnimationCurve ScrollResumeCurve;
