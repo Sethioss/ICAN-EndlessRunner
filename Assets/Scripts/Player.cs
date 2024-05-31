@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     [SerializeField] OnSplineMovementController MovementController;
     [SerializeField] LevelScroller LevelScroller;
 
-    [SerializeField] MeshRenderer PlayerMesh;
+    [SerializeField] public MeshRenderer PlayerMesh;
     [SerializeField] Material StandardMat;
     [SerializeField] Material HurtMat;
     [SerializeField] Material RichMat;
