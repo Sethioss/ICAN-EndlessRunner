@@ -62,7 +62,6 @@ public class OnSplineMovementController : MonoBehaviour
     [Tooltip("Deceleration when being stopped")]
     [SerializeField] private float deceleration;
     private float tempDeceleration;
-
     [SerializeField] private AnimationCurve accelCurve;
     [SerializeField] private AnimationCurve decelCurve;
 
@@ -245,25 +244,63 @@ public class OnSplineMovementController : MonoBehaviour
 
     public void SwapPhysicsToRB()
     {
+        float _JumpForce = Mathf.Min((Mathf.Abs(_velocity) * -1) * (_sideJumpImpulseForce * -1), _sideJumpMaxHeight);
+
         _Airborne = true;
-        Debug.Log($"<color=#00FF00>Begin Airborne</color>");
-        _LastValidPointPosition = _spline.EvaluatePosition(_positionOnSpline);
+        //Debug.Log($"<color=#00FF00>Begin Airborne</color>");
         _rb.useGravity = true;
         _rb.isKinematic = false;
-        _rb.AddForce(new Vector3(0.0f, (Mathf.Abs(_velocity) * -1) * (_sideJumpImpulseForce * -1), 0.0f), ForceMode.Impulse);
-        _tempPostSideLaunchCooldownBeforeGroundCheck = _postSideLaunchCooldownBeforeGroundCheck;
+        _rb.AddForce(new Vector3(0.0f, _JumpForce, 0.0f), ForceMode.Impulse);
+
+        if(_JumpForce < 1)
+        {
+            _tempcooldownBeforeGroundCheck = 0.0f;
+        }
+        else
+        {
+            _tempcooldownBeforeGroundCheck = _cooldownBeforeGroundCheck;
+        }
     }
 
     public void ResumePositionOnSpline()
     {
         _Airborne = false;
         _CanAirAgain = false;
-        Debug.Log($"<color=#00FF00>End Airborne</color>");
+        float _landingVelocity = _rb.velocity.y * (_LandingVelocityBoostMultiplier - 1);
+        //Debug.Log($"<color=#00FF00>End Airborne</color>");
+        _tempCooldownAfterGroundCheck = _cooldownAfterGroundCheck;
+
+        _tempPostLandingDecelerationTransitionTime = _postLandingDecelerationTransitionTime;
+
+        _velocity = _landingVelocity * GetPositionSideBasedOnSplineValue(_positionOnSpline);
+        deceleration = _landingDeceleration;
+
         _rb.useGravity = false;
         _rb.isKinematic = true;
-        _playerObject.transform.position = _spline.EvaluatePosition(0.5f);
-        _playerObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, _spline.EvaluateUpVector(_lastVelocity));
-        _tempPostSideLaunchCooldownAfterGroundCheck = _postSideLaunchCooldownAfterGroundCheck;
+
+        SetSplinePositionOffset(_splinePositionToGoBackTo);
+        _playerObject.transform.position = _spline.EvaluatePosition(_splinePositionToGoBackTo);
+        _playerObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, _spline.EvaluateUpVector(_splinePositionToGoBackTo));
+    }
+
+    private int GetPositionSideBasedOnSplineValue(float SplineValue)
+    {
+        return _positionOnSpline < 0.5f ? -1 : 1;
+    }
+
+    private void RotatePlayerBasedOnVelocity(bool isAirborne)
+    {
+        Transform playerMeshTransform = _playerObject.GetComponent<Player>().PlayerMesh.gameObject.transform;
+        if(isAirborne)
+        {
+            float zRotation = ((_rb.velocity.y * _AngularRotationMultiplierOnAir) * GetPositionSideBasedOnSplineValue(_positionOnSpline));
+            playerMeshTransform.localRotation = Quaternion.Euler(-90.0f, 0, Mathf.Clamp(zRotation, -80f, 80f));
+        }
+        else
+        {
+            float zRotation = _velocity * _AngularRotationMultiplier;
+            playerMeshTransform.localRotation = Quaternion.Euler(-90.0f, 0, Mathf.Clamp(zRotation, -80f, 80f));
+        }
     }
 
     #region Movement
@@ -313,6 +350,8 @@ public class OnSplineMovementController : MonoBehaviour
     }
     public void UpdateXDirection(float XDirection)
     {
+    }
+
         if (_lastDir == 0)
         {
             _direction = XDirection;
@@ -327,6 +366,9 @@ public class OnSplineMovementController : MonoBehaviour
         _lastDir = _direction;
     }
 
+    public void SetSplinePositionOffset(float value)
+    {
+        _positionOnSpline = value;
     public void SetSplinePositionOffset(float value)
     {
         _positionOnSpline = value;
