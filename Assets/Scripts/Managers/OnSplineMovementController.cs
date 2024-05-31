@@ -71,6 +71,10 @@ public class OnSplineMovementController : MonoBehaviour
 
     [SerializeField] private float t;
 
+    private List<float> JumpPointsPosition = new List<float>();
+    private float LeftJumpPoint = 0.25f;
+    private float RightJumpPoint = 0.75f;
+
 
     private Camera _mainCam;
     private float _direction = 0;
@@ -103,6 +107,16 @@ public class OnSplineMovementController : MonoBehaviour
         tempDeceleration = deceleration;
         _CanAirAgain = true;
 
+        JumpPointsPosition = _splineManager.GetComponent<SplinePointManager>().GetPointsOfSpecificType(SplinePointPositionType.JUMP_POINTS);
+        if(JumpPointsPosition.Count != 2 )
+        {
+            Debug.LogError($"<color=#FF0000>There are fewer or more than 2 jump points on the spline. Make sure that the SplinePointManager has exactly two points serving as jump points. Using default values...</color>");
+        }
+        else
+        {
+            LeftJumpPoint = Mathf.Min(JumpPointsPosition[0], JumpPointsPosition[1]);
+            RightJumpPoint = Mathf.Max(JumpPointsPosition[0], JumpPointsPosition[1]);
+        }
         //_positionOnSpline = _splineManager.PlayerSpline.Origin;
         //_playerObject.transform.position = _spline.EvaluatePosition(_positionOnSpline);
     }
@@ -277,11 +291,11 @@ public class OnSplineMovementController : MonoBehaviour
             if(_SideJumpEnabled)
             {
                 // > 0.17f = left; < 0.833f = right
-                if (_positionOnSpline > 0.17f && _positionOnSpline < 0.837f)
+                if (_positionOnSpline > LeftJumpPoint && _positionOnSpline < RightJumpPoint)
                 {
                     if (_CanAirAgain)
                     {
-                        _splinePositionToGoBackTo = _positionOnSpline < 0.5f ? 0.16606f : 0.8392131f;
+                        _splinePositionToGoBackTo = _positionOnSpline < 0.5f ? LeftJumpPoint - 0.004f : RightJumpPoint + 0.004f;
                         _pointPositionBeforeLaunch = _spline.EvaluatePosition(_positionOnSpline);
                         SwapPhysicsToRB();
                     }
