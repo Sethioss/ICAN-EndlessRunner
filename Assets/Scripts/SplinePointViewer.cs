@@ -3,6 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Splines;
 
+public enum SplinePointPositionType : uint
+{
+    JUMP_POINT_LEFT = 1,
+    JUMP_POINT_RIGHT = 2,
+    COUNT = 3,
+}
+
+[System.Serializable]
+public struct SplinePositionInfo
+{
+    [SerializeField]
+    [Range(0, 1)]
+    public List<float> Positions;
+    [SerializeField]
+    public SplinePointPositionType PositionType;
+}
+
 public class SplinePointViewer : MonoBehaviour
 {
     [SerializeField]
