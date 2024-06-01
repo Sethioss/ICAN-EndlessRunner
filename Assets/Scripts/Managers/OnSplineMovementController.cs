@@ -25,6 +25,10 @@ public class OnSplineMovementController : MonoBehaviour
     [SerializeField] private float _sideJumpMaxHeight = 3.0f;
     [HideInInspector] public bool _Airborne = false;
 
+    private List<float> JumpPointsPosition = new List<float>();
+    private float LeftJumpPoint = 0.25f;
+    private float RightJumpPoint = 0.75f;
+
     [Range(0.9985f, 1.0030f)]
     [SerializeField] private float _LandingVelocityBoostMultiplier = 1.0015f;
     [SerializeField] private float _LandingMaxVelocity = 0.15f;
@@ -62,6 +66,7 @@ public class OnSplineMovementController : MonoBehaviour
     [Tooltip("Deceleration when being stopped")]
     [SerializeField] private float deceleration;
     private float tempDeceleration;
+
     [SerializeField] private AnimationCurve accelCurve;
     [SerializeField] private AnimationCurve decelCurve;
 
@@ -126,6 +131,32 @@ public class OnSplineMovementController : MonoBehaviour
                 _tempPostLandingDecelerationTransitionTime = Time.deltaTime;
             }
 
+            if (_tempCooldownAfterGroundCheck > 0)
+            {
+                _tempCooldownAfterGroundCheck -= Time.deltaTime;
+            }
+            else
+            {
+                _CanAirAgain = true;
+            }
+            UpdateMove();
+        }
+        RotatePlayerBasedOnVelocity(_Airborne);
+    }
+
+    private void Update()
+    {
+        if (_Airborne)
+        {
+            CheckForLanding();
+        }
+        else
+        {
+            //if(_tempPostLandingDecelerationTransitionTime > 0)
+            //{
+            //    _tempPostLandingDecelerationTransitionTime -= Time.deltaTime;
+            //    deceleration = Mathf.Lerp(tempDeceleration, _landingDeceleration, (float)_tempPostLandingDecelerationTransitionTime / (float)_postLandingDecelerationTransitionTime);
+            //}
             if (_tempCooldownAfterGroundCheck > 0)
             {
                 _tempCooldownAfterGroundCheck -= Time.deltaTime;
@@ -242,6 +273,62 @@ public class OnSplineMovementController : MonoBehaviour
     }
     #endregion
 
+    #region Side Jump
+    private void HandleJumpingLogic()
+    {
+        if (_SideJumpEnabled)
+        {
+            // > 0.17f = left; < 0.833f = right
+            if (_positionOnSpline > LeftJumpPoint && _positionOnSpline < RightJumpPoint)
+            {
+                if (_CanAirAgain)
+                {
+                    _splinePositionToGoBackTo = _positionOnSpline < 0.5f ? LeftJumpPoint - 0.004f : RightJumpPoint + 0.004f;
+                    _pointPositionBeforeLaunch = _spline.EvaluatePosition(_positionOnSpline);
+                    SwapPhysicsToRB();
+                }
+
+            }
+        }
+    }
+
+    private void CheckForLanding()
+    {
+        if (!TimeInAirSet)
+        {
+            _AirJumpPhysicsDelay += Time.deltaTime;
+
+            //Debug.Log("Velocity: " + _rb.velocity.y);
+            if (_rb.velocity.y != 0)
+            {
+                //Debug.Log("<color=00FFFF>_AirJumpPhysicsDelay: </color>" + _AirJumpPhysicsDelay);
+                float AirTime = Mathf.Max(0, ((2 * _rb.velocity.y) / Physics.gravity.magnitude) - _AirJumpPhysicsDelay);
+                //Debug.Log($"Time player will spend in air: {Mathf.Max(0, AirTime - _AirJumpPhysicsDelay)}");
+                _AirJumpPhysicsDelay = 0;
+                TimeInAirSet = true;
+                estimatedAirTime = AirTime;
+                tempTimeInAir = estimatedAirTime;
+            }
+        }
+        else
+        {
+            //Debug.Log($"tempTimeInAir: {Mathf.Max(0, tempTimeInAir)}");
+
+            if (tempTimeInAir < 0)
+            {
+                tempTimeInAir = 0.0f;
+                TimeInAirSet = false;
+                ResumePositionOnSpline();
+            }
+            else
+            {
+                tempTimeInAir -= Time.deltaTime;
+                _TimeInAirRatio = Mathf.Clamp(1 - (tempTimeInAir / estimatedAirTime), 0.0f, 1.0f);
+                //Debug.Log($"{_TimeInAirRatio}");
+            }
+        }
+    }
+
     public void SwapPhysicsToRB()
     {
         float _JumpForce = Mathf.Min((Mathf.Abs(_velocity) * -1) * (_sideJumpImpulseForce * -1), _sideJumpMaxHeight);
@@ -251,15 +338,6 @@ public class OnSplineMovementController : MonoBehaviour
         _rb.useGravity = true;
         _rb.isKinematic = false;
         _rb.AddForce(new Vector3(0.0f, _JumpForce, 0.0f), ForceMode.Impulse);
-
-        if(_JumpForce < 1)
-        {
-            _tempcooldownBeforeGroundCheck = 0.0f;
-        }
-        else
-        {
-            _tempcooldownBeforeGroundCheck = _cooldownBeforeGroundCheck;
-        }
     }
 
     public void ResumePositionOnSpline()
@@ -282,26 +360,24 @@ public class OnSplineMovementController : MonoBehaviour
         _playerObject.transform.position = _spline.EvaluatePosition(_splinePositionToGoBackTo);
         _playerObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, _spline.EvaluateUpVector(_splinePositionToGoBackTo));
     }
+    #endregion
 
-    private int GetPositionSideBasedOnSplineValue(float SplineValue)
-    {
-        return _positionOnSpline < 0.5f ? -1 : 1;
-    }
-
+    #region Rotation
     private void RotatePlayerBasedOnVelocity(bool isAirborne)
     {
         Transform playerMeshTransform = _playerObject.GetComponent<Player>().PlayerMesh.gameObject.transform;
-        if(isAirborne)
+        if (isAirborne)
         {
             float zRotation = ((_rb.velocity.y * _AngularRotationMultiplierOnAir) * GetPositionSideBasedOnSplineValue(_positionOnSpline));
-            playerMeshTransform.localRotation = Quaternion.Euler(-90.0f, 0, Mathf.Clamp(zRotation, -80f, 80f));
+            playerMeshTransform.localRotation = Quaternion.Euler(-90.0f, 0, Mathf.Clamp(zRotation, -70f, 70f));
         }
         else
         {
             float zRotation = _velocity * _AngularRotationMultiplier;
-            playerMeshTransform.localRotation = Quaternion.Euler(-90.0f, 0, Mathf.Clamp(zRotation, -80f, 80f));
+            playerMeshTransform.localRotation = Quaternion.Euler(-90.0f, 0, Mathf.Clamp(zRotation, -70f, 70f));
         }
     }
+    #endregion
 
     #region Movement
 
