@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589245, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1134,19 +1134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 679399baad183c34bb0b2f31b1954332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _splineManager: {fileID: 998183721}
-  _splineLoopsBack: 1
-  _SideJumpEnabled: 1
-  _Airborne: 0
-  _sideJumpImpulseForce: 250
-  _sideJumpMaxHeight: 3
-  _LandingVelocityBoostMultiplier: 1.0015
-  _cooldownAfterGroundCheck: 0.2
-  _landingDeceleration: 0.05
-  _postLandingDecelerationTransitionTime: 0.2
-  _AngularRotationMultiplierOnAir: 2
   _playerObject: {fileID: 1541713924}
-  _AngularRotationMultiplier: 8000
+  _splineManager: {fileID: 998183721}
+  _loopsBack: 1
   _maxSpeed: 0.25
   normalAccel: 0.025
   changeSideDeceleration: 0.1
@@ -1199,7 +1189,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _TimeInAirRatio: 0
+  t: 0
   _ParticleRight: {fileID: 268387478}
   _ParticleLeft: {fileID: 58217686}
 --- !u!4 &890258505
@@ -1565,8 +1555,8 @@ MonoBehaviour:
     - 0.75
     PositionType: 1
   - Positions:
-    - 0.25
-    - 0.75
+    - 0.353
+    - 0.628
     PositionType: 2
   PlayerSpline: {fileID: 2126026289}
 --- !u!1 &1003334994
@@ -1615,7 +1605,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScrollSpeed: 10
   OnDamageTargetScroll: 2
-  ScrollResumeTime: 1.2
+  ScroolResumeTime: 0
   ScrollResumeCurve:
     serializedVersion: 2
     m_Curve:

@@ -85,8 +85,8 @@ public class OnSplineMovementController : MonoBehaviour
     private void Update()
     {
         UpdateMove();
-        Debug.Log("Accel" + accelCurve.Evaluate(t));
-        Debug.Log("Decel" + decelCurve.Evaluate(t));
+        //Debug.Log("Accel" + accelCurve.Evaluate(t));
+        //Debug.Log("Decel" + decelCurve.Evaluate(t));
     }
 
     private void UpdateMove()
