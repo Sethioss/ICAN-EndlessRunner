@@ -1551,13 +1551,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointInfos:
   - Positions:
-    - 0.25
     - 0.75
-    PositionType: 1
+    - 0.25
+    PositionPointType: 1
+    PointPreviewType: 1
   - Positions:
-    - 0.353
-    - 0.628
-    PositionType: 2
+    - 0.8
+    - 0.2
+    PositionPointType: 3
+    PointPreviewType: 2
+  - Positions:
+    - 0.443
+    - 0.539
+    PositionPointType: 0
+    PointPreviewType: 2
+  Precision: 12
   PlayerSpline: {fileID: 2126026289}
 --- !u!1 &1003334994
 GameObject:

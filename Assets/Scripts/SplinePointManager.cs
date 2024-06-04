@@ -1,11 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Splines;
-using System.Linq;
 
-[SerializeField]
-public enum SplinePointPositionType : uint
+public enum SplinePointPreviewType
+{
+    LINE = 0,
+    SPHERES = 1,
+    LINE_AND_SPHERES = 2,
+}
+public enum SplinePointPositionType
 {
     DEFAULT = 0,
     JUMP_POINTS = 1,
@@ -20,46 +23,70 @@ public struct SplinePointInfo
     [Range(0, 1)]
     public List<float> Positions;
     [SerializeField]
-    public SplinePointPositionType PositionType;
+    public SplinePointPositionType PositionPointType;
+    [SerializeField]
+    public SplinePointPreviewType PointPreviewType;
 }
-
 
 public class SplinePointManager : MonoBehaviour
 {
     [SerializeField]
     public List<SplinePointInfo> pointInfos;
 
+    [SerializeField] [Min(2)]private int Precision;
+
     [SerializeField]
     SplineContainer PlayerSpline;
-    //List<SplineContainer> splines = new List<SplineContainer>();
+
+    Vector3 TempPoint;
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        //for(int i = 0; i < positionInfos.Count; ++i)
-        //{
-        //    for (int j = 0; j < splines.Count; ++j)
-        //    {
-        //        if (splines[j].gameObject.activeSelf)
-        //        {
-        //            foreach (float position in positionInfos[i].Positions)
-        //            {
-        //                Gizmos.color = new Color(1.0f, ((float)j / splines.Count), 1.0f);
-        //                Gizmos.DrawSphere(splines[i].EvaluatePosition(position), 0.2f);
-        //            }
-        //        }
-        //    }
-        //}
-
         for (int i = 0; i < pointInfos.Count; ++i)
         {
+            Random.InitState(((int)pointInfos[i].PositionPointType));
+            Gizmos.color = new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
+
             if (PlayerSpline.gameObject.activeSelf)
             {
-                foreach (float position in pointInfos[i].Positions)
+                if (pointInfos[i].PointPreviewType == SplinePointPreviewType.LINE_AND_SPHERES || pointInfos[i].PointPreviewType == SplinePointPreviewType.LINE)
                 {
-                    Random.InitState(((int)pointInfos[i].PositionType));
-                    Gizmos.color = new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
-                    Gizmos.DrawSphere(PlayerSpline.EvaluatePosition(Mathf.Repeat(position + GetComponent<SplineManager>().PlayerSpline.Origin, 1.0f)), 0.4f);
+                    if (GetIsInvertedBounds(pointInfos[i]))
+                    {
+                        TempPoint = PlayerSpline.EvaluatePosition(pointInfos[i].Positions[0]) + PlayerSpline.EvaluateUpVector(pointInfos[i].Positions[0]) * 1.2f;
+
+                        for (int j = 1; j <= Precision; ++j)
+                        {
+                            float MaxPointPos = pointInfos[i].Positions[0] - 1.0f;
+                            float PosOnSpline = Mathf.Lerp(MaxPointPos, pointInfos[i].Positions[pointInfos[i].Positions.Count - 1], (float)j / Precision);
+                            float RepeatedPoint = Mathf.Repeat(PosOnSpline, 1.0f);
+                            Vector3 FinalPoint = PlayerSpline.EvaluatePosition(RepeatedPoint) + PlayerSpline.EvaluateUpVector(RepeatedPoint) * 1.2f;
+                            Gizmos.DrawLine(TempPoint, FinalPoint);
+
+                            TempPoint = FinalPoint;
+                        }
+                    }
+                    else
+                    {
+                        TempPoint = PlayerSpline.EvaluatePosition(pointInfos[i].Positions[0]) + PlayerSpline.EvaluateUpVector(pointInfos[i].Positions[0]) * 1.2f;
+
+                        for (int j = 0; j <= Precision; ++j)
+                        {
+                            float temp = Mathf.Lerp(pointInfos[i].Positions[0], pointInfos[i].Positions[pointInfos[i].Positions.Count - 1], (float)j / Precision);
+                            Vector3 FinalPoint = PlayerSpline.EvaluatePosition(temp) + PlayerSpline.EvaluateUpVector(temp) * 1.2f;
+                            Gizmos.DrawLine(FinalPoint, TempPoint);
+
+                            TempPoint = FinalPoint;
+                        }
+                    }
+                }
+                if (pointInfos[i].PointPreviewType == SplinePointPreviewType.LINE_AND_SPHERES || pointInfos[i].PointPreviewType == SplinePointPreviewType.SPHERES)
+                {
+                    foreach (float position in pointInfos[i].Positions)
+                    {
+                        Gizmos.DrawSphere(PlayerSpline.EvaluatePosition(Mathf.Repeat(position + GetComponent<SplineManager>().PlayerSpline.Origin, 1.0f)), 0.4f);
+                    }
                 }
             }
         }
@@ -68,12 +95,17 @@ public class SplinePointManager : MonoBehaviour
     }
 #endif
 
+    public bool GetIsInvertedBounds(SplinePointInfo PointInfo)
+    {
+        return PointInfo.Positions[0] - PointInfo.Positions[PointInfo.Positions.Count - 1] >= 0.0f;
+    }
+
     public List<float> GetPointsOfSpecificType(SplinePointPositionType positionInfoType)
     {
         List<float> points = new List<float>();
         foreach (SplinePointInfo positionInfo in pointInfos)
         {
-            if (positionInfo.PositionType == positionInfoType)
+            if (positionInfo.PositionPointType == positionInfoType)
             {
                 foreach (float position in positionInfo.Positions)
                 {
@@ -84,3 +116,4 @@ public class SplinePointManager : MonoBehaviour
         return points;
     }
 }
+
