@@ -9,14 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/GameFlow/SplashScene.unity
     guid: c26b4226961267746ba8ac83aea10490
   - enabled: 1
-    path: Assets/Scenes/GameFlow/StartScene.unity
-    guid: 1b75499f5df7e964dacb14851db98fd4
+    path: Assets/Scenes/GameFlow/PersistentScene.unity
+    guid: 19957ec7178a3c343a91165ba1199629
   - enabled: 1
     path: Assets/Scenes/GameFlow/GameScene.unity
     guid: c850ee8c3b14cc8459e7e186857cf567
-  - enabled: 1
-    path: Assets/Scenes/GameFlow/UIScene.unity
-    guid: 5569bd2b92cc38547951cc28b9f3377c
   m_configObjects:
     com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000,
       guid: a39f9a748acea9a409e9cbf351265638, type: 2}
