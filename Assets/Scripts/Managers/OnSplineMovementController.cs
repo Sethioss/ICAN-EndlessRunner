@@ -108,7 +108,7 @@ public class OnSplineMovementController : MonoBehaviour
 
         if (_direction == 0f)
         {
-            if (_velocity > 0.001f || _velocity < -0.001f)
+            if (_velocity > 0.00001f || _velocity < -0.00001f)
             {
                 accel = deceleration;
                 float _calculatedVelocity = _velocity + decelCurve.Evaluate(_movementLerpValue) * -(Mathf.Sign(_velocity)) * Time.deltaTime;

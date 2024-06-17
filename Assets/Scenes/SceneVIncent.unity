@@ -1076,8 +1076,8 @@ MonoBehaviour:
   _splineManager: {fileID: 998183721}
   _previewPlayerStartPos: 1
   _velocity: 0
-  _maxSpeed: 0.02
-  _minSpeed: 0.0002
+  _maxSpeed: 0.01
+  _minSpeed: 0.0001
   normalAccel: 0.025
   changeSideDeceleration: 0.1
   deceleration: 0.005
@@ -1085,22 +1085,22 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.011112466
-      value: 0.042619273
-      inSlope: -0.067322694
-      outSlope: -0.067322694
+      time: 0
+      value: 0.037902292
+      inSlope: -0.029668966
+      outSlope: -0.029668966
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.12359431
+      outWeight: 0.12204537
     - serializedVersion: 3
       time: 1
       value: 0.025
-      inSlope: -0.016867027
-      outSlope: -0.016867027
-      tangentMode: 0
+      inSlope: -0.0129022915
+      outSlope: -0.0129022915
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0.325
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -1109,22 +1109,22 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -0.006452051
+      time: 0.002380371
       value: 0
-      inSlope: 0.002956644
-      outSlope: 0.002956644
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.25563326
+      outWeight: 0.2120477
     - serializedVersion: 3
       time: 2
-      value: 0.02501219
-      inSlope: 0.04465249
-      outSlope: 0.04465249
+      value: 0.024218732
+      inSlope: 0.040069237
+      outSlope: 0.040069237
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.089195095
+      inWeight: 0.11298072
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -1492,10 +1492,10 @@ MonoBehaviour:
   ManagerEnable: 1
   pointInfos:
   - Positions:
-    - Position: 0.25
-      PositionPointType: 2
-    - Position: 0.75
-      PositionPointType: 2
+    - Position: 0
+      PositionPointType: 0
+    - Position: 0
+      PositionPointType: 0
     PointPreviewType: 2
   Precision: 4
   PlayerSpline: {fileID: 2126026289}
@@ -1543,7 +1543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1940fce3f6b4ae4cba66d00a77d782f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScrollSpeed: 15
+  ScrollSpeed: 10
   DistanceTraveled: 0
   OnDamageTargetScroll: 4
   ScrollResumeTime: 0.5
@@ -2367,60 +2367,26 @@ MonoBehaviour:
         - serializedVersion: 3
           time: 0
           value: 1
-          inSlope: -2
-          outSlope: -2
+          inSlope: 0
+          outSlope: 0
           tangentMode: 34
           weightedMode: 0
           inWeight: 0
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.5
-          value: 0
-          inSlope: Infinity
-          outSlope: Infinity
-          tangentMode: 103
-          weightedMode: 0
-          inWeight: 0.33333334
           outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      activitySO: {fileID: 11400000, guid: 80a8250904bafc24aa07f6bfb80a363a, type: 2}
-    - weightCurve:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0
-          inSlope: 2
-          outSlope: 7.0641418
-          tangentMode: 1
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.032051325
-        - serializedVersion: 3
-          time: 0.5
-          value: 1
-          inSlope: Infinity
-          outSlope: Infinity
-          tangentMode: 103
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
         - serializedVersion: 3
           time: 1
           value: 1
-          inSlope: 0.12797369
-          outSlope: 2
-          tangentMode: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
           weightedMode: 0
-          inWeight: 0.2948717
+          inWeight: 0
           outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      activitySO: {fileID: 11400000, guid: 034f1dbc6bfdd6041b1c9a5cc3b81964, type: 2}
-  - _minDistance: 300
+      activitySO: {fileID: 11400000, guid: de53fce50f837a346afe96b09d80058f, type: 2}
+  - _minDistance: 50000
     _activities:
     - weightCurve:
         serializedVersion: 2
