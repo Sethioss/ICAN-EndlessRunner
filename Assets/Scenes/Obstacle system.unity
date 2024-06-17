@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589245, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1395,7 +1395,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &958677873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1826,7 +1826,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _splineManager: {fileID: 1316349816}
-  _previewPlayerStartPos: 0
+  _previewPlayerStartPos: 1
   _startPosition: 0.5
   _playerObject: {fileID: 1814874660}
   _sideJumpImpulseForce: 400
@@ -1839,7 +1839,7 @@ MonoBehaviour:
   _postLandingDecelerationTransitionTime: 0.5
   _AngularRotationMultiplierOnAir: 2
   _velocity: 0
-  _AngularRotationMultiplier: 10000
+  _AngularRotationMultiplier: 4000
   _maxSpeed: 0.25
   _minSpeed: 0
   normalAccel: 0.025
@@ -2067,12 +2067,12 @@ MonoBehaviour:
   ManagerEnabled: 1
   pointInfos:
   - Positions:
-    - Position: 0.259
-      PositionPointType: 0
-    - Position: 0.798
-      PositionPointType: 0
+    - Position: 0.25
+      PositionPointType: 1
+    - Position: 0.75
+      PositionPointType: 1
     PointPreviewType: 2
-  Precision: 4
+  Precision: 8
   PlayerSpline: {fileID: 44079829}
 --- !u!4 &1316349818
 Transform:
@@ -2265,13 +2265,28 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 10f86bc5d131ca3438f242de2171df9d,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 122.979996
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 10f86bc5d131ca3438f242de2171df9d,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 122.979996
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 10f86bc5d131ca3438f242de2171df9d,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 122.979996
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 10f86bc5d131ca3438f242de2171df9d,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 10f86bc5d131ca3438f242de2171df9d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.6804
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 10f86bc5d131ca3438f242de2171df9d,
         type: 3}
@@ -2313,6 +2328,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 10f86bc5d131ca3438f242de2171df9d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0079d7d87ba847e45869dbbfdb8d13f4, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 10f86bc5d131ca3438f242de2171df9d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0079d7d87ba847e45869dbbfdb8d13f4, type: 2}
     - target: {fileID: 919132149155446097, guid: 10f86bc5d131ca3438f242de2171df9d,
         type: 3}
       propertyPath: m_Name
@@ -2321,7 +2346,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 10f86bc5d131ca3438f242de2171df9d,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
