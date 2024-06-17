@@ -11,7 +11,7 @@ public enum SplinePointPreviewType
 public enum SplinePointPositionType
 {
     DEFAULT = 0,
-    JUMP_POINTS = 1,
+    JUMP_POINT = 1,
     BOUNDS = 2,
     PREVIEW = 3,
 }
@@ -20,84 +20,104 @@ public enum SplinePointPositionType
 public struct SplinePointInfo
 {
     [SerializeField]
-    [Range(0, 1)]
-    public List<float> Positions;
-    [SerializeField]
-    public SplinePointPositionType PositionPointType;
+    //TODO: Find a way to store these in an array rather than a list, a solution might be to turn this into a class
+    [Header("DONT put more than two positions, it's useless and only the first and last point will be taken in consideration")]
+    public List<SplinePoint> Positions;
     [SerializeField]
     public SplinePointPreviewType PointPreviewType;
 }
 
+[System.Serializable]
+public struct SplinePoint
+{
+    [SerializeField]
+    [Range(0, 1)]
+    public float Position;
+    [SerializeField]
+    public SplinePointPositionType PositionPointType;
+}
+
 public class SplinePointManager : MonoBehaviour
 {
+    [SerializeField]
+    private bool ManagerEnable = true;
+
     [SerializeField]
     public List<SplinePointInfo> pointInfos;
 
     [SerializeField] [Min(2)]private int Precision;
 
     [SerializeField]
-    SplineContainer PlayerSpline;
+    public SplineContainer PlayerSpline;
 
     Vector3 TempPoint;
+
+    private void Start()
+    {
+        //DEBUG - REMOVE LATER
+        gameObject.GetComponent<SplineManager>().ChangeBounds(pointInfos);
+        gameObject.GetComponent<SplineManager>().ChangeCurrentBounds(pointInfos[0]);
+    }
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        for (int i = 0; i < pointInfos.Count; ++i)
+        if(enabled)
         {
-            Random.InitState(((int)pointInfos[i].PositionPointType));
-            Gizmos.color = new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
-
-            if (PlayerSpline.gameObject.activeSelf)
+            Gizmos.color = Color.black;
+            for (int i = 0; i < pointInfos.Count; ++i)
             {
-                if (pointInfos[i].PointPreviewType == SplinePointPreviewType.LINE_AND_SPHERES || pointInfos[i].PointPreviewType == SplinePointPreviewType.LINE)
+                if (PlayerSpline.gameObject.activeSelf)
                 {
-                    if (GetIsInvertedBounds(pointInfos[i]))
+                    if (pointInfos[i].PointPreviewType == SplinePointPreviewType.LINE_AND_SPHERES || pointInfos[i].PointPreviewType == SplinePointPreviewType.LINE)
                     {
-                        TempPoint = PlayerSpline.EvaluatePosition(pointInfos[i].Positions[0]) + PlayerSpline.EvaluateUpVector(pointInfos[i].Positions[0]) * 1.2f;
-
-                        for (int j = 1; j <= Precision; ++j)
+                        TempPoint = PlayerSpline.EvaluatePosition(pointInfos[i].Positions[0].Position) + PlayerSpline.EvaluateUpVector(pointInfos[i].Positions[0].Position) * 1.2f;
+                        
+                        if (GetPassesByOrigin(pointInfos[i]))
                         {
-                            float MaxPointPos = pointInfos[i].Positions[0] - 1.0f;
-                            float PosOnSpline = Mathf.Lerp(MaxPointPos, pointInfos[i].Positions[pointInfos[i].Positions.Count - 1], (float)j / Precision);
-                            float RepeatedPoint = Mathf.Repeat(PosOnSpline, 1.0f);
-                            Vector3 FinalPoint = PlayerSpline.EvaluatePosition(RepeatedPoint) + PlayerSpline.EvaluateUpVector(RepeatedPoint) * 1.2f;
-                            Gizmos.DrawLine(TempPoint, FinalPoint);
 
-                            TempPoint = FinalPoint;
+                            for (int j = 1; j <= Precision; ++j)
+                            {
+                                float MaxPointPos = pointInfos[i].Positions[0].Position - 1.0f;
+                                float PosOnSpline = Mathf.Lerp(MaxPointPos, pointInfos[i].Positions[pointInfos[i].Positions.Count - 1].Position, (float)j / Precision);
+                                float RepeatedPoint = Mathf.Repeat(PosOnSpline, 1.0f);
+                                Vector3 FinalPoint = PlayerSpline.EvaluatePosition(RepeatedPoint) + PlayerSpline.EvaluateUpVector(RepeatedPoint) * 1.2f;
+                                Gizmos.DrawLine(TempPoint, FinalPoint);
+
+                                TempPoint = FinalPoint;
+                            }
+                        }
+                        else
+                        {
+                            for (int j = 0; j <= Precision; ++j)
+                            {
+                                float temp = Mathf.Lerp(pointInfos[i].Positions[0].Position, pointInfos[i].Positions[pointInfos[i].Positions.Count - 1].Position, (float)j / Precision);
+                                Vector3 FinalPoint = PlayerSpline.EvaluatePosition(temp) + PlayerSpline.EvaluateUpVector(temp) * 1.2f;
+                                Gizmos.DrawLine(FinalPoint, TempPoint);
+
+                                TempPoint = FinalPoint;
+                            }
                         }
                     }
-                    else
+                    if (pointInfos[i].PointPreviewType == SplinePointPreviewType.LINE_AND_SPHERES || pointInfos[i].PointPreviewType == SplinePointPreviewType.SPHERES)
                     {
-                        TempPoint = PlayerSpline.EvaluatePosition(pointInfos[i].Positions[0]) + PlayerSpline.EvaluateUpVector(pointInfos[i].Positions[0]) * 1.2f;
-
-                        for (int j = 0; j <= Precision; ++j)
+                        foreach (SplinePoint point in pointInfos[i].Positions)
                         {
-                            float temp = Mathf.Lerp(pointInfos[i].Positions[0], pointInfos[i].Positions[pointInfos[i].Positions.Count - 1], (float)j / Precision);
-                            Vector3 FinalPoint = PlayerSpline.EvaluatePosition(temp) + PlayerSpline.EvaluateUpVector(temp) * 1.2f;
-                            Gizmos.DrawLine(FinalPoint, TempPoint);
-
-                            TempPoint = FinalPoint;
+                            
+                            Random.InitState(((int)point.PositionPointType));
+                            Gizmos.color = new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
+                            Gizmos.DrawSphere(PlayerSpline.EvaluatePosition(Mathf.Repeat(point.Position + GetComponent<SplineManager>().PlayerSpline.Origin, 1.0f)), 0.4f);
                         }
-                    }
-                }
-                if (pointInfos[i].PointPreviewType == SplinePointPreviewType.LINE_AND_SPHERES || pointInfos[i].PointPreviewType == SplinePointPreviewType.SPHERES)
-                {
-                    foreach (float position in pointInfos[i].Positions)
-                    {
-                        Gizmos.DrawSphere(PlayerSpline.EvaluatePosition(Mathf.Repeat(position + GetComponent<SplineManager>().PlayerSpline.Origin, 1.0f)), 0.4f);
                     }
                 }
             }
         }
-
-
     }
 #endif
 
-    public bool GetIsInvertedBounds(SplinePointInfo PointInfo)
+    public bool GetPassesByOrigin(SplinePointInfo PointInfo)
     {
-        return PointInfo.Positions[0] - PointInfo.Positions[PointInfo.Positions.Count - 1] >= 0.0f;
+        return PointInfo.Positions[0].Position - PointInfo.Positions[PointInfo.Positions.Count - 1].Position >= 0.0f;
     }
 
     public List<float> GetPointsOfSpecificType(SplinePointPositionType positionInfoType)
@@ -105,14 +125,13 @@ public class SplinePointManager : MonoBehaviour
         List<float> points = new List<float>();
         foreach (SplinePointInfo positionInfo in pointInfos)
         {
-            if (positionInfo.PositionPointType == positionInfoType)
+            foreach(SplinePoint point in positionInfo.Positions)
             {
-                foreach (float position in positionInfo.Positions)
+                if (point.PositionPointType == positionInfoType)
                 {
-                    points.Add(position);
+                    points.Add(point.Position);
                 }
-            }
-        }
+            }        }
         return points;
     }
 }
