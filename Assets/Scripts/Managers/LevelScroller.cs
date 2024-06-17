@@ -1,13 +1,15 @@
+
 using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelScroller : MonoBehaviour
 {
     [SerializeField] float ScrollSpeed;
+    [SerializeField] public float DistanceTraveled = 0.0f;
 
     [Header("Level scrolling slowing down when player hits an obstacle")]
     [SerializeField] float OnDamageTargetScroll = 0.0f;
-    [SerializeField][Min(0.00001f)] float ScrollResumeTime;
+    [SerializeField] float ScrollResumeTime = 0.001f;
     float MaxScrollSpeed;
     bool slowed = false;
     [SerializeField] AnimationCurve ScrollResumeCurve;
@@ -15,7 +17,7 @@ public class LevelScroller : MonoBehaviour
 
     [Header("Managers")]
     [SerializeField] SplineManager splineManager;
-    [SerializeField] ObstacleManager ObstacleManager;
+    [SerializeField] ActivitiesSequenceGenerator ActivitiesSequenceGenerator;
 
     List<float> TempFloats = new List<float>();
 
@@ -26,25 +28,29 @@ public class LevelScroller : MonoBehaviour
 
     private void Update()
     {
+        DistanceTraveled += ScrollSpeed * Time.deltaTime;
+
         if(slowed)
         {
             temp = Mathf.Max(temp - Time.deltaTime, 0.0f);
-            ScrollSpeed = Mathf.Lerp(MaxScrollSpeed, OnDamageTargetScroll, ScrollResumeCurve.Evaluate(temp / ScrollResumeTime));
+            if(ScrollResumeTime > 0.0f)
+            {
+                ScrollSpeed = Mathf.Lerp(MaxScrollSpeed, OnDamageTargetScroll, ScrollResumeCurve.Evaluate(temp / ScrollResumeTime));
+            }
+            else
+            {
+                ScrollSpeed = MaxScrollSpeed;
+            }
+
             if(temp < 0.0f )
             { 
                 slowed = false;
             }
         }
 
-        if(ObstacleManager.LeadingTileObject != null)
+        for (int i = 0; i < ActivitiesSequenceGenerator.InstantiatedActivities.Count; ++i)
         {
-            GameObject obj = ObstacleManager.LeadingTileObject;
-            obj.transform.position += ((-obj.transform.forward) * ScrollSpeed) * Time.deltaTime;
-        }
-
-        for (int i = 0; i < ObstacleManager.InstantiatedTiles.Count; ++i)
-        {
-            GameObject obj = ObstacleManager.InstantiatedTiles[i];
+            GameObject obj = ActivitiesSequenceGenerator.InstantiatedActivities[i].gameObject;
             obj.transform.position += ((-obj.transform.forward) * ScrollSpeed) * Time.deltaTime;
         }
     }
