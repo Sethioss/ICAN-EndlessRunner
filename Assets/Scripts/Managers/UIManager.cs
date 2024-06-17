@@ -1,11 +1,13 @@
-using System.ComponentModel;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] private GameManager _gm;
     private static UIManager _instance;
 
     [SerializeField] Canvas Canva;
+    [SerializeField] List<UIMenuCanva> MenuCanvaList;
 
     private void Awake()
     {
@@ -24,12 +26,37 @@ public class UIManager : MonoBehaviour
     {
         for (int i = 0; i < Canva.transform.childCount; ++i)
         {
-            Canva.transform.GetChild(i).gameObject.SetActive(false);
+            MenuCanvaList[i].gameObject.SetActive(false);
         }
+    }
+
+    public void ActivateAllMenus()
+    {
+        for (int i = 0; i < Canva.transform.childCount; ++i)
+        {
+            MenuCanvaList[i].gameObject.SetActive(true);
+        }
+    }
+
+    public void ActivateMenu(int index)
+    {
+        HideAllMenus();
+                
+        MenuCanvaList[index].gameObject.SetActive(true);
     }
 
     public UIManager GetInstance()
     {
         return _instance;
+    }
+
+    public void SendSceneChangeCommandSpecific(int index)
+    {
+        _gm.GetInstance().GetComponent<SceneLoader>().LoadSceneSpecific(index);
+    }
+
+    public void SendSceneChangeCommand()
+    {
+        _gm.GetInstance().GetComponent<SceneLoader>().LoadScenes();
     }
 }

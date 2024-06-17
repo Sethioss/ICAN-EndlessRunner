@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589245, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -525,61 +525,6 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.982862, y: 1.19904, z: -6.981574}
   m_LocalScale: {x: 1.7142, y: 1.7142, z: 1.7142}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &328499781
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 328499783}
-  - component: {fileID: 328499782}
-  m_Layer: 0
-  m_Name: SceneLoader
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &328499782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 328499781}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f321b5ab0b73414f8cfaae3471b8451, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onSceneLoadEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  LoadActions:
-  - SceneLoadingActionType: 1
-    SceneToLoad: StartScene
-    LoadSceneOnStart: 0
-    ChangeActiveSceneOnLoad: 0
-    onSceneChanged:
-      m_PersistentCalls:
-        m_Calls: []
---- !u!4 &328499783
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 328499781}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.467325, y: 0.9171716, z: -8.489016}
-  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1613,7 +1558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScrollSpeed: 10
   OnDamageTargetScroll: 2
-  ScroolResumeTime: 0
+  ScrollResumeTime: 0.8
   ScrollResumeCurve:
     serializedVersion: 2
     m_Curve:
@@ -2380,7 +2325,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1960053951}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62946ee329a19184884a3ed6bd6dbf7b, type: 3}
   m_Name: 
@@ -3200,7 +3145,7 @@ PrefabInstance:
     - target: {fileID: 4919597814148950794, guid: a8c3c4a97d941694fa30b9f622eb447c,
         type: 3}
       propertyPath: m_Name
-      value: GameManager
+      value: LevelSystemsHolder
       objectReference: {fileID: 0}
     - target: {fileID: 7772759373568651197, guid: a8c3c4a97d941694fa30b9f622eb447c,
         type: 3}
@@ -3234,7 +3179,6 @@ SceneRoots:
   - {fileID: 963194228}
   - {fileID: 252285542}
   - {fileID: 3147977917778219607}
-  - {fileID: 328499783}
   - {fileID: 1003334995}
   - {fileID: 998183722}
   - {fileID: 731077849}

@@ -7,7 +7,7 @@ public class LevelScroller : MonoBehaviour
 
     [Header("Level scrolling slowing down when player hits an obstacle")]
     [SerializeField] float OnDamageTargetScroll = 0.0f;
-    [SerializeField] float ScroolResumeTime;
+    [SerializeField][Min(0.00001f)] float ScrollResumeTime;
     float MaxScrollSpeed;
     bool slowed = false;
     [SerializeField] AnimationCurve ScrollResumeCurve;
@@ -29,7 +29,7 @@ public class LevelScroller : MonoBehaviour
         if(slowed)
         {
             temp = Mathf.Max(temp - Time.deltaTime, 0.0f);
-            ScrollSpeed = Mathf.Lerp(MaxScrollSpeed, OnDamageTargetScroll, ScrollResumeCurve.Evaluate(temp / ScroolResumeTime));
+            ScrollSpeed = Mathf.Lerp(MaxScrollSpeed, OnDamageTargetScroll, ScrollResumeCurve.Evaluate(temp / ScrollResumeTime));
             if(temp < 0.0f )
             { 
                 slowed = false;
@@ -53,6 +53,6 @@ public class LevelScroller : MonoBehaviour
     {
         slowed = true;
         ScrollSpeed = OnDamageTargetScroll;
-        temp = ScroolResumeTime;
+        temp = ScrollResumeTime;
     }
 }
