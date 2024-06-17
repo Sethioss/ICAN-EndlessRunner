@@ -1,8 +1,8 @@
-using System;
-using System.Collections;
+using Lean.Touch;
 using System.Collections.Generic;
-using System.Security.Cryptography;
+using System.Data;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Splines;
 
 public enum PlayerMoveState
@@ -22,29 +22,8 @@ public class OnSplineMovementController : MonoBehaviour
     [SerializeField] private SplineManager _splineManager;
     private SplineContainer _spline;
 
+    //Whether the loop is closed (Loops the player's position on spline between 0 and 1) or not
     [SerializeField] private bool _loopsBack;
-    //
-    //[Header("Acceleration")]
-    //[SerializeField] private float _accelerationTime = 0;
-    //[SerializeField] private float _tempAcceleration = 0;
-    //
-    //private float _finalAcceleration = 0;
-    //
-    //[Header("Deceleration")]
-    //[SerializeField] private float _decelerationTime = 0;
-    //[SerializeField] private float _tempDeceleration = 0;
-    //
-    //
-    //[Header("Side launch")]
-    //[SerializeField] private float _sideLaunchSpeed;
-    //[SerializeField] private float _sideLaunchCooldown = 0;
-    //private float _tempSideLaunchCooldown = 0;
-    //private bool _isShortTapAvailable = false;
-    //
-    //
-    //[Header("Debug")]
-    //[SerializeField] private float _accelerationRatio = 0;
-    //[SerializeField] private float _decelerationRatio = 0;
 
     private float _velocity = 0;
     [Header("Controls - Higher values = More drag")]
@@ -55,14 +34,30 @@ public class OnSplineMovementController : MonoBehaviour
     [SerializeField] private float changeSideDeceleration;
     [Tooltip("Deceleration when being stopped")]
     [SerializeField] private float deceleration;
+    [SerializeField] private AnimationCurve accelCurve;
+    [SerializeField] private AnimationCurve decelCurve;
+
+    [SerializeField] private float t;
 
 
     private Camera _mainCam;
     private float _direction = 0;
-    private float _previousDirection = 0;
 
     private float _positionOnSpline = 0;
 
+    [Header("Particles Test")]
+    [SerializeField] private ParticleSystem _ParticleRight;
+    [SerializeField] private ParticleSystem _ParticleLeft;
+
+    // Start is called before the first frame update
+    protected virtual void OnEnable()
+    {
+        // Hook into the events we need
+        LeanTouch.OnGesture += HandleFingerDebug;
+        LeanTouch.OnFingerUpdate += UpdateFinger;
+        LeanTouch.OnFingerDown += HandleFingerDown;
+        LeanTouch.OnFingerUp += HandleFingerUp;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -72,14 +67,9 @@ public class OnSplineMovementController : MonoBehaviour
         _spline = _splineManager.PlayerSpline.PlayerSpline;
 
         _rb = _playerObject.GetComponent<Rigidbody>();
-        //_playerMoveState = PlayerMoveState.STOPPED;
-
-       // _velocity = 0.0f;
 
         _positionOnSpline = _splineManager.PlayerSpline.Origin;
         _playerObject.transform.position = _spline.EvaluatePosition(_positionOnSpline);
-
-        //_isShortTapAvailable = true;
     }
 
     #region Misc
@@ -90,34 +80,13 @@ public class OnSplineMovementController : MonoBehaviour
 
     #endregion
 
-    #region Side Launch
-    //public void Launch(float FingerXPos)
-    //{
-    //    if (_isShortTapAvailable)
-    //    {
-    //        StopAcceleration();
-    //        _playerMoveState = PlayerMoveState.LAUNCHED;
-    //        SetShortTapCooldown();
-    //    }
-    //}
-    //
-    //public void SetShortTapCooldown()
-    //{
-    //    _tempSideLaunchCooldown = _sideLaunchCooldown;
-    //    _isShortTapAvailable = false;
-    //}
-    #endregion
-
     #region Movement
 
     private void Update()
     {
         UpdateMove();
-        //UpdateMovement(_velocity);
-        //if(!_isShortTapAvailable)
-        //{
-        //    UpdateSideLaunchCooldown();
-        //}
+        //Debug.Log("Accel" + accelCurve.Evaluate(t));
+        //Debug.Log("Decel" + decelCurve.Evaluate(t));
     }
 
     private void UpdateMove()
@@ -127,14 +96,16 @@ public class OnSplineMovementController : MonoBehaviour
         {
             accel = changeSideDeceleration;
         }
-        _velocity = Mathf.Clamp(_velocity + accel * _direction * Time.deltaTime, -_maxSpeed, _maxSpeed);
+        _velocity = Mathf.Clamp(_velocity + _direction * Time.deltaTime* accelCurve.Evaluate(t) , -_maxSpeed, _maxSpeed);
+        t += Time.deltaTime;
 
         if (_direction == 0f)
         {
             if (_velocity > 0.001f || _velocity < -0.001f)
             {
                 accel = deceleration;
-                _velocity = Mathf.Clamp(_velocity + accel * -(Mathf.Sign(_velocity)) * Time.deltaTime, -_maxSpeed, _maxSpeed);
+                _velocity = Mathf.Clamp(_velocity + decelCurve.Evaluate(t) * -(Mathf.Sign(_velocity)) * Time.deltaTime, -_maxSpeed, _maxSpeed);
+                t += Time.deltaTime;
             }
             else
             {
@@ -153,86 +124,10 @@ public class OnSplineMovementController : MonoBehaviour
         _playerObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, _spline.EvaluateUpVector(_positionOnSpline));
 
     }
-
-    //private void UpdateSideLaunchCooldown()
-    //{
-    //    _tempSideLaunchCooldown -= Time.deltaTime;
-    //    _isShortTapAvailable = _tempSideLaunchCooldown < 0;
-    //}
-    //
-    //public void StartAccelerating(float XDirection)
-    //{
-    //    _tempAcceleration = 0.0f;
-    //    UpdateXDirection(XDirection);
-    //}
-    //
     public void UpdateXDirection(float XDirection)
     {
         _direction = XDirection;
-        //_playerMoveState = PlayerMoveState.ACCELERATING;
     }
-    //
-    //public void CalculateVelocity(float XDirection, float Acceleration)
-    //{
-    //    _velocity = (XDirection * _maxSpeed * Acceleration) * Time.deltaTime;
-    //}
-    //
-    //float UpdateAcceleration(PlayerMoveState PlayerState)
-    //{
-    //    //_tempAcceleration = Mathf.Min(_tempAcceleration + Time.deltaTime, _accelerationTime);
-    //    //_accelerationRatio = (_tempAcceleration / _accelerationTime);
-    //    //
-    //    //return Mathf.Lerp(0.0f, _maxSpeed, (_tempAcceleration / _accelerationTime));
-    //
-    //    switch (PlayerState)
-    //    {
-    //        case PlayerMoveState.ACCELERATING:
-    //            {
-    //                _tempAcceleration = Mathf.Min(_tempAcceleration + Time.deltaTime, _accelerationTime);
-    //                _accelerationRatio = (_tempAcceleration / _accelerationTime);
-    //                return Mathf.Lerp(0.0f, _maxSpeed, (_tempAcceleration / _accelerationTime));
-    //            }
-    //        
-    //        case PlayerMoveState.DECELERATING:
-    //            {
-    //                _tempAcceleration = Mathf.Min(_tempAcceleration - Time.deltaTime, _accelerationTime);
-    //                return Mathf.Lerp(0.0f, _maxSpeed, (_tempAcceleration / _accelerationTime));
-    //            }
-    //    }
-    //    return 0.0f;
-    //}
-    //
-    //
-    //void UpdateMovement(float XDirection)
-    //{
-    //    if(_direction != 0)
-    //    {
-    //        _velocity = _direction;
-    //    }
-    //
-    //    _finalAcceleration = UpdateAcceleration(_playerMoveState);
-    //    CalculateVelocity(_velocity, _finalAcceleration);
-    //    AddSplinePositionOffset(_velocity);
-    //
-    //    //Set player on corresponding spline position
-    //    _playerObject.transform.position = _spline.EvaluatePosition(_positionOnSpline);
-    //
-    //    if(_previousDirection != _direction && _playerMoveState != PlayerMoveState.DECELERATING)
-    //    {
-    //        //_playerMoveState = PlayerMoveState.DECELERATING;
-    //        //_tempDecelerationTime = 0;
-    //        Debug.Log("Changing direction");
-    //    }
-    //    _previousDirection = _direction;
-    //
-    //    if (_velocity == 0.0f)
-    //    {
-    //        _playerMoveState = PlayerMoveState.STOPPED;
-    //    }
-    //
-    //    _playerObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, _spline.EvaluateUpVector(_positionOnSpline));
-    //}
-    //
     public void AddSplinePositionOffset(float value)
     {
         //Spline is reversed
@@ -245,19 +140,68 @@ public class OnSplineMovementController : MonoBehaviour
         else
         {
             _positionOnSpline = Mathf.Clamp(_positionOnSpline, 0.0f, 1.0f);
+
         }
 
     }
-    //#endregion
-    //
-    //#region Stop
-    //
     public void StopAcceleration()
     {
         _direction = 0;
-    //    _playerMoveState = PlayerMoveState.DECELERATING;
-    //    _tempDeceleration = _decelerationTime;
     }
-    
+
     #endregion
+
+    public void HandleFingerDebug(List<LeanFinger> Fingers)
+    {
+        if (Fingers.Count > 2)
+        {
+            if (Fingers[1].Age > 2.0f)
+            {
+                Fingers[1].Age = 0.0f;
+                string currentSceneName = SceneManager.GetActiveScene().name;
+                SceneManager.LoadScene(currentSceneName);
+            }
+        }
+    }
+
+    public void HandleFingerUp(LeanFinger finger)
+    {
+        StopAcceleration();
+        t = 0;
+    }
+
+    public void UpdateFinger(LeanFinger finger)
+    {
+        if (finger.Index == 0)
+        {
+            UpdateXDirection(GetNormalisedXDirection(finger.ScreenPosition.x));
+        }
+    }
+
+    public void HandleFingerDown(LeanFinger finger)
+    {
+        if (finger.Index == 0)
+        {
+            float Dir = GetNormalisedXDirection(finger.ScreenPosition.x);
+            if (Dir < 0)
+            {
+                //LancerSonGauche
+                FMODUnity.RuntimeManager.PlayOneShot("event:/Player/SOUND-GlisseTurn");
+                //ParticuleAGauche
+                _ParticleLeft.Play();
+                _ParticleRight.Stop();
+            }
+            else if (Dir != 0)
+            {
+                //LancerSonDroite
+                FMODUnity.RuntimeManager.PlayOneShot("event:/Player/SOUND-GlisseTurn");
+                //ParticuleAGauche
+                _ParticleLeft.Stop();
+                _ParticleRight.Play();
+            }
+        }
+        t=0;
+
+        //_PlayerOnSplineController.StartAccelerating(GetNormalisedXDirection(finger.ScreenPosition.x));
+    }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] LevelScroller LevelScroller;
+
     [SerializeField] MeshRenderer PlayerMesh;
     [SerializeField] Material StandardMat;
     [SerializeField] Material HurtMat;
@@ -24,7 +26,9 @@ public class Player : MonoBehaviour
             isSpecialStatus = true;
             tempSpecialStatusTime = 0;
             other.gameObject.SetActive(false);
+            FMODUnity.RuntimeManager.PlayOneShot("event:/Player/SOUND-HitPlayer");
             PlayerMesh.material = HurtMat;
+            LevelScroller.SlowLevelBecauseOfHit();
         }
 
         if (other.gameObject.CompareTag("Bonus"))
