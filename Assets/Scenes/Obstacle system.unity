@@ -1395,7 +1395,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &958677873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1825,11 +1825,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 679399baad183c34bb0b2f31b1954332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startPosition: 0.5
-  _playerObject: {fileID: 1814874660}
   _splineManager: {fileID: 1316349816}
   _previewPlayerStartPos: 0
+  _startPosition: 0.5
+  _playerObject: {fileID: 1814874660}
+  _sideJumpImpulseForce: 400
+  _sideJumpMaxHeight: 3
+  _Airborne: 0
+  _LandingVelocityBoostMultiplier: 0.9985
+  _LandingMaxVelocity: 0.003
+  _cooldownAfterGroundCheck: 0.2
+  _landingDeceleration: 0.005
+  _postLandingDecelerationTransitionTime: 0.5
+  _AngularRotationMultiplierOnAir: 2
   _velocity: 0
+  _AngularRotationMultiplier: 10000
   _maxSpeed: 0.25
   _minSpeed: 0
   normalAccel: 0.025
@@ -1883,6 +1893,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _TimeInAirRatio: 0
   _OnGroundVelocityRatio: 0
   _ParticleRight: {fileID: 1814874659}
   _ParticleLeft: {fileID: 1814874658}
@@ -2053,12 +2064,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 243578d83f5484f44a14ee7d1b35f34b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ManagerEnable: 1
+  ManagerEnabled: 1
   pointInfos:
   - Positions:
-    - Position: 0
+    - Position: 0.259
       PositionPointType: 0
-    - Position: 0
+    - Position: 0.798
       PositionPointType: 0
     PointPreviewType: 2
   Precision: 4
