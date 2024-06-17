@@ -9,25 +9,27 @@ public class OnSplineMovementController : MonoBehaviour
     [Header("Managers")]
     [SerializeField] private SplineManager _splineManager;
 
-    //Whether the loop is closed (Loops the player's position on spline between 0 and 1) or not
-    [Header("For now, use this to set whether the spline is looping back or not (TODO: Move in a splinemanager logic?)")]
-    [SerializeField] private bool _splineLoopsBack;
+#if UNITY_EDITOR
+    [Header("Visualisation")]
+    [SerializeField] bool _previewPlayerStartPos = false;
+#endif
+
     private SplineContainer _spline;
 
+    [SerializeField][Range(0, 1)] private float _startPosition;
+    [SerializeField] private GameObject _playerObject;
+    private Rigidbody _rb;
+
     [Header("Side jump")]
-    [SerializeField] private bool _SideJumpEnabled = false;
-    [HideInInspector] public bool _Airborne = false;
     [SerializeField] private float _sideJumpImpulseForce = 400.0f;
     [SerializeField] private float _sideJumpMaxHeight = 3.0f;
-
-    private List<float> JumpPointsPosition = new List<float>();
-    private float LeftJumpPoint = 0.25f;
-    private float RightJumpPoint = 0.75f;
+    [HideInInspector] public bool _Airborne = false;
 
     [Range(0.9985f, 1.0030f)]
     [SerializeField] private float _LandingVelocityBoostMultiplier = 1.0015f;
+    [SerializeField] private float _LandingMaxVelocity = 0.15f;
 
-    [SerializeField] [Tooltip("How much time passes before the player can side jump again")]private float _cooldownAfterGroundCheck = 0.2f;
+    [SerializeField][Tooltip("How much time passes before the player can side jump again")] private float _cooldownAfterGroundCheck = 2.0f;
     private float _tempCooldownAfterGroundCheck = 0.0f;
 
     [Tooltip("Deceleration when landing from a side jump")]
@@ -44,19 +46,8 @@ public class OnSplineMovementController : MonoBehaviour
     private float _splinePositionToGoBackTo;
     bool _CanAirAgain = true;
 
-    [SerializeField][Range(0, 1)] private float _startPosition;
-    [SerializeField] private GameObject _playerObject;
-    private Rigidbody _rb;
 
-    [Header("Movement - Higher values = More drag")]
-    private float _velocity = 0;
-    [SerializeField] private SplineManager _splineManager;
-    private SplineContainer _spline;
 
-#if UNITY_EDITOR
-    [Header("Visualisation")]
-    [SerializeField] bool _previewPlayerStartPos = false;
-#endif
 
     [Header("Controls - Higher values = More drag")]
     [SerializeField] private float _velocity = 0;
@@ -87,15 +78,7 @@ public class OnSplineMovementController : MonoBehaviour
     private float _movementLerpValue;
 
     [Header("Ratios - Used for animation")]
-    [SerializeField] [Range(-1, 1)] private float _OnGroundVelocityRatio;
-
-    private List<float> JumpPointsPosition = new List<float>();
-    private float LeftJumpPoint = 0.25f;
-    private float RightJumpPoint = 0.75f;
-
-
-    private Camera _mainCam;
-    private float _direction = 0;
+    [SerializeField][Range(-1, 1)] private float _OnGroundVelocityRatio;
     private float _lastDir = 0;
 
     private float _positionOnSpline = 0;
@@ -118,39 +101,12 @@ public class OnSplineMovementController : MonoBehaviour
     void Start()
     {
         _mainCam = Camera.main;
-
         _spline = _splineManager.PlayerSpline.PlayerSpline;
-
         _rb = _playerObject.GetComponent<Rigidbody>();
-
         _positionOnSpline = _startPosition;
         _playerObject.transform.position = _spline.EvaluatePosition(_positionOnSpline);
         tempDeceleration = deceleration;
         _CanAirAgain = true;
-
-        JumpPointsPosition = _splineManager.GetComponent<SplinePointManager>().GetPointsOfSpecificType(SplinePointPositionType.JUMP_POINTS);
-        if (JumpPointsPosition.Count != 2)
-        {
-#if UNITY_EDITOR
-            Debug.LogError($"<color=#FF0000>There are fewer or more than 2 jump points on the spline. Make sure that the SplinePointManager has exactly two points serving as jump points. Using default values...</color>");
-#endif
-        }
-        else
-        {
-            LeftJumpPoint = Mathf.Min(JumpPointsPosition[0], JumpPointsPosition[1]);
-            RightJumpPoint = Mathf.Max(JumpPointsPosition[0], JumpPointsPosition[1]);
-        }
-
-        if (_splineLoopsBack)
-        {
-#if UNITY_EDITOR
-            //Debug.Log($"<color=#990000>Current player loop is determined to loop back, as such, side jumping has been disabled.</color>");
-#endif
-            //_SideJumpEnabled = false;
-        }
-
-        //_positionOnSpline = _splineManager.PlayerSpline.Origin;
-        //_playerObject.transform.position = _spline.EvaluatePosition(_positionOnSpline);
     }
 
     private void Update()
@@ -161,11 +117,16 @@ public class OnSplineMovementController : MonoBehaviour
         }
         else
         {
-            //if(_tempPostLandingDecelerationTransitionTime > 0)
-            //{
-            //    _tempPostLandingDecelerationTransitionTime -= Time.deltaTime;
-            //    deceleration = Mathf.Lerp(tempDeceleration, _landingDeceleration, (float)_tempPostLandingDecelerationTransitionTime / (float)_postLandingDecelerationTransitionTime);
-            //}
+            if(_tempPostLandingDecelerationTransitionTime > 0)
+            {
+                _tempPostLandingDecelerationTransitionTime -= Time.deltaTime;
+                deceleration = Mathf.Lerp(tempDeceleration, _landingDeceleration, (float)_tempPostLandingDecelerationTransitionTime / (float)_postLandingDecelerationTransitionTime);
+            }
+            if(_tempPostLandingDecelerationTransitionTime > 0)
+            {
+                _tempPostLandingDecelerationTransitionTime = Time.deltaTime;
+            }
+
             if (_tempCooldownAfterGroundCheck > 0)
             {
                 _tempCooldownAfterGroundCheck -= Time.deltaTime;
@@ -193,24 +154,6 @@ public class OnSplineMovementController : MonoBehaviour
     #endregion
 
     #region Side Jump
-    private void HandleJumpingLogic()
-    {
-        if (_SideJumpEnabled)
-        {
-            // > 0.17f = left; < 0.833f = right
-            if (_positionOnSpline > LeftJumpPoint && _positionOnSpline < RightJumpPoint)
-            {
-                if (_CanAirAgain)
-                {
-                    _splinePositionToGoBackTo = _positionOnSpline < 0.5f ? LeftJumpPoint - 0.004f : RightJumpPoint + 0.004f;
-                    _pointPositionBeforeLaunch = _spline.EvaluatePosition(_positionOnSpline);
-                    SwapPhysicsToRB();
-                }
-
-            }
-        }
-    }
-
     private void CheckForLanding()
     {
         if (!TimeInAirSet)
@@ -252,6 +195,7 @@ public class OnSplineMovementController : MonoBehaviour
     {
         float _JumpForce = Mathf.Min((Mathf.Abs(_velocity) * -1) * (_sideJumpImpulseForce * -1), _sideJumpMaxHeight);
 
+        _velocity = 0.0f;
         _Airborne = true;
         //Debug.Log($"<color=#00FF00>Begin Airborne</color>");
         _rb.useGravity = true;
@@ -263,13 +207,14 @@ public class OnSplineMovementController : MonoBehaviour
     {
         _Airborne = false;
         _CanAirAgain = false;
-        float _landingVelocity = _rb.velocity.y * (_LandingVelocityBoostMultiplier - 1);
-        //Debug.Log($"<color=#00FF00>End Airborne</color>");
-        _tempCooldownAfterGroundCheck = _cooldownAfterGroundCheck;
 
+        float _landingVelocity = Mathf.Min(_LandingMaxVelocity, _rb.velocity.y * (_LandingVelocityBoostMultiplier - 1));
+
+        _tempCooldownAfterGroundCheck = _cooldownAfterGroundCheck;
         _tempPostLandingDecelerationTransitionTime = _postLandingDecelerationTransitionTime;
 
         _velocity = _landingVelocity * GetPositionSideBasedOnSplineValue(_positionOnSpline);
+
         deceleration = _landingDeceleration;
 
         _rb.useGravity = false;
@@ -287,7 +232,7 @@ public class OnSplineMovementController : MonoBehaviour
         Transform playerMeshTransform = _playerObject.GetComponent<Player>().PlayerMesh.gameObject.transform;
         if (isAirborne)
         {
-            float zRotation = ((_rb.velocity.y * _AngularRotationMultiplierOnAir) * GetPositionSideBasedOnSplineValue(_positionOnSpline));
+            float zRotation = 1 - (((_rb.velocity.y * _AngularRotationMultiplierOnAir) * GetPositionSideBasedOnSplineValue(_positionOnSpline)));
             playerMeshTransform.localRotation = Quaternion.Euler(-90.0f, 0, Mathf.Clamp(zRotation, -70f, 70f));
         }
         else
@@ -308,7 +253,7 @@ public class OnSplineMovementController : MonoBehaviour
             accel = changeSideDeceleration;
         }
 
-        _velocity = Mathf.Clamp(_velocity + _direction * Time.deltaTime * accelCurve.Evaluate(_movementLerpValue) , -_maxSpeed, _maxSpeed);
+        _velocity = Mathf.Clamp(_velocity + _direction * Time.deltaTime * accelCurve.Evaluate(_movementLerpValue), -_maxSpeed, _maxSpeed);
         _movementLerpValue += Time.deltaTime;
 
         if (_direction == 0f)
@@ -320,7 +265,7 @@ public class OnSplineMovementController : MonoBehaviour
                 _velocity = Mathf.Clamp(_calculatedVelocity, -_maxSpeed, _maxSpeed);
 
                 //Never fully stop after having pressed a direction at least once
-                if(_velocity <= _minSpeed && _velocity >= -_minSpeed && _velocity != 0.0f)
+                if (_velocity <= _minSpeed && _velocity >= -_minSpeed && _velocity != 0.0f)
                 {
                     float _negativeVelocity = _velocity >= 0.0f ? 1 : -1;
                     _velocity = _minSpeed * _negativeVelocity;
@@ -334,6 +279,7 @@ public class OnSplineMovementController : MonoBehaviour
                 }
             }
         }
+        
 
         _OnGroundVelocityRatio = (_velocity / _maxSpeed);
         AddSplinePositionOffset(_velocity);
@@ -344,7 +290,7 @@ public class OnSplineMovementController : MonoBehaviour
     }
     public void UpdateXDirection(float XDirection)
     {
-        if(_lastDir == 0)
+        if (_lastDir == 0)
         {
             _direction = XDirection;
         }
@@ -372,7 +318,8 @@ public class OnSplineMovementController : MonoBehaviour
 
         if (!(Mathf.Abs(Positions[0] - Positions[1]) == 1.0f) || (Mathf.Abs(Positions[0] - Positions[1]) == 0.0f))
         {
-            if (_splineManager.CurrentBoundPassesByOrigin(_splineManager.CurrentBounds))
+            bool SplinePassesByOrigin = _splineManager.CurrentBoundPassesByOrigin(_splineManager.CurrentBounds);
+            if (SplinePassesByOrigin)
             {
                 ValidPosition = _finalPosOnSpline >= Positions[0] || _finalPosOnSpline <= Positions[1];
             }
@@ -381,92 +328,132 @@ public class OnSplineMovementController : MonoBehaviour
                 ValidPosition = _finalPosOnSpline >= Positions[0] && _finalPosOnSpline <= Positions[1];
             }
 
-            if(ValidPosition )
+            if (ValidPosition)
             {
                 _positionOnSpline = Mathf.Repeat(_finalPosOnSpline, 1.0f);
             }
             else
             {
+                if (SplinePassesByOrigin)
+                {
+                    //TODO: Add logic for jump points passing by the origin (Should never happen so does nothing for now)
+                }
+                else
+                {
+                    if (_CanAirAgain)
+                    {
+                        if (_positionOnSpline < 0.5f && _splineManager.CurrentBounds.Positions[0].PositionPointType == SplinePointPositionType.JUMP_POINT)
+                        {
+                            Debug.Log("Gonna jump from right");
+                            _splinePositionToGoBackTo = _positionOnSpline + 0.007f;
+                            SwapPhysicsToRB();
+                        }
+                        if (_positionOnSpline >= 0.5f && _splineManager.CurrentBounds.Positions[1].PositionPointType == SplinePointPositionType.JUMP_POINT)
+                        {
+                            Debug.Log("Gonna jump from left");
+                            _splinePositionToGoBackTo = _positionOnSpline - 0.007f;
+                            SwapPhysicsToRB();
+                        }
+                    }
+                }
+
                 _velocity = 0;
-            _positionOnSpline = Mathf.Repeat(_positionOnSpline, 1.0f);
-            //Debug.Log($"<color=#FF0000>Position on spline: {_positionOnSpline}</color>");
+
+                //Logic for if they are jump point
+                //if (_splineManager.CurrentBounds.Positions[0].PositionPointType == SplinePointPositionType.JUMP_POINT)
+                //{
+                //
+                //    if (_CanAirAgain)
+                //    {
+                //        _splinePositionToGoBackTo = _positionOnSpline;
+                //        SwapPhysicsToRB();
+                //    
+                //    }
+                //}
+                //else
+                //{
+                //    _velocity = 0;
+                //    _positionOnSpline = Mathf.Repeat(_positionOnSpline, 1.0f);
+                //    //Debug.Log($"<color=#FF0000>Position on spline: {_positionOnSpline}</color>");
+                //}
+
+            }
         }
         else
         {
             _positionOnSpline = Mathf.Repeat(_finalPosOnSpline, 1.0f);
         }
 
-        HandleJumpingLogic();
+        //HandleJumpingLogic();
 
-    }
-    public void StopAcceleration()
-    {
-        _direction = 0;
-    }
-
-    #endregion
-
-    #region Input
-    public void HandleFingerDebug(List<LeanFinger> Fingers)
-    {
-        if (Fingers.Count > 2)
+        }
+        public void StopAcceleration()
         {
-            if (Fingers[1].Age > 2.0f)
+            _direction = 0;
+        }
+
+        #endregion
+
+        public void HandleFingerDebug(List<LeanFinger> Fingers)
+        {
+            if (Fingers.Count > 2)
             {
-                Fingers[1].Age = 0.0f;
-                string currentSceneName = SceneManager.GetActiveScene().name;
-                SceneManager.LoadScene(currentSceneName);
+                if (Fingers[1].Age > 2.0f)
+                {
+                    Fingers[1].Age = 0.0f;
+                    string currentSceneName = SceneManager.GetActiveScene().name;
+                    SceneManager.LoadScene(currentSceneName);
+                }
             }
         }
-    }
 
-    public void HandleFingerUp(LeanFinger finger)
-    {
-        StopAcceleration();
-        _movementLerpValue = 0;
-    }
-
-    public void UpdateFinger(LeanFinger finger)
-    {
-        if (finger.Index == 0)
+        public void HandleFingerUp(LeanFinger finger)
         {
-            UpdateXDirection(GetNormalisedXDirection(finger.ScreenPosition.x));
+            StopAcceleration();
+            _movementLerpValue = 0;
         }
-    }
 
-    public void HandleFingerDown(LeanFinger finger)
-    {
-        if (finger.Index == 0)
+        public void UpdateFinger(LeanFinger finger)
         {
-            float Dir = GetNormalisedXDirection(finger.ScreenPosition.x);
-            if (Dir < 0)
+            if (finger.Index == 0)
             {
-                //LancerSonGauche
-                FMODUnity.RuntimeManager.PlayOneShot("event:/Player/SOUND-GlisseTurn");
-                //ParticuleAGauche
-                _ParticleLeft.Play();
-                _ParticleRight.Stop();
-            }
-            else if (Dir != 0)
-            {
-                //LancerSonDroite
-                FMODUnity.RuntimeManager.PlayOneShot("event:/Player/SOUND-GlisseTurn");
-                //ParticuleAGauche
-                _ParticleLeft.Stop();
-                _ParticleRight.Play();
+                UpdateXDirection(GetNormalisedXDirection(finger.ScreenPosition.x));
             }
         }
-        _movementLerpValue = 0;
-    }
+
+        public void HandleFingerDown(LeanFinger finger)
+        {
+            if (finger.Index == 0)
+            {
+                float Dir = GetNormalisedXDirection(finger.ScreenPosition.x);
+                if (Dir < 0)
+                {
+                    //LancerSonGauche
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/Player/SOUND-GlisseTurn");
+                    //ParticuleAGauche
+                    _ParticleLeft.Play();
+                    _ParticleRight.Stop();
+                }
+                else if (Dir != 0)
+                {
+                    //LancerSonDroite
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/Player/SOUND-GlisseTurn");
+                    //ParticuleAGauche
+                    _ParticleLeft.Stop();
+                    _ParticleRight.Play();
+                }
+            }
+            _movementLerpValue = 0;
+        }
 
 #if UNITY_EDITOR
-    private void OnDrawGizmos()
-    {
-        if(_previewPlayerStartPos)
+        private void OnDrawGizmos()
         {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawCube(_splineManager.GetComponent<SplinePointManager>().PlayerSpline.EvaluatePosition(_startPosition), new Vector3(0.8f, 0.8f, 0.8f));
+            if (_previewPlayerStartPos)
+            {
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawCube(_splineManager.GetComponent<SplinePointManager>().PlayerSpline.EvaluatePosition(_startPosition), new Vector3(0.8f, 0.8f, 0.8f));
+            }
         }
-    }
 #endif
 }
