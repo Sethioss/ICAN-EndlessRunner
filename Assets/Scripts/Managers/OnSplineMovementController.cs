@@ -485,13 +485,11 @@ public class OnSplineMovementController : MonoBehaviour
                     {
                         if (_positionOnSpline < 0.5f && _splineManager.CurrentBounds.Positions[0].PositionPointType == SplinePointPositionType.JUMP_POINT)
                         {
-                            Debug.Log("Gonna jump from right");
                             _splinePositionToGoBackTo = _positionOnSpline + 0.007f;
                             SwapPhysicsToRB();
                         }
                         if (_positionOnSpline >= 0.5f && _splineManager.CurrentBounds.Positions[1].PositionPointType == SplinePointPositionType.JUMP_POINT)
                         {
-                            Debug.Log("Gonna jump from left");
                             _splinePositionToGoBackTo = _positionOnSpline - 0.007f;
                             SwapPhysicsToRB();
                         }
@@ -499,25 +497,6 @@ public class OnSplineMovementController : MonoBehaviour
                 }
 
                 _velocity = 0;
-
-                //Logic for if they are jump point
-                //if (_splineManager.CurrentBounds.Positions[0].PositionPointType == SplinePointPositionType.JUMP_POINT)
-                //{
-                //
-                //    if (_CanAirAgain)
-                //    {
-                //        _splinePositionToGoBackTo = _positionOnSpline;
-                //        SwapPhysicsToRB();
-                //    
-                //    }
-                //}
-                //else
-                //{
-                //    _velocity = 0;
-                //    _positionOnSpline = Mathf.Repeat(_positionOnSpline, 1.0f);
-                //    //Debug.Log($"<color=#FF0000>Position on spline: {_positionOnSpline}</color>");
-                //}
-
             }
         }
         else
