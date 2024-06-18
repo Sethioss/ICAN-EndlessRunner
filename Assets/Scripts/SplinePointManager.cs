@@ -10,10 +10,9 @@ public enum SplinePointPreviewType
 }
 public enum SplinePointPositionType
 {
-    DEFAULT = 0,
-    JUMP_POINT = 1,
-    BOUNDS = 2,
-    PREVIEW = 3,
+    JUMP_POINT = 0,
+    BOUNDS = 1,
+    PREVIEW = 2,
 }
 
 [System.Serializable]
@@ -31,7 +30,7 @@ public struct SplinePointInfo
 public struct SplinePoint
 {
     [SerializeField]
-    [Range(0, 1)]
+    [Range(0.01f, 0.99f)]
     public float Position;
     [SerializeField]
     public SplinePointPositionType PositionPointType;
@@ -40,7 +39,7 @@ public struct SplinePoint
 public class SplinePointManager : MonoBehaviour
 {
     [SerializeField]
-    private bool ManagerEnable = true;
+    private bool ManagerEnabled = true;
 
     [SerializeField]
     public List<SplinePointInfo> pointInfos;
@@ -62,7 +61,7 @@ public class SplinePointManager : MonoBehaviour
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        if(enabled)
+        if(ManagerEnabled)
         {
             Gizmos.color = Color.black;
             for (int i = 0; i < pointInfos.Count; ++i)

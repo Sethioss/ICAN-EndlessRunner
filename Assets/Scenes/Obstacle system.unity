@@ -1825,11 +1825,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 679399baad183c34bb0b2f31b1954332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _splineManager: {fileID: 1316349816}
+  _previewPlayerStartPos: 1
   _startPosition: 0.5
   _playerObject: {fileID: 1814874660}
-  _splineManager: {fileID: 1316349816}
-  _previewPlayerStartPos: 0
+  _sideJumpImpulseForce: 400
+  _sideJumpMaxHeight: 3
+  _Airborne: 0
+  _LandingVelocityBoostMultiplier: 0.9985
+  _LandingMaxVelocity: 0.003
+  _cooldownAfterGroundCheck: 0.2
+  _landingDeceleration: 0.005
+  _postLandingDecelerationTransitionTime: 0.5
+  _AngularRotationMultiplierOnAir: 2
   _velocity: 0
+  _AngularRotationMultiplier: 4000
   _maxSpeed: 0.25
   _minSpeed: 0
   normalAccel: 0.025
@@ -1883,6 +1893,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _TimeInAirRatio: 0
   _OnGroundVelocityRatio: 0
   _ParticleRight: {fileID: 1814874659}
   _ParticleLeft: {fileID: 1814874658}
@@ -2053,15 +2064,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 243578d83f5484f44a14ee7d1b35f34b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ManagerEnable: 1
+  ManagerEnabled: 1
   pointInfos:
   - Positions:
-    - Position: 0
-      PositionPointType: 0
-    - Position: 0
-      PositionPointType: 0
+    - Position: 0.25
+      PositionPointType: 1
+    - Position: 0.75
+      PositionPointType: 1
     PointPreviewType: 2
-  Precision: 4
+  Precision: 8
   PlayerSpline: {fileID: 44079829}
 --- !u!4 &1316349818
 Transform:
@@ -2254,13 +2265,28 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 10f86bc5d131ca3438f242de2171df9d,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 122.979996
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 10f86bc5d131ca3438f242de2171df9d,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 122.979996
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 10f86bc5d131ca3438f242de2171df9d,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 122.979996
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 10f86bc5d131ca3438f242de2171df9d,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 10f86bc5d131ca3438f242de2171df9d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.6804
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 10f86bc5d131ca3438f242de2171df9d,
         type: 3}
@@ -2302,6 +2328,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 10f86bc5d131ca3438f242de2171df9d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0079d7d87ba847e45869dbbfdb8d13f4, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 10f86bc5d131ca3438f242de2171df9d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0079d7d87ba847e45869dbbfdb8d13f4, type: 2}
     - target: {fileID: 919132149155446097, guid: 10f86bc5d131ca3438f242de2171df9d,
         type: 3}
       propertyPath: m_Name
@@ -2310,7 +2346,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 10f86bc5d131ca3438f242de2171df9d,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
