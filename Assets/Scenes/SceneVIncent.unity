@@ -465,6 +465,7 @@ GameObject:
   m_Component:
   - component: {fileID: 328499783}
   - component: {fileID: 328499782}
+  - component: {fileID: 328499784}
   m_Layer: 0
   m_Name: SceneLoader
   m_TagString: Untagged
@@ -510,6 +511,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &328499784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328499781}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d56f2d4c76d432498be953a5377b278, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curvPipe: {fileID: 2100000, guid: ea3dae1e57f6a5645ba11405a94325d7, type: 2}
+  curvObstacle: {fileID: 2100000, guid: 0e1ad4840d6ec494d9208520b5b7fa52, type: 2}
+  b: 0
 --- !u!1 &339921852
 GameObject:
   m_ObjectHideFlags: 0
@@ -1071,11 +1087,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 679399baad183c34bb0b2f31b1954332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startPosition: 0.5
-  _playerObject: {fileID: 1541713924}
   _splineManager: {fileID: 998183721}
   _previewPlayerStartPos: 1
+  _startPosition: 0.5
+  _playerObject: {fileID: 1541713924}
+  _sideJumpImpulseForce: 800
+  _sideJumpMaxHeight: 6
+  _Airborne: 0
+  _LandingVelocityBoostMultiplier: 1.003
+  _LandingMaxVelocity: 0.52
+  _cooldownAfterGroundCheck: 0.5
+  _landingDeceleration: -0.43
+  _postLandingDecelerationTransitionTime: 0.5
+  _AngularRotationMultiplierOnAir: 2
   _velocity: 0
+  _AngularRotationMultiplier: 10000
   _maxSpeed: 0.01
   _minSpeed: 0.0001
   normalAccel: 0.025
@@ -1085,22 +1111,31 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 0.037902292
-      inSlope: -0.029668966
-      outSlope: -0.029668966
+      time: 0.0031893402
+      value: 0.005509898
+      inSlope: 0.5243445
+      outSlope: 0.5243445
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.12204537
+      outWeight: 0.11783748
     - serializedVersion: 3
-      time: 1
-      value: 0.025
-      inSlope: -0.0129022915
-      outSlope: -0.0129022915
-      tangentMode: 34
+      time: 0.07158421
+      value: 0.03435769
+      inSlope: -0.051135164
+      outSlope: -0.051135164
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
+      outWeight: 0.112173304
+    - serializedVersion: 3
+      time: 0.97465724
+      value: 0.03649323
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.1522893
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -1111,24 +1146,25 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.002380371
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: 0.009745254
+      outSlope: 0.009745254
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.2120477
+      outWeight: 0.17628206
     - serializedVersion: 3
-      time: 2
-      value: 0.024218732
-      inSlope: 0.040069237
-      outSlope: 0.040069237
+      time: 2.0032043
+      value: 0.024066145
+      inSlope: 0.03291008
+      outSlope: 0.03291008
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.11298072
+      inWeight: 0.110401265
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _TimeInAirRatio: 0
   _OnGroundVelocityRatio: 0
   _ParticleRight: {fileID: 268387478}
   _ParticleLeft: {fileID: 58217686}
@@ -1489,15 +1525,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 243578d83f5484f44a14ee7d1b35f34b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ManagerEnable: 1
+  ManagerEnabled: 1
   pointInfos:
   - Positions:
-    - Position: 0
+    - Position: 0.215
       PositionPointType: 0
-    - Position: 0
+    - Position: 0.78
       PositionPointType: 0
     PointPreviewType: 2
-  Precision: 4
+  Precision: 5
   PlayerSpline: {fileID: 2126026289}
 --- !u!1 &1003334994
 GameObject:
@@ -2354,7 +2390,7 @@ MonoBehaviour:
   FirstTileLocation: {fileID: 339921853}
   NumberOfActivitiesSpawnedOnStart: 5
   _levelSystemsHolder: {fileID: 1192635327}
-  LeadingActivityGeometry: {fileID: 2267882098566438585, guid: 51e35d4ae8b982d4ea085d0596a284c1,
+  LeadingActivityGeometry: {fileID: 2267882098566438585, guid: 48c8e209b5a66294e94364eb43fbb580,
     type: 3}
   LeadingActivityObject: {fileID: 0}
   InstantiatedActivities: []
@@ -2385,7 +2421,7 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      activitySO: {fileID: 11400000, guid: de53fce50f837a346afe96b09d80058f, type: 2}
+      activitySO: {fileID: 11400000, guid: af867761369aa3644a0293106e06a3f3, type: 2}
   - _minDistance: 50000
     _activities:
     - weightCurve:
