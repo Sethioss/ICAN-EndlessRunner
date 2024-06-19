@@ -144,32 +144,6 @@ public class OnSplineMovementController : MonoBehaviour
         RotatePlayerBasedOnVelocity(_Airborne);
     }
 
-    private void Update()
-    {
-        if (_Airborne)
-        {
-            CheckForLanding();
-        }
-        else
-        {
-            //if(_tempPostLandingDecelerationTransitionTime > 0)
-            //{
-            //    _tempPostLandingDecelerationTransitionTime -= Time.deltaTime;
-            //    deceleration = Mathf.Lerp(tempDeceleration, _landingDeceleration, (float)_tempPostLandingDecelerationTransitionTime / (float)_postLandingDecelerationTransitionTime);
-            //}
-            if (_tempCooldownAfterGroundCheck > 0)
-            {
-                _tempCooldownAfterGroundCheck -= Time.deltaTime;
-            }
-            else
-            {
-                _CanAirAgain = true;
-            }
-            UpdateMove();
-        }
-        RotatePlayerBasedOnVelocity(_Airborne);
-    }
-
     #region Misc
     public float GetNormalisedXDirection(float FingerXPos)
     {
@@ -273,112 +247,6 @@ public class OnSplineMovementController : MonoBehaviour
     }
     #endregion
 
-    #region Side Jump
-    private void HandleJumpingLogic()
-    {
-        if (_SideJumpEnabled)
-        {
-            // > 0.17f = left; < 0.833f = right
-            if (_positionOnSpline > LeftJumpPoint && _positionOnSpline < RightJumpPoint)
-            {
-                if (_CanAirAgain)
-                {
-                    _splinePositionToGoBackTo = _positionOnSpline < 0.5f ? LeftJumpPoint - 0.004f : RightJumpPoint + 0.004f;
-                    _pointPositionBeforeLaunch = _spline.EvaluatePosition(_positionOnSpline);
-                    SwapPhysicsToRB();
-                }
-
-            }
-        }
-    }
-
-    private void CheckForLanding()
-    {
-        if (!TimeInAirSet)
-        {
-            _AirJumpPhysicsDelay += Time.deltaTime;
-
-            //Debug.Log("Velocity: " + _rb.velocity.y);
-            if (_rb.velocity.y != 0)
-            {
-                //Debug.Log("<color=00FFFF>_AirJumpPhysicsDelay: </color>" + _AirJumpPhysicsDelay);
-                float AirTime = Mathf.Max(0, ((2 * _rb.velocity.y) / Physics.gravity.magnitude) - _AirJumpPhysicsDelay);
-                //Debug.Log($"Time player will spend in air: {Mathf.Max(0, AirTime - _AirJumpPhysicsDelay)}");
-                _AirJumpPhysicsDelay = 0;
-                TimeInAirSet = true;
-                estimatedAirTime = AirTime;
-                tempTimeInAir = estimatedAirTime;
-            }
-        }
-        else
-        {
-            //Debug.Log($"tempTimeInAir: {Mathf.Max(0, tempTimeInAir)}");
-
-            if (tempTimeInAir < 0)
-            {
-                tempTimeInAir = 0.0f;
-                TimeInAirSet = false;
-                ResumePositionOnSpline();
-            }
-            else
-            {
-                tempTimeInAir -= Time.deltaTime;
-                _TimeInAirRatio = Mathf.Clamp(1 - (tempTimeInAir / estimatedAirTime), 0.0f, 1.0f);
-                //Debug.Log($"{_TimeInAirRatio}");
-            }
-        }
-    }
-
-    public void SwapPhysicsToRB()
-    {
-        float _JumpForce = Mathf.Min((Mathf.Abs(_velocity) * -1) * (_sideJumpImpulseForce * -1), _sideJumpMaxHeight);
-
-        _Airborne = true;
-        //Debug.Log($"<color=#00FF00>Begin Airborne</color>");
-        _rb.useGravity = true;
-        _rb.isKinematic = false;
-        _rb.AddForce(new Vector3(0.0f, _JumpForce, 0.0f), ForceMode.Impulse);
-    }
-
-    public void ResumePositionOnSpline()
-    {
-        _Airborne = false;
-        _CanAirAgain = false;
-        float _landingVelocity = _rb.velocity.y * (_LandingVelocityBoostMultiplier - 1);
-        //Debug.Log($"<color=#00FF00>End Airborne</color>");
-        _tempCooldownAfterGroundCheck = _cooldownAfterGroundCheck;
-
-        _tempPostLandingDecelerationTransitionTime = _postLandingDecelerationTransitionTime;
-
-        _velocity = _landingVelocity * GetPositionSideBasedOnSplineValue(_positionOnSpline);
-        deceleration = _landingDeceleration;
-
-        _rb.useGravity = false;
-        _rb.isKinematic = true;
-
-        SetSplinePositionOffset(_splinePositionToGoBackTo);
-        _playerObject.transform.position = _spline.EvaluatePosition(_splinePositionToGoBackTo);
-        _playerObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, _spline.EvaluateUpVector(_splinePositionToGoBackTo));
-    }
-    #endregion
-
-    #region Rotation
-    private void RotatePlayerBasedOnVelocity(bool isAirborne)
-    {
-        Transform playerMeshTransform = _playerObject.GetComponent<Player>().PlayerMesh.gameObject.transform;
-        if (isAirborne)
-        {
-            float zRotation = ((_rb.velocity.y * _AngularRotationMultiplierOnAir) * GetPositionSideBasedOnSplineValue(_positionOnSpline));
-            playerMeshTransform.localRotation = Quaternion.Euler(-90.0f, 0, Mathf.Clamp(zRotation, -70f, 70f));
-        }
-        else
-        {
-            float zRotation = _velocity * _AngularRotationMultiplier;
-            playerMeshTransform.localRotation = Quaternion.Euler(-90.0f, 0, Mathf.Clamp(zRotation, -70f, 70f));
-        }
-    }
-    #endregion
-
     #region Movement
 
     private void UpdateMove()
@@ -426,8 +294,6 @@ public class OnSplineMovementController : MonoBehaviour
     }
     public void UpdateXDirection(float XDirection)
     {
-    }
-
         if (_lastDir == 0)
         {
             _direction = XDirection;
@@ -445,9 +311,6 @@ public class OnSplineMovementController : MonoBehaviour
     public void SetSplinePositionOffset(float value)
     {
         _positionOnSpline = value;
-    public void SetSplinePositionOffset(float value)
-    {
-        _positionOnSpline = value;
     }
     public void AddSplinePositionOffset(float value)
     {
@@ -457,7 +320,7 @@ public class OnSplineMovementController : MonoBehaviour
         float[] Positions = _splineManager.GetCurrentBoundsPositions();
         bool ValidPosition = false;
 
-        if (!(Mathf.Abs(Positions[0] - Positions[1]) == 1.0f) || (Mathf.Abs(Positions[0] - Positions[1]) == 0.0f))
+        if (!(Mathf.Abs(Positions[0] - Positions[1]) >= 0.98f) || (Mathf.Abs(Positions[0] - Positions[1]) == 0.0f))
         {
             bool SplinePassesByOrigin = _splineManager.CurrentBoundPassesByOrigin(_splineManager.CurrentBounds);
             if (SplinePassesByOrigin)
