@@ -1,5 +1,6 @@
 using FMOD.Studio;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ActivitiesSequenceGenerator : MonoBehaviour
@@ -8,7 +9,6 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
 
     [SerializeField] private int NumberOfActivitiesSpawnedOnStart = 5;
 
-    [Header("New activity system")]
     //New activity system
     [SerializeField] private LevelSystemsHolder _levelSystemsHolder;
     [SerializeField] private ActivityGeometry LeadingActivityGeometry;
@@ -16,8 +16,13 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
 
     private List<ActivityData> PossibleActivities = new List<ActivityData>();
     private List<SOActivity> IncomingActivities = new List<SOActivity>();
-    [HideInInspector] public List<GameObject> InstantiatedActivities = new List<GameObject>();
+    public List<SOActivity> SelectedActivities = new List<SOActivity>();
+    /*[HideInInspector]*/
+    public List<GameObject> InstantiatedActivities = new List<GameObject>();
+
+    [SerializeField] private List<RepetitionObstacleConstraint> RepetitionConstraints;
     [SerializeField] private List<ActivityGenerationPool> GenerationPools = new List<ActivityGenerationPool>();
+    [SerializeField] private List<InsertionObstacleProcessor> InsertionProcessors = new List<InsertionObstacleProcessor>();
 
     int CurrentPool = 0;
     int NextPoolMinDistance = 0;
@@ -26,8 +31,6 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //StartSpawningObstacles();
-
         ReachedLastPool = GetReachedLastPool();
         if (!ReachedLastPool)
         {
@@ -39,6 +42,9 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
         LeadingActivityObject = Instantiate(LeadingActivityGeometry.gameObject, FirstTileLocation.position, Quaternion.identity);
         InstantiatedActivities.Insert(0, LeadingActivityObject.gameObject);
         LeadingActivityGeometry = LeadingActivityObject.GetComponent<ActivityGeometry>();
+
+        //Apply processing
+        ApplyInsertionProcessing();
 
         SpawnActivitiesGeometry();
     }
@@ -62,6 +68,10 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
         {
             CurrentPool = GetCurrentPool();
         }
+        else
+        {
+            CurrentPool = 0;
+        }
 
         ActivityGenerationPool CurrentGenPool = GenerationPools[CurrentPool];
 
@@ -76,12 +86,34 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
 
         for (int i = 0; i < NumberOfActivitiesSpawnedOnStart; ++i)
         {
-            IncomingActivities.Add(SelectActivity(CurrentGenPool).activitySO);
+            ActivityData rdActivity = SelectActivity(CurrentGenPool);
+            rdActivity.SetCooldown();
+
+            IncomingActivities.Add(rdActivity.activitySO);
+
+            foreach (var activity in PossibleActivities)
+            {
+                activity.DecreaseCooldown();
+            }
         }
     }
 
+    private List<float> drawnNumbers = new List<float>();
+    //private void Update()
+    //{
+    //    if(Input.GetKeyDown(KeyCode.Space)) 
+    //    {
+    //        float sum = drawnNumbers.Sum();
+    //        sum/=drawnNumbers.Count;
+    //        Debug.Log($"Moyenne des tirs {sum}");
+    //    }
+    //}
+
     public ActivityData SelectActivity(ActivityGenerationPool CurrentGenPool)
     {
+        //Apply constraints
+        ApplyRepetitionConstraints();
+
         PossibleActivities = CurrentGenPool._activities;
 
         float RandomNumber = Random.Range(0.0f, 1.0f);
@@ -89,15 +121,26 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
         float PlayerPosInPool = _levelSystemsHolder.levelScroller.DistanceTraveled - CurrentGenPool._minDistance;
         float CurrentPoolRatio = Mathf.Clamp(PlayerPosInPool / PoolLength, 0.0f, 1.0f);
 
-        for (int j = 0; j < CurrentGenPool._activities.Count; ++j)
+
+
+        float TotalWeight = PossibleActivities.Sum(x => x.GetFinalWeightAt(CurrentPoolRatio));
+        float sum = TotalWeight;
+        float rdValue = Random.value;
+        float rd = rdValue * TotalWeight;
+        //Debug.Log($"Random value : {rd} over {TotalWeight}");
+        drawnNumbers.Add(rdValue);
+
+        for (int j = 0; j < CurrentGenPool._activities.Count; j++)
         {
-            float NumToSubtract = PossibleActivities[j].GetFinalWeightFromCurve(CurrentPoolRatio);
-            RandomNumber -= NumToSubtract;
-            if (RandomNumber <= 0)
+            float weight = PossibleActivities[j].GetFinalWeightAt(CurrentPoolRatio);
+            if (rd < weight)
             {
+                //Debug.Log($"Ratio {CurrentPoolRatio} & rd : {rd} & weight at {weight} (itar : {j}) & sum {TotalWeight}");
                 return PossibleActivities[j];
             }
+            rd -= weight;
         }
+
         //RandomNumber never reached below 0, undefined behaviour
         //TODO: Make it so it's impossible to have a gen pool be null
         return PossibleActivities[PossibleActivities.Count - 1];
@@ -109,6 +152,33 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
         {
             InstantiatedActivities.Insert(0, Instantiate(IncomingActivities[i]._Geometry.gameObject, LeadingActivityObject.GetComponent<ActivityGeometry>()._tail.gameObject.transform.position, LeadingActivityObject.GetComponent<ActivityGeometry>()._tail.gameObject.transform.rotation).gameObject);
             LeadingActivityObject = InstantiatedActivities[0];
+        }
+    }
+
+    public void ApplyInsertionProcessing()
+    {
+        foreach (InsertionObstacleProcessor Processor in InsertionProcessors)
+        {
+            IncomingActivities = Processor.Process(IncomingActivities);
+        }
+    }
+
+    public void ApplyInsertionProcessingSingle(SOActivity Activity)
+    {
+        foreach (InsertionObstacleProcessor Processor in InsertionProcessors)
+        {
+            //Activity = Processor.ProcessSingle(Activity, InstantiatedActivities);
+        }
+    }
+
+    public void ApplyRepetitionConstraints()
+    {
+        foreach (RepetitionObstacleConstraint Constraint in RepetitionConstraints)
+        {
+            if (Constraint.DoesConstraintApply(GenerationPools[CurrentPool]._activities))
+            {
+                GenerationPools[CurrentPool]._activities.First(x => x.activitySO == Constraint._ActivitySO).SetCooldown(Constraint._ForcedCooldown);
+            }
         }
     }
 
@@ -131,13 +201,15 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
     {
         ActivityData NewActivity = SelectActivity(GetActivityGenerationPoolAt(CurrentPool));
 
+        ApplyInsertionProcessingSingle(NewActivity.activitySO);
+
         InstantiatedActivities.RemoveAt(InstantiatedActivities.Count - 1);
         LeadingActivityGeometry = InstantiatedActivities[0].GetComponent<ActivityGeometry>();
         InstantiatedActivities.Insert(0, Instantiate(NewActivity.activitySO._Geometry.gameObject, LeadingActivityGeometry._tail.gameObject.transform.position, Quaternion.identity));
 
         Destroy(RemovedGO);
 
-        if(GetCurrentPool() != CurrentPool)
+        if (GetCurrentPool() != CurrentPool)
         {
             MakeNewIncomingActivitiesList();
         }

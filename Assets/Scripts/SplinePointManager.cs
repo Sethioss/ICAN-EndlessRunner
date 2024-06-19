@@ -102,9 +102,7 @@ public class SplinePointManager : MonoBehaviour
                     {
                         foreach (SplinePoint point in pointInfos[i].Positions)
                         {
-                            
-                            Random.InitState(((int)point.PositionPointType));
-                            Gizmos.color = new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
+                            Gizmos.color = Color.red;
                             Gizmos.DrawSphere(PlayerSpline.EvaluatePosition(Mathf.Repeat(point.Position + GetComponent<SplineManager>().PlayerSpline.Origin, 1.0f)), 0.4f);
                         }
                     }
