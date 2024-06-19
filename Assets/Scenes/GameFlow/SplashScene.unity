@@ -309,7 +309,7 @@ MonoBehaviour:
       m_Calls: []
   LoadActions:
   - SceneLoadingActionType: 1
-    SceneToLoad: StartScene
+    SceneToLoad: PersistentScene
     LoadSceneOnStart: 1
     ChangeActiveSceneOnLoad: 1
     onSceneChanged:

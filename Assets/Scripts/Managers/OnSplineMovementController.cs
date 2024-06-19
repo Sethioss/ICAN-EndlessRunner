@@ -15,6 +15,7 @@ public enum PlayerMoveState
 
 public class OnSplineMovementController : MonoBehaviour
 {
+    [SerializeField][Range(0, 1)] private float _startPosition;
     [SerializeField] private GameObject _playerObject;
     //[SerializeField] private PlayerMoveState _playerMoveState;
     private Rigidbody _rb;
@@ -22,12 +23,15 @@ public class OnSplineMovementController : MonoBehaviour
     [SerializeField] private SplineManager _splineManager;
     private SplineContainer _spline;
 
-    //Whether the loop is closed (Loops the player's position on spline between 0 and 1) or not
-    [SerializeField] private bool _loopsBack;
+#if UNITY_EDITOR
+    [Header("Visualisation")]
+    [SerializeField] bool _previewPlayerStartPos = false;
+#endif
 
-    private float _velocity = 0;
     [Header("Controls - Higher values = More drag")]
+    [SerializeField] private float _velocity = 0;
     [SerializeField] private float _maxSpeed;
+    [SerializeField] private float _minSpeed;
     [Tooltip("Acceleration on Start")]
     [SerializeField] private float normalAccel;
     [Tooltip("Deceleration in Direction change")]
@@ -37,11 +41,15 @@ public class OnSplineMovementController : MonoBehaviour
     [SerializeField] private AnimationCurve accelCurve;
     [SerializeField] private AnimationCurve decelCurve;
 
-    [SerializeField] private float t;
+    private float _movementLerpValue;
+
+    [Header("Ratios - Used for animation")]
+    [SerializeField] [Range(-1, 1)] private float _OnGroundVelocityRatio;
 
 
     private Camera _mainCam;
     private float _direction = 0;
+    private float _lastDir = 0;
 
     private float _positionOnSpline = 0;
 
@@ -68,7 +76,7 @@ public class OnSplineMovementController : MonoBehaviour
 
         _rb = _playerObject.GetComponent<Rigidbody>();
 
-        _positionOnSpline = _splineManager.PlayerSpline.Origin;
+        _positionOnSpline = _startPosition;
         _playerObject.transform.position = _spline.EvaluatePosition(_positionOnSpline);
     }
 
@@ -85,8 +93,6 @@ public class OnSplineMovementController : MonoBehaviour
     private void Update()
     {
         UpdateMove();
-        Debug.Log("Accel" + accelCurve.Evaluate(t));
-        Debug.Log("Decel" + decelCurve.Evaluate(t));
     }
 
     private void UpdateMove()
@@ -96,16 +102,25 @@ public class OnSplineMovementController : MonoBehaviour
         {
             accel = changeSideDeceleration;
         }
-        _velocity = Mathf.Clamp(_velocity + _direction * Time.deltaTime* accelCurve.Evaluate(t) , -_maxSpeed, _maxSpeed);
-        t += Time.deltaTime;
+
+        _velocity = Mathf.Clamp(_velocity + _direction * Time.deltaTime * accelCurve.Evaluate(_movementLerpValue) , -_maxSpeed, _maxSpeed);
+        _movementLerpValue += Time.deltaTime;
 
         if (_direction == 0f)
         {
             if (_velocity > 0.001f || _velocity < -0.001f)
             {
                 accel = deceleration;
-                _velocity = Mathf.Clamp(_velocity + decelCurve.Evaluate(t) * -(Mathf.Sign(_velocity)) * Time.deltaTime, -_maxSpeed, _maxSpeed);
-                t += Time.deltaTime;
+                float _calculatedVelocity = _velocity + decelCurve.Evaluate(_movementLerpValue) * -(Mathf.Sign(_velocity)) * Time.deltaTime;
+                _velocity = Mathf.Clamp(_calculatedVelocity, -_maxSpeed, _maxSpeed);
+
+                //Never fully stop after having pressed a direction at least once
+                if(_velocity <= _minSpeed && _velocity >= -_minSpeed && _velocity != 0.0f)
+                {
+                    float _negativeVelocity = _velocity >= 0.0f ? 1 : -1;
+                    _velocity = _minSpeed * _negativeVelocity;
+                }
+                _movementLerpValue += Time.deltaTime;
             }
             else
             {
@@ -113,34 +128,61 @@ public class OnSplineMovementController : MonoBehaviour
                     _velocity = 0;
                 }
             }
-
         }
 
-
+        _OnGroundVelocityRatio = (_velocity / _maxSpeed);
         AddSplinePositionOffset(_velocity);
 
         //Set player on corresponding spline position
         _playerObject.transform.position = _spline.EvaluatePosition(_positionOnSpline);
         _playerObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, _spline.EvaluateUpVector(_positionOnSpline));
-
     }
     public void UpdateXDirection(float XDirection)
     {
-        _direction = XDirection;
+        if(_lastDir == 0)
+        {
+            _direction = XDirection;
+        }
+        else
+        {
+            if (_lastDir == XDirection)
+            {
+                _direction = XDirection;
+            }
+        }
+        _lastDir = _direction;
     }
     public void AddSplinePositionOffset(float value)
     {
         //Spline is reversed
-        _positionOnSpline -= value;
+        float _finalPosOnSpline = _positionOnSpline - value;
 
-        if (_loopsBack)
+        float[] Positions = _splineManager.GetCurrentBoundsPositions();
+        bool ValidPosition = false;
+
+        if (!(Mathf.Abs(Positions[0] - Positions[1]) == 1.0f) || (Mathf.Abs(Positions[0] - Positions[1]) == 0.0f))
         {
-            _positionOnSpline = Mathf.Repeat(_positionOnSpline, 1.0f);
+            if (_splineManager.CurrentBoundPassesByOrigin(_splineManager.CurrentBounds))
+            {
+                ValidPosition = _finalPosOnSpline >= Positions[0] || _finalPosOnSpline <= Positions[1];
+            }
+            else
+            {
+                ValidPosition = _finalPosOnSpline >= Positions[0] && _finalPosOnSpline <= Positions[1];
+            }
+
+            if(ValidPosition )
+            {
+                _positionOnSpline = Mathf.Repeat(_finalPosOnSpline, 1.0f);
+            }
+            else
+            {
+                _velocity = 0;
+            }
         }
         else
         {
-            _positionOnSpline = Mathf.Clamp(_positionOnSpline, 0.0f, 1.0f);
-
+            _positionOnSpline = Mathf.Repeat(_finalPosOnSpline, 1.0f);
         }
 
     }
@@ -167,7 +209,7 @@ public class OnSplineMovementController : MonoBehaviour
     public void HandleFingerUp(LeanFinger finger)
     {
         StopAcceleration();
-        t = 0;
+        _movementLerpValue = 0;
     }
 
     public void UpdateFinger(LeanFinger finger)
@@ -200,8 +242,17 @@ public class OnSplineMovementController : MonoBehaviour
                 _ParticleRight.Play();
             }
         }
-        t=0;
-
-        //_PlayerOnSplineController.StartAccelerating(GetNormalisedXDirection(finger.ScreenPosition.x));
+        _movementLerpValue = 0;
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        if(_previewPlayerStartPos)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawCube(_splineManager.GetComponent<SplinePointManager>().PlayerSpline.EvaluatePosition(_startPosition), new Vector3(0.8f, 0.8f, 0.8f));
+        }
+    }
+#endif
 }

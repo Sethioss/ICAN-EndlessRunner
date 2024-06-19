@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,16 +5,11 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
 
-    [SerializeField] SplineManager splineManager;
-    [SerializeField] ObstacleManager obstacleManager;
-    [SerializeField] OnSplineMovementController onSplineMovementController;
-    [SerializeField] LevelScroller levelScroller;
-
-    [SerializeField] UnityEvent onGameSceneLoaded;
+    [SerializeField] UnityEvent _onGameSceneLoaded;
 
     public void Awake()
     {
-        if(_instance == null)
+        if (_instance == null)
         {
             _instance = this;
             DontDestroyOnLoad(this.gameObject);
@@ -31,5 +24,4 @@ public class GameManager : MonoBehaviour
     {
         return _instance;
     }
-
 }
