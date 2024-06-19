@@ -107,7 +107,7 @@ MonoBehaviour:
   - {fileID: 4935956321117047098}
   StringsBanks:
   - {fileID: 2131308020845085774}
-  cacheTime: 638491341870000000
+  cacheTime: 638491377870000000
   cacheVersion: 131617
 --- !u!114 &2131308020845085774
 MonoBehaviour:
@@ -124,7 +124,7 @@ MonoBehaviour:
   Path: ../../EndlessRunner/FMODSOUND/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638491341870000000
+  lastModified: 638491377870000000
   FileSizes:
   - Name: Desktop
     Value: 972
@@ -171,7 +171,7 @@ MonoBehaviour:
   Path: ../../EndlessRunner/FMODSOUND/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638491341870000000
+  lastModified: 638491377870000000
   FileSizes:
   - Name: Desktop
     Value: 2943552
