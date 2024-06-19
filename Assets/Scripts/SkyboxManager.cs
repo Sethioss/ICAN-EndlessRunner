@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SkyboxManager : MonoBehaviour
 {
-    public Material skyBoxMaterial;
+    private Material skyBoxMaterial;
     public float b = 1;
     public float s = 0.010f;
     public int var = 1;
