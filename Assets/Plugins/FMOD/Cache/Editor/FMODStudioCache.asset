@@ -15,38 +15,11 @@ MonoBehaviour:
   Path: FMOD/FMODSOUND/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638544934047658297
+  lastModified: 638544983812959608
   FileSizes:
   - Name: Desktop
-    Value: 8780352
+    Value: 6344992
   Exists: 1
---- !u!114 &-6601878036750891209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Musics/MUSIQUE-TILAK
-  m_EditorClassIdentifier: 
-  Path: event:/Musics/MUSIQUE-TILAK
-  Guid:
-    Data1: 125197010
-    Data2: 1115663974
-    Data3: -1143291457
-    Data4: 61001888
-  Banks:
-  - {fileID: -7248849312909641185}
-  IsStream: 1
-  Is3D: 1
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 470000
 --- !u!114 &-6406903823527771057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,6 +74,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2442
+--- !u!114 &-3378902726265033075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Musics/MUSIQUE-TILAKV2
+  m_EditorClassIdentifier: 
+  Path: event:/Musics/MUSIQUE-TILAKV2
+  Guid:
+    Data1: -1010192421
+    Data2: 1226079960
+    Data3: 650273934
+    Data4: -319045556
+  Banks:
+  - {fileID: -7248849312909641185}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 7555575707420345820}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 264100
 --- !u!114 &-566615066666930269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,10 +117,10 @@ MonoBehaviour:
   Path: FMOD/FMODSOUND/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638544934047678653
+  lastModified: 638544983812989717
   FileSizes:
   - Name: Desktop
-    Value: 1226
+    Value: 1240
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -141,19 +142,18 @@ MonoBehaviour:
   - {fileID: 3597006732200485491}
   - {fileID: 7849262161404573896}
   - {fileID: -6406903823527771057}
-  - {fileID: 4679660902097837641}
   - {fileID: 8165554412576673289}
   - {fileID: -3881375207021103342}
   - {fileID: 1427777932591132883}
   - {fileID: 2284170822931721475}
-  - {fileID: -6601878036750891209}
   - {fileID: 6121077315380835318}
+  - {fileID: -3378902726265033075}
   EditorParameters: []
   MasterBanks:
   - {fileID: -7248849312909641185}
   StringsBanks:
   - {fileID: -566615066666930269}
-  cacheTime: 638544934047678653
+  cacheTime: 638544983812989717
   cacheVersion: 131617
 --- !u!114 &628165161435434278
 MonoBehaviour:
@@ -263,33 +263,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 91995
---- !u!114 &4679660902097837641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player/SOUND-HitPlayer
-  m_EditorClassIdentifier: 
-  Path: event:/Player/SOUND-HitPlayer
-  Guid:
-    Data1: -131695537
-    Data2: 1172196837
-    Data3: -1399380583
-    Data4: -1613243541
-  Banks:
-  - {fileID: -7248849312909641185}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 850
 --- !u!114 &6121077315380835318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,6 +290,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1066
+--- !u!114 &7555575707420345820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/MUSIQUE-TILAKV2/Parameter 1
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1742896371
+    data2: 3342531535
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &7849262161404573896
 MonoBehaviour:
   m_ObjectHideFlags: 0

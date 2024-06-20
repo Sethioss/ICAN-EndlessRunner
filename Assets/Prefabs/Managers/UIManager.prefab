@@ -606,7 +606,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3664983457344311943
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1278,10 +1278,10 @@ RectTransform:
   - {fileID: 8516480461763645877}
   m_Father: {fileID: 4694061160727432735}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 718, y: -100}
+  m_SizeDelta: {x: 1436, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8895626817989497632
 CanvasRenderer:
@@ -1503,7 +1503,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6324801050091386131
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1598,6 +1598,8 @@ GameObject:
   - component: {fileID: 1287030167783169688}
   - component: {fileID: 897172639161529509}
   - component: {fileID: 8744568074695637624}
+  - component: {fileID: 288736263738816919}
+  - component: {fileID: 8793665171176651374}
   m_Layer: 5
   m_Name: btn_resume
   m_TagString: Untagged
@@ -1620,10 +1622,10 @@ RectTransform:
   - {fileID: 2124320146078107527}
   m_Father: {fileID: 452685521171673372}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 125, y: -100}
-  m_SizeDelta: {x: 250, y: 200}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1287030167783169688
 CanvasRenderer:
@@ -1719,6 +1721,68 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &288736263738816919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7035655947308382847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1010192421
+      Data2: 1226079960
+      Data3: 650273934
+      Data4: -319045556
+    Path: event:/Musics/MUSIQUE-TILAKV2
+  Event: 
+  PlayEvent: 0
+  StopEvent: 17
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &8793665171176651374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7035655947308382847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -336205302
+      Data2: 1126766415
+      Data3: -1972613968
+      Data4: 1062422215
+    Path: event:/Player/SOUND-Glisse
+  Event: 
+  PlayEvent: 0
+  StopEvent: 17
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &7740862042596575228
 GameObject:
   m_ObjectHideFlags: 0
