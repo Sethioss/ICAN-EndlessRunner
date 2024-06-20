@@ -25,10 +25,6 @@ public class OnSplineMovementController : MonoBehaviour
     [SerializeField] private float _sideJumpMaxHeight = 3.0f;
     [HideInInspector] public bool _Airborne = false;
 
-    private List<float> JumpPointsPosition = new List<float>();
-    private float LeftJumpPoint = 0.25f;
-    private float RightJumpPoint = 0.75f;
-
     [Range(0.9985f, 1.0030f)]
     [SerializeField] private float _LandingVelocityBoostMultiplier = 1.0015f;
     [SerializeField] private float _LandingMaxVelocity = 0.15f;

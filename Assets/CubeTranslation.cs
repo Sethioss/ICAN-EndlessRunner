@@ -2,22 +2,23 @@ using UnityEngine;
 
 public class CubeTranslation : MonoBehaviour
 {
-    public float speed = 1.0f; // Vitesse de translation
+    public float speed = 5.0f; // Vitesse de translation
     public float distance = 5.0f; // Distance de translation
     public bool returnToOrigin = true; // Si le cube doit revenir à son origine après la translation
     public bool startAtDestination = false; // Si le cube commence à son point d'arrivée ou son origine
 
-    private Vector3 startPosition;
-    private Vector3 destinationPosition;
+    private float startPosition;
+    private float destinationPosition;
     private bool isMovingForward = true;
 
-    void Start()
+    void OnEnable()
     {
-        startPosition = transform.position;
-        destinationPosition = startPosition + transform.up * distance; // Translation selon l'axe Y local du cube
+        startPosition = transform.position.x;
+        destinationPosition = startPosition + distance; // Translation selon l'axe Y local du cube
         if (startAtDestination)
         {
-            transform.position = destinationPosition;
+            transform.position=new Vector3(destinationPosition,transform.position.y,transform.position.z);
+            //destinationPosition=transform.position.x;
             isMovingForward = false;
         }
     }
@@ -26,8 +27,8 @@ public class CubeTranslation : MonoBehaviour
     {
         if (isMovingForward)
         {
-            transform.position = Vector3.MoveTowards(transform.position, destinationPosition, speed * Time.deltaTime);
-            if (transform.position == destinationPosition)
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(destinationPosition,transform.position.y,transform.position.z), speed * Time.deltaTime);
+            if (transform.position.x >= destinationPosition)
             {
                 if (returnToOrigin)
                 {
@@ -41,8 +42,8 @@ public class CubeTranslation : MonoBehaviour
         }
         else
         {
-            transform.position = Vector3.MoveTowards(transform.position, startPosition, speed * Time.deltaTime);
-            if (transform.position == startPosition)
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(startPosition, transform.position.y, transform.position.z), speed * Time.deltaTime);
+            if (transform.position.x <= startPosition)
             {
                 isMovingForward = true;
             }
