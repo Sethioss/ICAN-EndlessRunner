@@ -26,6 +26,9 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
 
     int CurrentPool = 0;
     int NextPoolMinDistance = 0;
+    int AccumulatedDistance = 0;
+
+    int NextPoolStart = 0;
     bool ReachedLastPool = false;
 
     // Start is called before the first frame update
@@ -34,8 +37,10 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
         ReachedLastPool = GetReachedLastPool();
         if (!ReachedLastPool)
         {
-            NextPoolMinDistance = GenerationPools[CurrentPool + 1]._minDistance;
+            NextPoolStart = NextPoolStart + GenerationPools[CurrentPool]._poolLength;
         }
+
+        TestProbabilities(100);
 
         MakeNewIncomingActivitiesList();
 
@@ -47,6 +52,44 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
         ApplyInsertionProcessing();
 
         SpawnActivitiesGeometry();
+    }
+
+    private void TestProbabilities(int numberOfTests)
+    {
+        ActivityGenerationPool CurrentGenerationPool = GenerationPools[CurrentPool];
+        PossibleActivities = CurrentGenerationPool._activities;
+        int[] tests = new int[CurrentGenerationPool._activities.Count];
+
+        for (int i = 0; i < numberOfTests; ++i)
+        {
+            ApplyRepetitionConstraints();
+
+            float RandomNumber = Random.Range(0.0f, 1.0f);
+
+            float CurrentPoolRatio = Mathf.InverseLerp(0, numberOfTests, i);
+
+            float TotalWeight = PossibleActivities.Sum(x => x.GetFinalWeightAt(CurrentPoolRatio));
+            float sum = TotalWeight;
+            float rdValue = Random.value;
+            float rd = rdValue * TotalWeight;
+
+            for (int j = 0; j < CurrentGenerationPool._activities.Count; j++)
+            {
+                float weight = PossibleActivities[j].GetFinalWeightAt(CurrentPoolRatio);
+                if (rd < weight)
+                {
+                    tests[j] += 1;
+                    continue;
+                }
+                rd -= weight;
+            }
+        }
+
+        for(int j = 0; j < tests.Length; ++j)
+        {
+            Debug.Log($"Number of spawned activities {j} : {tests[j]}");
+        }
+        Debug.Log($"Average: {tests.Sum(x => x) / tests.Length}");
     }
 
     private ActivityGenerationPool GetActivityGenerationPoolAt(int index)
@@ -63,26 +106,8 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
     {
         IncomingActivities.Clear();
 
-        ReachedLastPool = GetReachedLastPool();
-        if (!ReachedLastPool)
-        {
-            CurrentPool = GetCurrentPool();
-        }
-        else
-        {
-            CurrentPool = 0;
-        }
-
         ActivityGenerationPool CurrentGenPool = GenerationPools[CurrentPool];
-
         PossibleActivities = CurrentGenPool._activities;
-
-        float RandomNumber = Random.Range(0.0f, 1.0f);
-        float PoolLength = ReachedLastPool ? (NextPoolMinDistance - CurrentGenPool._minDistance) + 999.0f :
-            NextPoolMinDistance - CurrentGenPool._minDistance;
-
-        float PlayerPosInPool = _levelSystemsHolder.levelScroller.DistanceTraveled - CurrentGenPool._minDistance;
-        float CurrentPoolRatio = PlayerPosInPool / PoolLength;
 
         for (int i = 0; i < NumberOfActivitiesSpawnedOnStart; ++i)
         {
@@ -98,17 +123,6 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
         }
     }
 
-    private List<float> drawnNumbers = new List<float>();
-    //private void Update()
-    //{
-    //    if(Input.GetKeyDown(KeyCode.Space)) 
-    //    {
-    //        float sum = drawnNumbers.Sum();
-    //        sum/=drawnNumbers.Count;
-    //        Debug.Log($"Moyenne des tirs {sum}");
-    //    }
-    //}
-
     public ActivityData SelectActivity(ActivityGenerationPool CurrentGenPool)
     {
         //Apply constraints
@@ -117,25 +131,19 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
         PossibleActivities = CurrentGenPool._activities;
 
         float RandomNumber = Random.Range(0.0f, 1.0f);
-        float PoolLength = NextPoolMinDistance - CurrentGenPool._minDistance;
-        float PlayerPosInPool = _levelSystemsHolder.levelScroller.DistanceTraveled - CurrentGenPool._minDistance;
-        float CurrentPoolRatio = Mathf.Clamp(PlayerPosInPool / PoolLength, 0.0f, 1.0f);
 
-
+        float CurrentPoolRatio = Mathf.InverseLerp(AccumulatedDistance, NextPoolStart, _levelSystemsHolder.levelScroller.DistanceTraveled);
 
         float TotalWeight = PossibleActivities.Sum(x => x.GetFinalWeightAt(CurrentPoolRatio));
         float sum = TotalWeight;
         float rdValue = Random.value;
         float rd = rdValue * TotalWeight;
-        //Debug.Log($"Random value : {rd} over {TotalWeight}");
-        drawnNumbers.Add(rdValue);
 
         for (int j = 0; j < CurrentGenPool._activities.Count; j++)
         {
             float weight = PossibleActivities[j].GetFinalWeightAt(CurrentPoolRatio);
             if (rd < weight)
             {
-                //Debug.Log($"Ratio {CurrentPoolRatio} & rd : {rd} & weight at {weight} (itar : {j}) & sum {TotalWeight}");
                 return PossibleActivities[j];
             }
             rd -= weight;
@@ -185,20 +193,47 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
     public int GetCurrentPool()
     {
         float distance = _levelSystemsHolder.levelScroller.DistanceTraveled;
-        if (distance >= NextPoolMinDistance)
+
+        if (distance >= NextPoolStart)
         {
             if (CurrentPool + 1 < GenerationPools.Count)
             {
-                NextPoolMinDistance = GenerationPools[CurrentPool + 1]._minDistance;
                 return CurrentPool + 1;
             }
+            else
+            {
+                return 0;
+            }
         }
+
         return CurrentPool;
 
     }
 
+    public void GoToNextPool()
+    {
+        AccumulatedDistance += GenerationPools[CurrentPool]._poolLength;
+
+        if (!GetReachedLastPool())
+        {
+            CurrentPool += 1;
+        }
+        else
+        {
+            CurrentPool = 0;
+        }
+
+        NextPoolStart += GenerationPools[CurrentPool]._poolLength;
+    }
+
     public void CreateNewActivity(GameObject RemovedGO)
     {
+        if (GetCurrentPool() != CurrentPool)
+        {
+            GoToNextPool();
+            //MakeNewIncomingActivitiesList();
+        }
+
         ActivityData NewActivity = SelectActivity(GetActivityGenerationPoolAt(CurrentPool));
 
         ApplyInsertionProcessingSingle(NewActivity.activitySO);
@@ -209,9 +244,5 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
 
         Destroy(RemovedGO);
 
-        if (GetCurrentPool() != CurrentPool)
-        {
-            MakeNewIncomingActivitiesList();
-        }
     }
 }

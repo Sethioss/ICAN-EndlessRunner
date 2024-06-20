@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589245, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -760,7 +760,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScrollSpeed: 25
   DistanceTraveled: 0
-  OnDamageTargetScroll: 2
+  OnDamageTargetScroll: 25
   ScrollResumeTime: 0.8
   ScrollResumeCurve:
     serializedVersion: 2
@@ -1419,6 +1419,7 @@ MonoBehaviour:
   RepetitionConstraints: []
   GenerationPools:
   - _minDistance: 0
+    _poolLength: 200
     _activities:
     - weightCurve:
         serializedVersion: 2
@@ -1483,26 +1484,63 @@ MonoBehaviour:
       activitySO: {fileID: 11400000, guid: d4d71adb0561aae47b835384a12eab5f, type: 2}
       Weight: 1
       CooldownDuration: 0
-  - _minDistance: 1000
+  - _minDistance: 0
+    _poolLength: 500
     _activities:
     - weightCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0
-          inSlope: 1
-          outSlope: 1
+          value: 1
+          inSlope: -0.021241948
+          outSlope: -0.021241948
           tangentMode: 34
           weightedMode: 0
           inWeight: 0
           outWeight: 0.33333334
         - serializedVersion: 3
+          time: 0.84332275
+          value: 0.9820862
+          inSlope: -0.021241948
+          outSlope: -0.021241948
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      activitySO: {fileID: 11400000, guid: 5cbe4a11bdbf83a47a5976d20135f8db, type: 2}
+      Weight: 1
+      CooldownDuration: 0
+    - weightCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: Infinity
+          outSlope: Infinity
+          tangentMode: 103
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.7012975
+          value: 1
+          inSlope: -0
+          outSlope: 0
+          tangentMode: 69
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
           time: 1
           value: 1
-          inSlope: 1
-          outSlope: 1
-          tangentMode: 34
+          inSlope: Infinity
+          outSlope: Infinity
+          tangentMode: 103
           weightedMode: 0
           inWeight: 0.33333334
           outWeight: 0
@@ -1511,7 +1549,7 @@ MonoBehaviour:
         m_RotationOrder: 4
       activitySO: {fileID: 11400000, guid: d4d71adb0561aae47b835384a12eab5f, type: 2}
       Weight: 1
-      CooldownDuration: 1
+      CooldownDuration: 0
   InsertionProcessors: []
 --- !u!4 &958677874
 Transform:
@@ -2085,7 +2123,7 @@ MonoBehaviour:
   ManagerEnabled: 1
   pointInfos:
   - Positions:
-    - Position: 0.259
+    - Position: 0.22
       PositionPointType: 0
     - Position: 0.798
       PositionPointType: 0
@@ -2506,7 +2544,6 @@ SceneRoots:
   - {fileID: 44079830}
   - {fileID: 228952293}
   - {fileID: 218046415}
-  - {fileID: 958677874}
   - {fileID: 956744094}
   - {fileID: 540294637}
   - {fileID: 797138351}
@@ -2524,6 +2561,7 @@ SceneRoots:
   - {fileID: 966580476}
   - {fileID: 322271081}
   - {fileID: 1124279625}
+  - {fileID: 958677874}
   - {fileID: 801522969}
   - {fileID: 1814874656}
   - {fileID: 470680809}
