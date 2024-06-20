@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589245, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1409,13 +1409,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FirstTileLocation: {fileID: 322271081}
-  NumberOfActivitiesSpawnedOnStart: 15
+  Temp: 0
+  NumberOfActivitiesSpawnedOnStart: 10
   _levelSystemsHolder: {fileID: 470680810}
   LeadingActivityGeometry: {fileID: 5496859885997138862, guid: 18fd4e93ecdd23648b9ff44796579fbf,
     type: 3}
   LeadingActivityObject: {fileID: 0}
-  SelectedActivities: []
   InstantiatedActivities: []
+  PassedActivities: []
   RepetitionConstraints: []
   GenerationPools:
   - _minDistance: 0
@@ -1550,7 +1551,14 @@ MonoBehaviour:
       activitySO: {fileID: 11400000, guid: d4d71adb0561aae47b835384a12eab5f, type: 2}
       Weight: 1
       CooldownDuration: 0
-  InsertionProcessors: []
+  InsertionProcessors:
+  - _activitySOToCheck: {fileID: 11400000, guid: 5cbe4a11bdbf83a47a5976d20135f8db,
+      type: 2}
+    _activitySOToInsert: {fileID: 11400000, guid: 47013a0f9d542b5498e3958b4f1dd959,
+      type: 2}
+    _replacingActivitiesNumber: 1
+    _MaxRepetitions: 1
+    _InsertType: 1
 --- !u!4 &958677874
 Transform:
   m_ObjectHideFlags: 0
@@ -2531,8 +2539,8 @@ Transform:
   m_GameObject: {fileID: 2124190866}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.4699707, z: -30.62}
-  m_LocalScale: {x: 6.6943, y: 22.962477, z: 0.21433}
+  m_LocalPosition: {x: 0, y: -0.4699707, z: -34.4}
+  m_LocalScale: {x: 6.6943, y: 22.962477, z: 10.2072525}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
