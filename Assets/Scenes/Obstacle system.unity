@@ -758,9 +758,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1940fce3f6b4ae4cba66d00a77d782f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScrollSpeed: 10
+  ScrollSpeed: 25
   DistanceTraveled: 0
-  OnDamageTargetScroll: 2
+  OnDamageTargetScroll: 25
   ScrollResumeTime: 0.8
   ScrollResumeCurve:
     serializedVersion: 2
@@ -834,22 +834,22 @@ PrefabInstance:
     - target: {fileID: 5373699142788002625, guid: 3d31b47f3a188a44490a4d302b1769b5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.46
+      value: 0.47000003
       objectReference: {fileID: 0}
     - target: {fileID: 5373699142788002625, guid: 3d31b47f3a188a44490a4d302b1769b5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.54
+      value: -4.74
       objectReference: {fileID: 0}
     - target: {fileID: 5373699142788002625, guid: 3d31b47f3a188a44490a4d302b1769b5,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.99944615
+      value: 0.9999958
       objectReference: {fileID: 0}
     - target: {fileID: 5373699142788002625, guid: 3d31b47f3a188a44490a4d302b1769b5,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.03327794
+      value: -0.0028880483
       objectReference: {fileID: 0}
     - target: {fileID: 5373699142788002625, guid: 3d31b47f3a188a44490a4d302b1769b5,
         type: 3}
@@ -1409,92 +1409,148 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FirstTileLocation: {fileID: 322271081}
-  NumberOfActivitiesSpawnedOnStart: 5
+  NumberOfActivitiesSpawnedOnStart: 15
   _levelSystemsHolder: {fileID: 470680810}
   LeadingActivityGeometry: {fileID: 5496859885997138862, guid: 18fd4e93ecdd23648b9ff44796579fbf,
     type: 3}
   LeadingActivityObject: {fileID: 0}
+  SelectedActivities: []
   InstantiatedActivities: []
+  RepetitionConstraints: []
   GenerationPools:
   - _minDistance: 0
+    _poolLength: 200
     _activities:
     - weightCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0
-          inSlope: 1
-          outSlope: 1
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        - serializedVersion: 3
-          time: 1
           value: 1
-          inSlope: 1
-          outSlope: 1
+          inSlope: -0.021241948
+          outSlope: -0.021241948
           tangentMode: 34
           weightedMode: 0
           inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.84332275
+          value: 0.9820862
+          inSlope: -0.021241948
+          outSlope: -0.021241948
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
           outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
       activitySO: {fileID: 11400000, guid: 5cbe4a11bdbf83a47a5976d20135f8db, type: 2}
+      Weight: 1
+      CooldownDuration: 0
     - weightCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0
-          inSlope: 1
-          outSlope: 1
-          tangentMode: 34
+          value: 1
+          inSlope: Infinity
+          outSlope: Infinity
+          tangentMode: 103
           weightedMode: 0
           inWeight: 0
-          outWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.7012975
+          value: 1
+          inSlope: -0
+          outSlope: 0
+          tangentMode: 69
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
         - serializedVersion: 3
           time: 1
           value: 1
-          inSlope: 1
-          outSlope: 1
-          tangentMode: 34
+          inSlope: Infinity
+          outSlope: Infinity
+          tangentMode: 103
           weightedMode: 0
-          inWeight: 0
+          inWeight: 0.33333334
           outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
       activitySO: {fileID: 11400000, guid: d4d71adb0561aae47b835384a12eab5f, type: 2}
-  - _minDistance: 100
+      Weight: 1
+      CooldownDuration: 0
+  - _minDistance: 0
+    _poolLength: 500
     _activities:
     - weightCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0
-          inSlope: 1
-          outSlope: 1
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        - serializedVersion: 3
-          time: 1
           value: 1
-          inSlope: 1
-          outSlope: 1
+          inSlope: -0.021241948
+          outSlope: -0.021241948
           tangentMode: 34
           weightedMode: 0
           inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.84332275
+          value: 0.9820862
+          inSlope: -0.021241948
+          outSlope: -0.021241948
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
           outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      activitySO: {fileID: 11400000, guid: 47013a0f9d542b5498e3958b4f1dd959, type: 2}
+      activitySO: {fileID: 11400000, guid: 5cbe4a11bdbf83a47a5976d20135f8db, type: 2}
+      Weight: 1
+      CooldownDuration: 0
+    - weightCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: Infinity
+          outSlope: Infinity
+          tangentMode: 103
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.7012975
+          value: 1
+          inSlope: -0
+          outSlope: 0
+          tangentMode: 69
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: Infinity
+          outSlope: Infinity
+          tangentMode: 103
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      activitySO: {fileID: 11400000, guid: d4d71adb0561aae47b835384a12eab5f, type: 2}
+      Weight: 1
+      CooldownDuration: 0
+  InsertionProcessors: []
 --- !u!4 &958677874
 Transform:
   m_ObjectHideFlags: 0
@@ -1788,8 +1844,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1132109945}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.03327794, y: 0, z: 0, w: 0.99944615}
-  m_LocalPosition: {x: 0, y: 1.46, z: -4.54}
+  m_LocalRotation: {x: -0.0028880483, y: 0, z: 0, w: 0.9999958}
+  m_LocalPosition: {x: 0, y: 0.47000003, z: -4.74}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1826,7 +1882,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _splineManager: {fileID: 1316349816}
-  _previewPlayerStartPos: 1
+  _previewPlayerStartPos: 0
   _startPosition: 0.5
   _playerObject: {fileID: 1814874660}
   _sideJumpImpulseForce: 400
@@ -1839,7 +1895,7 @@ MonoBehaviour:
   _postLandingDecelerationTransitionTime: 0.5
   _AngularRotationMultiplierOnAir: 2
   _velocity: 0
-  _AngularRotationMultiplier: 4000
+  _AngularRotationMultiplier: 10000
   _maxSpeed: 0.25
   _minSpeed: 0
   normalAccel: 0.025
@@ -2067,12 +2123,12 @@ MonoBehaviour:
   ManagerEnabled: 1
   pointInfos:
   - Positions:
-    - Position: 0.25
-      PositionPointType: 1
-    - Position: 0.75
-      PositionPointType: 1
+    - Position: 0.22
+      PositionPointType: 0
+    - Position: 0.798
+      PositionPointType: 0
     PointPreviewType: 2
-  Precision: 8
+  Precision: 4
   PlayerSpline: {fileID: 44079829}
 --- !u!4 &1316349818
 Transform:
@@ -2265,28 +2321,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 10f86bc5d131ca3438f242de2171df9d,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 122.979996
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 10f86bc5d131ca3438f242de2171df9d,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 122.979996
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 10f86bc5d131ca3438f242de2171df9d,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 122.979996
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 10f86bc5d131ca3438f242de2171df9d,
-        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 10f86bc5d131ca3438f242de2171df9d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.6804
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 10f86bc5d131ca3438f242de2171df9d,
         type: 3}
@@ -2328,16 +2369,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 10f86bc5d131ca3438f242de2171df9d,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 0079d7d87ba847e45869dbbfdb8d13f4, type: 2}
-    - target: {fileID: -7511558181221131132, guid: 10f86bc5d131ca3438f242de2171df9d,
-        type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: 0079d7d87ba847e45869dbbfdb8d13f4, type: 2}
     - target: {fileID: 919132149155446097, guid: 10f86bc5d131ca3438f242de2171df9d,
         type: 3}
       propertyPath: m_Name
@@ -2448,7 +2479,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2124190866}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2513,7 +2544,6 @@ SceneRoots:
   - {fileID: 44079830}
   - {fileID: 228952293}
   - {fileID: 218046415}
-  - {fileID: 958677874}
   - {fileID: 956744094}
   - {fileID: 540294637}
   - {fileID: 797138351}
@@ -2531,6 +2561,7 @@ SceneRoots:
   - {fileID: 966580476}
   - {fileID: 322271081}
   - {fileID: 1124279625}
+  - {fileID: 958677874}
   - {fileID: 801522969}
   - {fileID: 1814874656}
   - {fileID: 470680809}

@@ -59,6 +59,28 @@ public class SplinePointManager : MonoBehaviour
     }
 
 #if UNITY_EDITOR
+    private void GetColorDependingOnPointType(SplinePointPositionType Type)
+    {
+        switch (Type)
+        {
+            case SplinePointPositionType.JUMP_POINT:
+                {
+                    Gizmos.color = Color.red;
+                    break;
+                }
+            case SplinePointPositionType.BOUNDS:
+                {
+                    Gizmos.color = Color.blue;
+                    break;
+                }
+            case SplinePointPositionType.PREVIEW:
+                {
+                    Gizmos.color = Color.yellow;
+                    break;
+                }
+        }
+    }
+
     private void OnDrawGizmos()
     {
         if(ManagerEnabled)
@@ -102,9 +124,7 @@ public class SplinePointManager : MonoBehaviour
                     {
                         foreach (SplinePoint point in pointInfos[i].Positions)
                         {
-                            
-                            Random.InitState(((int)point.PositionPointType));
-                            Gizmos.color = new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
+                            GetColorDependingOnPointType(point.PositionPointType);
                             Gizmos.DrawSphere(PlayerSpline.EvaluatePosition(Mathf.Repeat(point.Position + GetComponent<SplineManager>().PlayerSpline.Origin, 1.0f)), 0.4f);
                         }
                     }

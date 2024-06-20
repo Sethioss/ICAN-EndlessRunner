@@ -25,6 +25,10 @@ public class OnSplineMovementController : MonoBehaviour
     [SerializeField] private float _sideJumpMaxHeight = 3.0f;
     [HideInInspector] public bool _Airborne = false;
 
+    private List<float> JumpPointsPosition = new List<float>();
+    private float LeftJumpPoint = 0.25f;
+    private float RightJumpPoint = 0.75f;
+
     [Range(0.9985f, 1.0030f)]
     [SerializeField] private float _LandingVelocityBoostMultiplier = 1.0015f;
     [SerializeField] private float _LandingMaxVelocity = 0.15f;
@@ -258,7 +262,7 @@ public class OnSplineMovementController : MonoBehaviour
 
         if (_direction == 0f)
         {
-            if (_velocity > 0.00001f || _velocity < -0.00001f)
+            if (_velocity > 0.001f || _velocity < -0.001f)
             {
                 accel = deceleration;
                 float _calculatedVelocity = _velocity + decelCurve.Evaluate(_movementLerpValue) * -(Mathf.Sign(_velocity)) * Time.deltaTime;
@@ -316,7 +320,6 @@ public class OnSplineMovementController : MonoBehaviour
         float[] Positions = _splineManager.GetCurrentBoundsPositions();
         bool ValidPosition = false;
 
-        //Bound points don't go from 0.01 to 0.99 to avoid spline origin related issues
         if (!(Mathf.Abs(Positions[0] - Positions[1]) >= 0.98f) || (Mathf.Abs(Positions[0] - Positions[1]) == 0.0f))
         {
             bool SplinePassesByOrigin = _splineManager.CurrentBoundPassesByOrigin(_splineManager.CurrentBounds);
