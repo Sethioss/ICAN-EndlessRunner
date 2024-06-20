@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.08160672, g: 0.054918997, b: 0.06645238, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: b442f28766846504b836a0d0b603f686,
+    type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -1211,7 +1212,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 102.9144
+  field of view: 112.3273
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -1237,8 +1238,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 815955278}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.03327794, y: 0, z: 0, w: 0.99944615}
-  m_LocalPosition: {x: 0, y: 1.46, z: -4.54}
+  m_LocalRotation: {x: -0.0054943096, y: 0, z: 0, w: 0.9999849}
+  m_LocalPosition: {x: 0, y: -0.28999996, z: -4.8500004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1287,15 +1288,15 @@ MonoBehaviour:
   _sideJumpImpulseForce: 800
   _sideJumpMaxHeight: 6
   _Airborne: 0
-  _LandingVelocityBoostMultiplier: 1.003
-  _LandingMaxVelocity: 0.52
+  _LandingVelocityBoostMultiplier: 0.99921
+  _LandingMaxVelocity: 0.03
   _cooldownAfterGroundCheck: 0.5
-  _landingDeceleration: -0.43
+  _landingDeceleration: 0.03
   _postLandingDecelerationTransitionTime: 0.5
   _AngularRotationMultiplierOnAir: 2
   _velocity: 0
   _AngularRotationMultiplier: 10000
-  _maxSpeed: 0.005
+  _maxSpeed: 0.0075
   _minSpeed: 0.0001
   normalAccel: 0.025
   changeSideDeceleration: 0.1
@@ -1306,15 +1307,15 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0.057466988
-      outSlope: 0.057466988
+      inSlope: 0.056
+      outSlope: 0.056
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.25677985
-      value: 0.014756365
+      time: 0.25
+      value: 0.014
       inSlope: 0.0015669845
       outSlope: 0.0015669845
       tangentMode: 0
@@ -1322,10 +1323,10 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.26045746
     - serializedVersion: 3
-      time: 3.517291
-      value: 0.01732561
-      inSlope: 0.0007879885
-      outSlope: 0.0007879885
+      time: 3.4947386
+      value: 0.027228564
+      inSlope: 0.0040769274
+      outSlope: 0.0040769274
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -2044,6 +2045,89 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1395818528
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 77934380369308720, guid: c3def980e03228a478bd9eb3d342e59a,
+        type: 3}
+      propertyPath: m_Name
+      value: CamHalfPipe-Normal
+      objectReference: {fileID: 0}
+    - target: {fileID: 2504234033286395544, guid: c3def980e03228a478bd9eb3d342e59a,
+        type: 3}
+      propertyPath: VerticalArmLength
+      value: 2.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 4555528653132977745, guid: c3def980e03228a478bd9eb3d342e59a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4555528653132977745, guid: c3def980e03228a478bd9eb3d342e59a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.28999996
+      objectReference: {fileID: 0}
+    - target: {fileID: 4555528653132977745, guid: c3def980e03228a478bd9eb3d342e59a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.8500004
+      objectReference: {fileID: 0}
+    - target: {fileID: 4555528653132977745, guid: c3def980e03228a478bd9eb3d342e59a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9999849
+      objectReference: {fileID: 0}
+    - target: {fileID: 4555528653132977745, guid: c3def980e03228a478bd9eb3d342e59a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.0054943096
+      objectReference: {fileID: 0}
+    - target: {fileID: 4555528653132977745, guid: c3def980e03228a478bd9eb3d342e59a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4555528653132977745, guid: c3def980e03228a478bd9eb3d342e59a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4555528653132977745, guid: c3def980e03228a478bd9eb3d342e59a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4555528653132977745, guid: c3def980e03228a478bd9eb3d342e59a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4555528653132977745, guid: c3def980e03228a478bd9eb3d342e59a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6390346933555410916, guid: c3def980e03228a478bd9eb3d342e59a,
+        type: 3}
+      propertyPath: m_Follow
+      value: 
+      objectReference: {fileID: 1541713925}
+    - target: {fileID: 6390346933555410916, guid: c3def980e03228a478bd9eb3d342e59a,
+        type: 3}
+      propertyPath: m_LookAt
+      value: 
+      objectReference: {fileID: 1541713925}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c3def980e03228a478bd9eb3d342e59a, type: 3}
 --- !u!1 &1440200561
 GameObject:
   m_ObjectHideFlags: 0
@@ -2155,6 +2239,12 @@ Transform:
 --- !u!1 &1541713924 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1589946590184626529, guid: ca74dc5fa19da014c811900edb46e235,
+    type: 3}
+  m_PrefabInstance: {fileID: 1114308233811826973}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1541713925 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5622765432106063603, guid: ca74dc5fa19da014c811900edb46e235,
     type: 3}
   m_PrefabInstance: {fileID: 1114308233811826973}
   m_PrefabAsset: {fileID: 0}
@@ -3069,6 +3159,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CamPipe_Normal
       objectReference: {fileID: 0}
+    - target: {fileID: 1344218757264623682, guid: 3d31b47f3a188a44490a4d302b1769b5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1856682948816533228, guid: 3d31b47f3a188a44490a4d302b1769b5,
         type: 3}
       propertyPath: m_Follow
@@ -3429,3 +3524,4 @@ SceneRoots:
   - {fileID: 2101706373}
   - {fileID: 456951205824061748}
   - {fileID: 9058088530600107264}
+  - {fileID: 1395818528}

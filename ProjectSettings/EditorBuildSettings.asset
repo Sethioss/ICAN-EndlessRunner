@@ -14,9 +14,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/GameFlow/GameScene.unity
     guid: c850ee8c3b14cc8459e7e186857cf567
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SceneVIncent.unity
     guid: 0aedc459b1d816f4499727f530ffba9b
+  - enabled: 1
+    path: Assets/Scenes/SceneAdrian_DepuisSceneVincent.unity
+    guid: 84c45284a441fcb4986a337eae02b4fc
   m_configObjects:
     com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000,
       guid: a39f9a748acea9a409e9cbf351265638, type: 2}
