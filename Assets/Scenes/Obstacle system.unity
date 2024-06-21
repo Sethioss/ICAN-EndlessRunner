@@ -1411,16 +1411,21 @@ MonoBehaviour:
   FirstTileLocation: {fileID: 322271081}
   Temp: 0
   NumberOfActivitiesSpawnedOnStart: 10
+  NumberOfActivitiesToSpawnAtOnce: 5
+  DeloadingActivityNumber: 5
   _levelSystemsHolder: {fileID: 470680810}
   LeadingActivityGeometry: {fileID: 5496859885997138862, guid: 18fd4e93ecdd23648b9ff44796579fbf,
     type: 3}
   LeadingActivityObject: {fileID: 0}
-  InstantiatedActivities: []
-  PassedActivities: []
-  RepetitionConstraints: []
+  InstantiatedActivitiesGO: []
+  RepetitionConstraints:
+  - activitySO: {fileID: 11400000, guid: 5cbe4a11bdbf83a47a5976d20135f8db, type: 2}
+    MaxRepetitions: 3
+    ConstraintHistoryDepth: 4
+    ForcedCooldown: 0
   GenerationPools:
   - _minDistance: 0
-    _poolLength: 200
+    _poolLength: 400
     _activities:
     - weightCurve:
         serializedVersion: 2
@@ -1428,17 +1433,17 @@ MonoBehaviour:
         - serializedVersion: 3
           time: 0
           value: 1
-          inSlope: -0.021241948
-          outSlope: -0.021241948
+          inSlope: 0
+          outSlope: 0
           tangentMode: 34
           weightedMode: 0
           inWeight: 0
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 0.84332275
-          value: 0.9820862
-          inSlope: -0.021241948
-          outSlope: -0.021241948
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
           tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
@@ -1483,7 +1488,7 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       activitySO: {fileID: 11400000, guid: d4d71adb0561aae47b835384a12eab5f, type: 2}
-      Weight: 1
+      Weight: 0.2
       CooldownDuration: 0
   - _minDistance: 0
     _poolLength: 500
@@ -1494,71 +1499,35 @@ MonoBehaviour:
         - serializedVersion: 3
           time: 0
           value: 1
-          inSlope: -0.021241948
-          outSlope: -0.021241948
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.84332275
-          value: 0.9820862
-          inSlope: -0.021241948
-          outSlope: -0.021241948
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      activitySO: {fileID: 11400000, guid: 5cbe4a11bdbf83a47a5976d20135f8db, type: 2}
-      Weight: 1
-      CooldownDuration: 0
-    - weightCurve:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 1
-          inSlope: Infinity
-          outSlope: Infinity
-          tangentMode: 103
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.7012975
-          value: 1
-          inSlope: -0
+          inSlope: 0
           outSlope: 0
-          tangentMode: 69
+          tangentMode: 34
           weightedMode: 0
-          inWeight: 0.33333334
+          inWeight: 0
           outWeight: 0.33333334
         - serializedVersion: 3
           time: 1
           value: 1
-          inSlope: Infinity
-          outSlope: Infinity
-          tangentMode: 103
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
           outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      activitySO: {fileID: 11400000, guid: d4d71adb0561aae47b835384a12eab5f, type: 2}
+      activitySO: {fileID: 11400000, guid: 47013a0f9d542b5498e3958b4f1dd959, type: 2}
       Weight: 1
       CooldownDuration: 0
   InsertionProcessors:
-  - _activitySOToCheck: {fileID: 11400000, guid: 5cbe4a11bdbf83a47a5976d20135f8db,
+  - _activitySOToCheck: {fileID: 11400000, guid: 47013a0f9d542b5498e3958b4f1dd959,
       type: 2}
-    _activitySOToInsert: {fileID: 11400000, guid: 47013a0f9d542b5498e3958b4f1dd959,
+    _activitySOToInsert: {fileID: 11400000, guid: d4d71adb0561aae47b835384a12eab5f,
       type: 2}
     _replacingActivitiesNumber: 1
-    _MaxRepetitions: 1
-    _InsertType: 1
+    _MaxRepetitions: 2
+    _InsertType: 2
 --- !u!4 &958677874
 Transform:
   m_ObjectHideFlags: 0
