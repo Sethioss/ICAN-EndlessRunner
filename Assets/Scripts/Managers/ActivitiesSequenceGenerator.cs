@@ -9,6 +9,8 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
     [HideInInspector] public int Temp = 0;
 
     [SerializeField] public int NumberOfActivitiesSpawnedOnStart = 5;
+    [SerializeField] public int NumberOfActivitiesToSpawnAtOnce = 5;
+    [SerializeField] private int DeloadingActivityNumber = 5;
 
     //New activity system
     [SerializeField] private LevelSystemsHolder _levelSystemsHolder;
@@ -16,11 +18,10 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
     [HideInInspector] public GameObject LeadingActivityObject;
 
     private List<ActivityData> PossibleActivities = new List<ActivityData>();
-    private List<SOActivity> IncomingActivities = new List<SOActivity>();
     private List<SOActivity> WaitingActivities = new List<SOActivity>();
     /*[HideInInspector]*/
-    public List<GameObject> InstantiatedActivities = new List<GameObject>();
-    public List<GameObject> PassedActivities = new List<GameObject>();
+    public List<GameObject> InstantiatedActivitiesGO = new List<GameObject>();
+    private List<GameObject> PassedActivities = new List<GameObject>();
 
     [SerializeField] private List<RepetitionObstacleConstraint> RepetitionConstraints;
     [SerializeField] private List<ActivityGenerationPool> GenerationPools = new List<ActivityGenerationPool>();
@@ -45,7 +46,7 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
 
         MakeNewIncomingActivitiesList(true);
 
-        InstantiatedActivities.Insert(0, LeadingActivityObject.gameObject);
+        InstantiatedActivitiesGO.Insert(0, LeadingActivityObject.gameObject);
         LeadingActivityGeometry = LeadingActivityObject.GetComponent<ActivityGeometry>();
 
         SpawnActivitiesGeometry();
@@ -71,14 +72,13 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
         ActivityGenerationPool CurrentGenPool = GenerationPools[CurrentPool];
         PossibleActivities = CurrentGenPool._activities;
 
-        int NumberToGenerate = FirstSpawn ? NumberOfActivitiesSpawnedOnStart : PassedActivities.Count;
+        int NumberToGenerate = FirstSpawn ? NumberOfActivitiesSpawnedOnStart : NumberOfActivitiesToSpawnAtOnce;
         for (int i = 0; i < NumberToGenerate; ++i)
         {
             ActivityData rdActivity = SelectActivity(CurrentGenPool);
             rdActivity.SetCooldown();
 
             WaitingActivities.Add(rdActivity.activitySO);
-            //IncomingActivities.Add(rdActivity.activitySO);
 
             foreach (var activity in PossibleActivities)
             {
@@ -124,25 +124,20 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
     {
         for (int i = 0; i < WaitingActivities.Count; ++i)
         {
-            InstantiatedActivities.Insert(0, Instantiate(WaitingActivities[i]._Geometry.gameObject, LeadingActivityObject.GetComponent<ActivityGeometry>()._tail.gameObject.transform.position, LeadingActivityObject.GetComponent<ActivityGeometry>()._tail.gameObject.transform.rotation).gameObject);
-            LeadingActivityObject = InstantiatedActivities[0];
+            InstantiatedActivitiesGO.Insert(0, Instantiate(WaitingActivities[i]._Geometry.gameObject, LeadingActivityObject.GetComponent<ActivityGeometry>()._tail.gameObject.transform.position, LeadingActivityObject.GetComponent<ActivityGeometry>()._tail.gameObject.transform.rotation).gameObject);
+            LeadingActivityObject = InstantiatedActivitiesGO[0];
+            LeadingActivityGeometry = LeadingActivityObject.GetComponent<ActivityGeometry>();
         }
-        WaitingActivities.Clear();
     }
 
     public void ApplyInsertionProcessing()
     {
         foreach (InsertionObstacleProcessor Processor in InsertionProcessors)
         {
-            IncomingActivities = Processor.Process(WaitingActivities);
-        }
-    }
-
-    public void ApplyInsertionProcessingSingle(SOActivity Activity)
-    {
-        foreach (InsertionObstacleProcessor Processor in InsertionProcessors)
-        {
-            //Activity = Processor.ProcessSingle(Activity, InstantiatedActivities);
+            List<SOActivity> ProcessedList = new List<SOActivity>(WaitingActivities);
+            ProcessedList = Processor.Process(ProcessedList);
+            DeloadingActivityNumber = NumberOfActivitiesToSpawnAtOnce + (ProcessedList.Count - WaitingActivities.Count);
+            WaitingActivities = ProcessedList;
         }
     }
 
@@ -150,9 +145,10 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
     {
         foreach (RepetitionObstacleConstraint Constraint in RepetitionConstraints)
         {
-            if (Constraint.DoesConstraintApply(GenerationPools[CurrentPool]._activities))
+            if (Constraint.DoesConstraintApply(WaitingActivities))
             {
-                GenerationPools[CurrentPool]._activities.First(x => x.activitySO == Constraint._ActivitySO).SetCooldown(Constraint._ForcedCooldown);
+                ActivityData SelectedData = GenerationPools[CurrentPool]._activities.First(x => x.activitySO == Constraint._ActivitySO);
+                SelectedData.SetCooldown(Constraint._ForcedCooldown);
             }
         }
     }
@@ -195,56 +191,25 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
 
     public void DeleteActivity(GameObject RemovedGO)
     {
-        InstantiatedActivities.RemoveAt(InstantiatedActivities.Count - 1);
+        InstantiatedActivitiesGO.RemoveAt(InstantiatedActivitiesGO.Count - 1);
         PassedActivities.Insert(0, RemovedGO);
         RemovedGO.SetActive(false);
 
-        if (PassedActivities.Count > NumberOfActivitiesSpawnedOnStart / 2)
+        if (PassedActivities.Count >= DeloadingActivityNumber)
         {
+            WaitingActivities.Clear();
             MakeNewIncomingActivitiesList(false);
 
             for (int i = 0; i < PassedActivities.Count; ++i)
             {
+                //TODO: Put them in a pool, or make PassedActivities an actual pool
                 Destroy(PassedActivities[i].gameObject);
             }
             PassedActivities.Clear();
 
-            ApplyInsertionProcessing();
-
             SpawnActivitiesGeometry();
         }
 
-
-    }
-    public void CreateNewActivity(GameObject RemovedGO)
-    {
-        if (GetCurrentPool() != CurrentPool)
-        {
-            GoToNextPool();
-        }
-
-        ActivityData NewActivity = SelectActivity(GetActivityGenerationPoolAt(CurrentPool));
-
-        ApplyInsertionProcessingSingle(NewActivity.activitySO);
-
-        LeadingActivityGeometry = InstantiatedActivities[0].GetComponent<ActivityGeometry>();
-        InstantiatedActivities.Insert(0, Instantiate(NewActivity.activitySO._Geometry.gameObject, LeadingActivityGeometry._tail.gameObject.transform.position, Quaternion.identity));
-        InstantiatedActivities.RemoveAt(InstantiatedActivities.Count - 1);
-
-        PassedActivities.Insert(0, RemovedGO);
-        RemovedGO.SetActive(false);
-
-        if (PassedActivities.Count > NumberOfActivitiesSpawnedOnStart / 2)
-        {
-            MakeNewIncomingActivitiesList();
-            SpawnActivitiesGeometry();
-
-            for(int i = 0; i < PassedActivities.Count; ++i)
-            {
-                Destroy(PassedActivities[i].gameObject);
-            }
-            PassedActivities.Clear();
-        }
 
     }
 }

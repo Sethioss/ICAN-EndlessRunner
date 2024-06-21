@@ -13,11 +13,11 @@ public class RepetitionObstacleConstraint
     public SOActivity _ActivitySO => activitySO;
     public int _ForcedCooldown => ForcedCooldown;
 
-    public bool DoesConstraintApply(List<ActivityData> ActivityList)
+    public bool DoesConstraintApply(List<SOActivity> ActivityList)
     {
         int skip = Mathf.Max(0, ActivityList.Count - ConstraintHistoryDepth);
-        int sameActivityCount = ActivityList.Skip(skip).Count(x => x.activitySO == activitySO);
+        int sameActivityCount = ActivityList.Skip(skip).Count(x => x == activitySO);
 
-        return sameActivityCount < MaxRepetitions;
+        return sameActivityCount > MaxRepetitions;
     }
 }
