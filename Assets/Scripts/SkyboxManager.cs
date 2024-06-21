@@ -13,7 +13,7 @@ public class SkyboxManager : MonoBehaviour
     {
         skyBoxMaterial = RenderSettings.skybox;
         b = 1;
-        s = 0.10f;
+        s = 0.05f;
 }
 
     // Update is called once per frame
