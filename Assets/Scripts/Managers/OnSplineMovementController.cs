@@ -192,10 +192,10 @@ public class OnSplineMovementController : MonoBehaviour
             {
                 tempTimeInAir -= Time.deltaTime;
                 _TimeInAirRatio = Mathf.Clamp(1 - (tempTimeInAir / estimatedAirTime), 0.0f, 1.0f);
-                if(_TimeInAirRatio > 0.49f && _TimeInAirRatio < 0.51f)
+                if(_TimeInAirRatio > 0.495f && _TimeInAirRatio < 0.505f)
                 {
-                    float height = transform.position.y - _spline.EvaluatePosition(_splineManager.AppliedBounds[0].Positions[0].Position).y;
-                    Debug.Log($"TimeInAir ratio: {_TimeInAirRatio} \n Falling time: {Mathf.Sqrt((2 * height) / Physics.gravity.y)}");
+                    float height = _playerObject.transform.position.y - _spline.EvaluatePosition(_splineManager.AppliedBounds[0].Positions[0].Position).y;
+                    Debug.Log($"TimeInAir ratio: {_TimeInAirRatio} \n Falling time: {(Mathf.Sqrt((2 * height) / (-Physics.gravity.y)))}");
                 }
                 //Debug.Log($"{_TimeInAirRatio}");
             }
