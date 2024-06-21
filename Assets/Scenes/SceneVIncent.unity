@@ -7257,12 +7257,9 @@ MonoBehaviour:
   LeadingActivityGeometry: {fileID: 2267882098566438585, guid: 48c8e209b5a66294e94364eb43fbb580,
     type: 3}
   LeadingActivityObject: {fileID: 0}
-  SelectedActivities: []
   InstantiatedActivities: []
-  RepetitionConstraints: []
   GenerationPools:
   - _minDistance: 0
-    _poolLength: 0
     _activities:
     - weightCurve:
         serializedVersion: 2
@@ -7289,8 +7286,6 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       activitySO: {fileID: 11400000, guid: af867761369aa3644a0293106e06a3f3, type: 2}
-      Weight: 1
-      CooldownDuration: 1
     - weightCurve:
         serializedVersion: 2
         m_Curve:
@@ -7316,8 +7311,6 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       activitySO: {fileID: 11400000, guid: f5f9c9d34b7234c42933c82adda2bcd4, type: 2}
-      Weight: 1
-      CooldownDuration: 1
     - weightCurve:
         serializedVersion: 2
         m_Curve:
@@ -7343,8 +7336,6 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       activitySO: {fileID: 11400000, guid: 3a9e620134db36c4ebe26701651d01aa, type: 2}
-      Weight: 1
-      CooldownDuration: 1
     - weightCurve:
         serializedVersion: 2
         m_Curve:
@@ -7370,8 +7361,6 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       activitySO: {fileID: 11400000, guid: 81dc946085be42748afd6ce425404718, type: 2}
-      Weight: 1
-      CooldownDuration: 1
     - weightCurve:
         serializedVersion: 2
         m_Curve:
@@ -7397,10 +7386,7 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       activitySO: {fileID: 11400000, guid: 034f1dbc6bfdd6041b1c9a5cc3b81964, type: 2}
-      Weight: 1
-      CooldownDuration: 1
   - _minDistance: 50000
-    _poolLength: 0
     _activities:
     - weightCurve:
         serializedVersion: 2
@@ -7427,9 +7413,6 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       activitySO: {fileID: 11400000, guid: af867761369aa3644a0293106e06a3f3, type: 2}
-      Weight: 1
-      CooldownDuration: 1
-  InsertionProcessors: []
 --- !u!1001 &1985041680
 PrefabInstance:
   m_ObjectHideFlags: 0

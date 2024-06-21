@@ -17,7 +17,7 @@ public class CubeTranslation : MonoBehaviour
         destinationPosition = startPosition + distance; // Translation selon l'axe Y local du cube
         if (startAtDestination)
         {
-            transform.position=new Vector3(destinationPosition,transform.position.y,transform.position.z);
+            transform.position = new Vector3(destinationPosition, transform.position.y, transform.position.z);
             //destinationPosition=transform.position.x;
             isMovingForward = false;
         }
@@ -27,7 +27,7 @@ public class CubeTranslation : MonoBehaviour
     {
         if (isMovingForward)
         {
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(destinationPosition,transform.position.y,transform.position.z), speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(destinationPosition, transform.position.y, transform.position.z), speed * Time.deltaTime);
             if (transform.position.x >= destinationPosition)
             {
                 if (returnToOrigin)
