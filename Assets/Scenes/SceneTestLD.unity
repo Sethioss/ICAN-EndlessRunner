@@ -665,7 +665,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &550026010
 Transform:
   m_ObjectHideFlags: 0
@@ -674,12 +674,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 550026009}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.12661223, y: -0, z: -0, w: 0.99195236}
-  m_LocalPosition: {x: 0, y: -1.4969203, z: 1.573901}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.63787, y: -0, z: -0, w: 0.7701441}
+  m_LocalPosition: {x: 0, y: -0.047, z: 0.029}
+  m_LocalScale: {x: 0.05, y: 0.049999993, z: 0.049999993}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 963194228}
+  m_Father: {fileID: 1908421182}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!199 &550026011
 ParticleSystemRenderer:
@@ -1388,7 +1388,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 25
+    angle: 24.43
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 0.36
@@ -1474,7 +1474,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 2.51
+      value: 3.5
       mode: 0
       spread: 0
       speed:
@@ -6118,8 +6118,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 1.46, z: -4.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 550026010}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 21.94, y: 0, z: 0}
 --- !u!114 &963194229
@@ -6339,10 +6338,10 @@ MonoBehaviour:
   ManagerEnabled: 1
   pointInfos:
   - Positions:
-    - Position: 0.01
-      PositionPointType: 2
-    - Position: 0.01
-      PositionPointType: 2
+    - Position: 0.208
+      PositionPointType: 0
+    - Position: 0.792
+      PositionPointType: 0
     PointPreviewType: 2
   Precision: 5
   PlayerSpline: {fileID: 2126026289}
@@ -6390,7 +6389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1940fce3f6b4ae4cba66d00a77d782f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScrollSpeed: 10
+  ScrollSpeed: 15
   DistanceTraveled: 0
   OnDamageTargetScroll: 4
   ScrollResumeTime: 0.5
@@ -7160,6 +7159,12 @@ MeshRenderer:
     type: 3}
   m_PrefabInstance: {fileID: 1114308233811826973}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1908421182 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6683457687509181390, guid: ca74dc5fa19da014c811900edb46e235,
+    type: 3}
+  m_PrefabInstance: {fileID: 1114308233811826973}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1960053951
 GameObject:
   m_ObjectHideFlags: 0
@@ -7207,7 +7212,7 @@ MonoBehaviour:
   FirstTileLocation: {fileID: 339921853}
   NumberOfActivitiesSpawnedOnStart: 5
   _levelSystemsHolder: {fileID: 1192635327}
-  LeadingActivityGeometry: {fileID: 2267882098566438585, guid: aa66c82a70c3fc84d8a9ed951a46379e,
+  LeadingActivityGeometry: {fileID: 2267882098566438585, guid: 48c8e209b5a66294e94364eb43fbb580,
     type: 3}
   LeadingActivityObject: {fileID: 0}
   InstantiatedActivities: []
@@ -7238,7 +7243,7 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      activitySO: {fileID: 11400000, guid: 034f1dbc6bfdd6041b1c9a5cc3b81964, type: 2}
+      activitySO: {fileID: 11400000, guid: bbf6723e9e2719b4497086a7d6c2c618, type: 2}
   - _minDistance: 5000
     _activities:
     - weightCurve:
@@ -7265,7 +7270,7 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      activitySO: {fileID: 11400000, guid: 034f1dbc6bfdd6041b1c9a5cc3b81964, type: 2}
+      activitySO: {fileID: 11400000, guid: bbf6723e9e2719b4497086a7d6c2c618, type: 2}
 --- !u!1001 &2002547961
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7339,6 +7344,11 @@ PrefabInstance:
       propertyPath: _splineManager
       value: 
       objectReference: {fileID: 998183721}
+    - target: {fileID: 8932659241067603765, guid: 4691d1a126e7dee45a64bb7251a02216,
+        type: 3}
+      propertyPath: _LandingMaxVelocity
+      value: 0.01
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8054,7 +8064,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6683457687509181390, guid: ca74dc5fa19da014c811900edb46e235,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 550026010}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca74dc5fa19da014c811900edb46e235, type: 3}
 --- !u!1001 &3147977917778219607
