@@ -1862,8 +1862,8 @@ MonoBehaviour:
   _previewPlayerStartPos: 0
   _startPosition: 0.5
   _playerObject: {fileID: 1814874660}
-  _sideJumpImpulseForce: 400
-  _sideJumpMaxHeight: 3
+  _sideJumpImpulseForce: 800
+  _sideJumpMaxHeight: 10
   _Airborne: 0
   _LandingVelocityBoostMultiplier: 0.9985
   _LandingMaxVelocity: 0.003
@@ -2100,9 +2100,9 @@ MonoBehaviour:
   ManagerEnabled: 1
   pointInfos:
   - Positions:
-    - Position: 0.22
+    - Position: 0.25
       PositionPointType: 0
-    - Position: 0.798
+    - Position: 0.75
       PositionPointType: 0
     PointPreviewType: 2
   Precision: 4
