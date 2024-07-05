@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ObstacleManager : MonoBehaviour
 {
-    [SerializeField] Vector3 FirstTileLocation;
+    [SerializeField] Transform FirstTileLocation;
     [SerializeField] private ObstacleTile LeadingTile;
     [HideInInspector] public GameObject LeadingTileObject;
     [SerializeField] public List<ObstacleTile> Tiles = new List<ObstacleTile>();
-    public List<GameObject> InstantiatedTiles = new List<GameObject>();
+    [HideInInspector] public List<GameObject> InstantiatedTiles = new List<GameObject>();
     private List<ObstacleTile> EasyTiles = new List<ObstacleTile>();
     private List<ObstacleTile> MediumTiles = new List<ObstacleTile>();
     private List<ObstacleTile> HardTiles = new List<ObstacleTile>();
@@ -18,7 +19,12 @@ public class ObstacleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        LeadingTileObject = Instantiate(LeadingTile.gameObject, FirstTileLocation, Quaternion.identity);
+        StartSpawningObstacles();
+    }
+
+    public void StartSpawningObstacles()
+    {
+        LeadingTileObject = Instantiate(LeadingTile.gameObject, FirstTileLocation.position, Quaternion.identity);
         LeadingTile = LeadingTileObject.GetComponent<ObstacleTile>();
 
         for (int i = 0; i < NumberOfTilesSpawnedAtOnce; i++)

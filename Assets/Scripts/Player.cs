@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] OnSplineMovementController MovementController;
     [SerializeField] LevelScroller LevelScroller;
 
-    [SerializeField] MeshRenderer PlayerMesh;
+    [SerializeField] public MeshRenderer PlayerMesh;
     [SerializeField] Material StandardMat;
     [SerializeField] Material HurtMat;
     [SerializeField] Material RichMat;
@@ -26,7 +27,7 @@ public class Player : MonoBehaviour
             isSpecialStatus = true;
             tempSpecialStatusTime = 0;
             other.gameObject.SetActive(false);
-            FMODUnity.RuntimeManager.PlayOneShot("event:/Player/SOUND-HitPlayer");
+            FMODUnity.RuntimeManager.PlayOneShot("event:/Player/SOUND-Death");
             PlayerMesh.material = HurtMat;
             LevelScroller.SlowLevelBecauseOfHit();
         }

@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc613a9a97b87e24ab23b3b33e0fd01c, type: 3}
+  m_Name: Droite
+  m_EditorClassIdentifier: 
+  ActivityGeometry: {fileID: 5042642375432813414, guid: e69f643064513024b80c574e9d6bf990,
+    type: 3}
