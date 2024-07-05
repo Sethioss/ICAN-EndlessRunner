@@ -1,5 +1,60 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8959558574912452028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Musics/MUSIQUE-TILAKV2
+  m_EditorClassIdentifier: 
+  Path: event:/Musics/MUSIQUE-TILAKV2
+  Guid:
+    Data1: -1010192421
+    Data2: 1226079960
+    Data3: 650273934
+    Data4: -319045556
+  Banks:
+  - {fileID: -7248849312909641185}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 156172358915291575}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 264100
+--- !u!114 &-7394392294153768062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/SOUND-HitPlayer
+  m_EditorClassIdentifier: 
+  Path: event:/Player/SOUND-HitPlayer
+  Guid:
+    Data1: -131695537
+    Data2: 1172196837
+    Data3: -1399380583
+    Data4: -1613243541
+  Banks:
+  - {fileID: -7248849312909641185}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 850
 --- !u!114 &-7248849312909641185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15,10 +70,10 @@ MonoBehaviour:
   Path: FMOD/FMODSOUND/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638544983812959608
+  lastModified: 638557878599314688
   FileSizes:
   - Name: Desktop
-    Value: 6344992
+    Value: 6366208
   Exists: 1
 --- !u!114 &-6406903823527771057
 MonoBehaviour:
@@ -47,7 +102,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 800
---- !u!114 &-3881375207021103342
+--- !u!114 &-1780573240855032457
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -57,51 +112,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player/SOUND-Death
+  m_Name: event:/Enviro/SOUND-Destroy
   m_EditorClassIdentifier: 
-  Path: event:/Player/SOUND-Death
+  Path: event:/Enviro/SOUND-Destroy
   Guid:
-    Data1: -973538228
-    Data2: 1169169152
-    Data3: -1274488700
-    Data4: 732514581
+    Data1: 1165001185
+    Data2: 1106175206
+    Data3: 1831289984
+    Data4: -1257147326
   Banks:
   - {fileID: -7248849312909641185}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 2442
---- !u!114 &-3378902726265033075
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Musics/MUSIQUE-TILAKV2
-  m_EditorClassIdentifier: 
-  Path: event:/Musics/MUSIQUE-TILAKV2
-  Guid:
-    Data1: -1010192421
-    Data2: 1226079960
-    Data3: 650273934
-    Data4: -319045556
-  Banks:
-  - {fileID: -7248849312909641185}
-  IsStream: 1
-  Is3D: 1
-  IsOneShot: 0
-  Parameters:
-  - {fileID: 7555575707420345820}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 264100
+  Length: 1066
 --- !u!114 &-566615066666930269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,10 +144,10 @@ MonoBehaviour:
   Path: FMOD/FMODSOUND/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638544983812989717
+  lastModified: 638557878599324654
   FileSizes:
   - Name: Desktop
-    Value: 1240
+    Value: 1280
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -142,19 +169,44 @@ MonoBehaviour:
   - {fileID: 3597006732200485491}
   - {fileID: 7849262161404573896}
   - {fileID: -6406903823527771057}
-  - {fileID: 8165554412576673289}
-  - {fileID: -3881375207021103342}
-  - {fileID: 1427777932591132883}
-  - {fileID: 2284170822931721475}
-  - {fileID: 6121077315380835318}
-  - {fileID: -3378902726265033075}
+  - {fileID: -7394392294153768062}
+  - {fileID: 7698583672915365902}
+  - {fileID: 3691755879620088420}
+  - {fileID: 7204070339812655453}
+  - {fileID: 7521959129660530705}
+  - {fileID: -8959558574912452028}
+  - {fileID: -1780573240855032457}
   EditorParameters: []
   MasterBanks:
   - {fileID: -7248849312909641185}
   StringsBanks:
   - {fileID: -566615066666930269}
-  cacheTime: 638544983812989717
+  cacheTime: 638557878599324654
   cacheVersion: 131617
+--- !u!114 &156172358915291575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/MUSIQUE-TILAKV2/Parameter 1
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1742896371
+    data2: 3342531535
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &628165161435434278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,60 +234,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 136843
---- !u!114 &1427777932591132883
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/UI/SOUND-LauchGame
-  m_EditorClassIdentifier: 
-  Path: event:/UI/SOUND-LauchGame
-  Guid:
-    Data1: 2115108475
-    Data2: 1164352936
-    Data3: 880611506
-    Data4: 1383367716
-  Banks:
-  - {fileID: -7248849312909641185}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 4000
---- !u!114 &2284170822931721475
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player/SOUND-Boost
-  m_EditorClassIdentifier: 
-  Path: event:/Player/SOUND-Boost
-  Guid:
-    Data1: 336311705
-    Data2: 1276289461
-    Data3: 1408449924
-    Data4: 697430651
-  Banks:
-  - {fileID: -7248849312909641185}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 6525
 --- !u!114 &3597006732200485491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,7 +261,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 91995
---- !u!114 &6121077315380835318
+--- !u!114 &3691755879620088420
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -273,24 +271,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Enviro/SOUND-Destroy
+  m_Name: event:/Player/SOUND-Death
   m_EditorClassIdentifier: 
-  Path: event:/Enviro/SOUND-Destroy
+  Path: event:/Player/SOUND-Death
   Guid:
-    Data1: 1165001185
-    Data2: 1106175206
-    Data3: 1831289984
-    Data4: -1257147326
+    Data1: -973538228
+    Data2: 1169169152
+    Data3: -1274488700
+    Data4: 732514581
   Banks:
   - {fileID: -7248849312909641185}
   IsStream: 0
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 1066
---- !u!114 &7555575707420345820
+  Length: 2442
+--- !u!114 &7204070339812655453
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -299,21 +297,78 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/MUSIQUE-TILAKV2/Parameter 1
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/SOUND-LauchGame
   m_EditorClassIdentifier: 
-  Name: Parameter 1
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 1742896371
-    data2: 3342531535
-  Type: 0
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
+  Path: event:/UI/SOUND-LauchGame
+  Guid:
+    Data1: 2115108475
+    Data2: 1164352936
+    Data3: 880611506
+    Data4: 1383367716
+  Banks:
+  - {fileID: -7248849312909641185}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4000
+--- !u!114 &7521959129660530705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/SOUND-Boost
+  m_EditorClassIdentifier: 
+  Path: event:/Player/SOUND-Boost
+  Guid:
+    Data1: 336311705
+    Data2: 1276289461
+    Data3: 1408449924
+    Data4: 697430651
+  Banks:
+  - {fileID: -7248849312909641185}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 6525
+--- !u!114 &7698583672915365902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/SOUND-GlisseV2
+  m_EditorClassIdentifier: 
+  Path: event:/Player/SOUND-GlisseV2
+  Guid:
+    Data1: -1557131736
+    Data2: 1317499670
+    Data3: 593820309
+    Data4: 300010175
+  Banks:
+  - {fileID: -7248849312909641185}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 5896
 --- !u!114 &7849262161404573896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,33 +392,6 @@ MonoBehaviour:
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 5896
---- !u!114 &8165554412576673289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player/SOUND-GlisseV2
-  m_EditorClassIdentifier: 
-  Path: event:/Player/SOUND-GlisseV2
-  Guid:
-    Data1: -1557131736
-    Data2: 1317499670
-    Data3: 593820309
-    Data4: 300010175
-  Banks:
-  - {fileID: -7248849312909641185}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
