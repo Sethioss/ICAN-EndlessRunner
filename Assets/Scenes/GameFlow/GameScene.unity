@@ -266,6 +266,16 @@ PrefabInstance:
       propertyPath: MenuCanvaList.Array.data[2]
       value: 
       objectReference: {fileID: 474128577}
+    - target: {fileID: 6324801050091386131, guid: aa923fcd9ee601b4084a4f15f6096f2f,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1305
+      objectReference: {fileID: 0}
+    - target: {fileID: 6324801050091386131, guid: aa923fcd9ee601b4084a4f15f6096f2f,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 690
+      objectReference: {fileID: 0}
     - target: {fileID: 6891878233258338207, guid: aa923fcd9ee601b4084a4f15f6096f2f,
         type: 3}
       propertyPath: m_IsActive
@@ -933,14 +943,14 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: -1580209373
-      Data2: 1231341445
-      Data3: 1192667826
-      Data4: 1458769626
-    Path: event:/Enviro/SOUND-Wind
+      Data1: 284793068
+      Data2: 1317886441
+      Data3: -29222516
+      Data4: -1024822774
+    Path: event:/Enviro/SOUND-Windv2
   Event: 
   PlayEvent: 1
-  StopEvent: 0
+  StopEvent: 2
   AllowFadeout: 1
   TriggerOnce: 0
   Preload: 0
@@ -1672,7 +1682,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.03327794, y: 0, z: 0, w: 0.99944615}
+  m_LocalRotation: {x: 0.03327794, y: -0.000000069825774, z: 0.0000000023249456, w: 0.99944615}
   m_LocalPosition: {x: 0, y: 1.46, z: -4.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2443,11 +2453,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: -1010192421
-      Data2: 1226079960
-      Data3: 650273934
-      Data4: -319045556
-    Path: event:/Musics/MUSIQUE-TILAKV2
+      Data1: -1280914699
+      Data2: 1229756375
+      Data3: 374298286
+      Data4: -528993640
+    Path: event:/Musics/MUSIQUE-TILAKV3
   Event: 
   PlayEvent: 1
   StopEvent: 0
@@ -3348,12 +3358,12 @@ PrefabInstance:
     - target: {fileID: 5373699142788002625, guid: 3d31b47f3a188a44490a4d302b1769b5,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.000000069825774
       objectReference: {fileID: 0}
     - target: {fileID: 5373699142788002625, guid: 3d31b47f3a188a44490a4d302b1769b5,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.0000000023249456
       objectReference: {fileID: 0}
     - target: {fileID: 5373699142788002625, guid: 3d31b47f3a188a44490a4d302b1769b5,
         type: 3}

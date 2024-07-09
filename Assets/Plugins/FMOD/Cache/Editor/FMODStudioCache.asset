@@ -70,10 +70,10 @@ MonoBehaviour:
   Path: FMOD/FMODSOUND/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638557878599314688
+  lastModified: 638561298827532702
   FileSizes:
   - Name: Desktop
-    Value: 6366208
+    Value: 9288960
   Exists: 1
 --- !u!114 &-6406903823527771057
 MonoBehaviour:
@@ -129,6 +129,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1066
+--- !u!114 &-1647100969950752090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/SOUND-SautV3
+  m_EditorClassIdentifier: 
+  Path: event:/Player/SOUND-SautV3
+  Guid:
+    Data1: 244944859
+    Data2: 1320544182
+    Data3: 829960096
+    Data4: 998829027
+  Banks:
+  - {fileID: -7248849312909641185}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 10214
 --- !u!114 &-566615066666930269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,10 +171,10 @@ MonoBehaviour:
   Path: FMOD/FMODSOUND/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638557878599324654
+  lastModified: 638561298827553159
   FileSizes:
   - Name: Desktop
-    Value: 1280
+    Value: 1406
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -176,12 +203,15 @@ MonoBehaviour:
   - {fileID: 7521959129660530705}
   - {fileID: -8959558574912452028}
   - {fileID: -1780573240855032457}
+  - {fileID: 6311154581321632031}
+  - {fileID: 7856775639653169805}
+  - {fileID: -1647100969950752090}
   EditorParameters: []
   MasterBanks:
   - {fileID: -7248849312909641185}
   StringsBanks:
   - {fileID: -566615066666930269}
-  cacheTime: 638557878599324654
+  cacheTime: 638561298827553159
   cacheVersion: 131617
 --- !u!114 &156172358915291575
 MonoBehaviour:
@@ -288,6 +318,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2442
+--- !u!114 &6311154581321632031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enviro/SOUND-Windv2
+  m_EditorClassIdentifier: 
+  Path: event:/Enviro/SOUND-Windv2
+  Guid:
+    Data1: 284793068
+    Data2: 1317886441
+    Data3: -29222516
+    Data4: -1024822774
+  Banks:
+  - {fileID: -7248849312909641185}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 91995
 --- !u!114 &7204070339812655453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -396,3 +453,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 5896
+--- !u!114 &7856775639653169805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Musics/MUSIQUE-TILAKV3
+  m_EditorClassIdentifier: 
+  Path: event:/Musics/MUSIQUE-TILAKV3
+  Guid:
+    Data1: -1280914699
+    Data2: 1229756375
+    Data3: 374298286
+    Data4: -528993640
+  Banks:
+  - {fileID: -7248849312909641185}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 264100
