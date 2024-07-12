@@ -29,6 +29,7 @@ public class OnSplineMovementController : MonoBehaviour
 
     [HideInInspector] public bool _Airborne = false;
     [SerializeField] private AnimationCurve _StandardJumpCurve;
+    [SerializeField] private JumpCurve[] JumpCurves;
     private float JumpAmplitude;
     private float JumpDuration;
     private float PlayerOgYPosition;
@@ -198,9 +199,40 @@ public class OnSplineMovementController : MonoBehaviour
                 _TimeInAirRatio = Mathf.Clamp(1 - (tempTimeInAir / JumpDuration), 0.0f, 1.0f);
                 _playerObject.transform.position = new Vector3(_playerObject.transform.position.x, PlayerOgYPosition + (_StandardJumpCurve.Evaluate(_TimeInAirRatio)) * JumpAmplitude, _playerObject.transform.position.z);
                 GameObject _playerMeshObject = _playerObject.transform.GetChild(0).gameObject;
-                //_playerMeshObject.transform.rotation = Quaternion.Euler(_playerMeshObject.transform.rotation.x * (1.0f - ((_TimeInAirRatio * 2) - 1.0f) * .5f), _playerMeshObject.transform.rotation.y, _playerMeshObject.transform.rotation.z);
             }
         }
+    }
+
+    private AnimationCurve SetJumpCurve(float inAbsoluteVelocity)
+    {
+        if(JumpCurves.Length < 1)
+        {
+            return _StandardJumpCurve;
+        }
+
+        AnimationCurve SelectedCurve = _StandardJumpCurve;
+        float HigherMinVelocityValue = _minimumVelocityForJump;
+        for(int i = 0; i < JumpCurves.Length; i++)
+        {
+            if (JumpCurves[i].MinimumRequiredVelocity < inAbsoluteVelocity)
+            {
+                if (JumpCurves[i].MinimumRequiredVelocity >= HigherMinVelocityValue)
+                {
+                    SelectedCurve = JumpCurves[i].Curve;
+                    HigherMinVelocityValue = JumpCurves[i].MinimumRequiredVelocity;
+                    ApplyCurveParameters(JumpCurves[i]);
+                }
+
+            }
+        }
+        return SelectedCurve;
+    }
+
+    private void ApplyCurveParameters(JumpCurve InCurve)
+    {
+        _sideJumpImpulseForce = InCurve.SideJumpImpulseForce;
+        MinJumpAmplitude = InCurve.MinJumpHeight;
+        MaxJumpAmplitude = InCurve.MaxJumpHeight;
     }
 
     public void ResumePositionOnSpline()
@@ -346,6 +378,7 @@ public class OnSplineMovementController : MonoBehaviour
                         {
                             if(_velocity > _minimumVelocityForJump)
                             {
+                                _StandardJumpCurve = SetJumpCurve(Mathf.Abs(_velocity));
                                 JumpAmplitude = Mathf.Clamp((Mathf.Abs(_velocity) * -1) * (_sideJumpImpulseForce * -1), MinJumpAmplitude, MaxJumpAmplitude);
                                 _velocity = 0.0f;
                                 _Airborne = true;
@@ -356,6 +389,7 @@ public class OnSplineMovementController : MonoBehaviour
                         {
                             if (-_velocity > _minimumVelocityForJump)
                             {
+                                _StandardJumpCurve = SetJumpCurve(Mathf.Abs(_velocity));
                                 JumpAmplitude = Mathf.Clamp((Mathf.Abs(_velocity) * -1) * (_sideJumpImpulseForce * -1), MinJumpAmplitude, MaxJumpAmplitude);
                                 _velocity = 0.0f;
                                 _Airborne = true;

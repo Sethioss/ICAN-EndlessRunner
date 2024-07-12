@@ -1837,8 +1837,8 @@ MonoBehaviour:
   _playerObject: {fileID: 1814874660}
   _minimumVelocityForJump: 0.006
   _sideJumpImpulseForce: 200
-  MinJumpAmplitude: 2
-  MaxJumpAmplitude: 6
+  MinJumpAmplitude: 4
+  MaxJumpAmplitude: 8
   _Airborne: 0
   _StandardJumpCurve:
     serializedVersion: 2
@@ -1873,6 +1873,44 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  JumpCurves:
+  - MinimumRequiredVelocity: 0.006
+    SideJumpImpulseForce: 200
+    MinJumpHeight: 4
+    MaxJumpHeight: 8
+    Curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 2.5918949
+        outSlope: 2.5918949
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.36000004
+      - serializedVersion: 3
+        time: 0.6433301
+        value: 0.98314357
+        inSlope: 0.06668196
+        outSlope: -0.55146134
+        tangentMode: 1
+        weightedMode: 3
+        inWeight: 0.7032239
+        outWeight: 0.5034517
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: -3.6735144
+        outSlope: -3.6735144
+        tangentMode: 0
+        weightedMode: 3
+        inWeight: 0.34482533
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   _LandingVelocityBoostMultiplier: 1.003
   _LandingMaxVelocity: 0.003
   _cooldownAfterGroundCheck: 0.2
