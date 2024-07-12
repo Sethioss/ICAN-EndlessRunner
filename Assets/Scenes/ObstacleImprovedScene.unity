@@ -1425,8 +1425,35 @@ MonoBehaviour:
     ForcedCooldown: 0
   GenerationPools:
   - _minDistance: 0
-    _poolLength: 5000
+    _poolLength: 400
     _activities:
+    - weightCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      weight: 1
+      activitySO: {fileID: 11400000, guid: 5cbe4a11bdbf83a47a5976d20135f8db, type: 2}
+      _cooldown: 0
     - weightCurve:
         serializedVersion: 2
         m_Curve:
@@ -1835,83 +1862,10 @@ MonoBehaviour:
   _previewPlayerStartPos: 0
   _startPosition: 0.5
   _playerObject: {fileID: 1814874660}
-  _minimumVelocityForJump: 0.006
-  _sideJumpImpulseForce: 200
-  MinJumpAmplitude: 4
-  MaxJumpAmplitude: 8
+  _sideJumpImpulseForce: 800
+  _sideJumpMaxHeight: 10
   _Airborne: 0
-  _StandardJumpCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2.5918949
-      outSlope: 2.5918949
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.36000004
-    - serializedVersion: 3
-      time: 0.6433301
-      value: 0.98314357
-      inSlope: 0.06668196
-      outSlope: -0.55146134
-      tangentMode: 1
-      weightedMode: 3
-      inWeight: 0.7032239
-      outWeight: 0.5034517
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -3.6735144
-      outSlope: -3.6735144
-      tangentMode: 0
-      weightedMode: 3
-      inWeight: 0.34482533
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  JumpCurves:
-  - MinimumRequiredVelocity: 0.006
-    SideJumpImpulseForce: 200
-    MinJumpHeight: 4
-    MaxJumpHeight: 8
-    Curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 2.5918949
-        outSlope: 2.5918949
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0.36000004
-      - serializedVersion: 3
-        time: 0.6433301
-        value: 0.98314357
-        inSlope: 0.06668196
-        outSlope: -0.55146134
-        tangentMode: 1
-        weightedMode: 3
-        inWeight: 0.7032239
-        outWeight: 0.5034517
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: -3.6735144
-        outSlope: -3.6735144
-        tangentMode: 0
-        weightedMode: 3
-        inWeight: 0.34482533
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-  _LandingVelocityBoostMultiplier: 1.003
+  _LandingVelocityBoostMultiplier: 0.9985
   _LandingMaxVelocity: 0.003
   _cooldownAfterGroundCheck: 0.2
   _landingDeceleration: 0.005
@@ -2146,9 +2100,9 @@ MonoBehaviour:
   ManagerEnabled: 1
   pointInfos:
   - Positions:
-    - Position: 0.22
+    - Position: 0.25
       PositionPointType: 0
-    - Position: 0.798
+    - Position: 0.75
       PositionPointType: 0
     PointPreviewType: 2
   Precision: 4
@@ -2289,6 +2243,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6308340176488167796, guid: ca74dc5fa19da014c811900edb46e235,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6683457687509181390, guid: ca74dc5fa19da014c811900edb46e235,
         type: 3}
