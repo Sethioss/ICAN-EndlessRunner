@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Lean.Touch;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,9 +22,18 @@ public class OnSplineMovementController : MonoBehaviour
     private Rigidbody _rb;
 
     [Header("Side jump")]
+    [SerializeField] private float _minimumVelocityForJump = 1.5f;
     [SerializeField] private float _sideJumpImpulseForce = 400.0f;
-    [SerializeField] private float _sideJumpMaxHeight = 3.0f;
+    [SerializeField] private float MinJumpAmplitude;
+    [SerializeField] private float MaxJumpAmplitude;
+
     [HideInInspector] public bool _Airborne = false;
+    [SerializeField] private AnimationCurve _StandardJumpCurve;
+    private float JumpAmplitude;
+    private float JumpDuration;
+    private float PlayerOgYPosition;
+    private Quaternion PlayerOgRotation;
+    private float PreviousYPosition;
 
     [Range(0.9985f, 1.0030f)]
     [SerializeField] private float _LandingVelocityBoostMultiplier = 1.0015f;
@@ -160,28 +170,22 @@ public class OnSplineMovementController : MonoBehaviour
         {
             _AirJumpPhysicsDelay += Time.deltaTime;
 
-            //Debug.Log("Velocity: " + _rb.velocity.y);
-            if (_rb.velocity.y != 0)
-            {
-                //Debug.Log("<color=00FFFF>_AirJumpPhysicsDelay: </color>" + _AirJumpPhysicsDelay);
-                float AirTime = Mathf.Max(0, ((2 * _rb.velocity.y) / Physics.gravity.magnitude) - _AirJumpPhysicsDelay);
-                Debug.Log($"Total time before fall: {AirTime}");
-                //Debug.Log($"Time player will spend in air: {Mathf.Max(0, AirTime - _AirJumpPhysicsDelay)}");
-                _AirJumpPhysicsDelay = 0;
-                TimeInAirSet = true;
-                estimatedAirTime = AirTime;
-                tempTimeInAir = estimatedAirTime;
-            }
-            else
-            {
+            //Debug.Log("<color=00FFFF>_AirJumpPhysicsDelay: </color>" + _AirJumpPhysicsDelay);
+            JumpDuration = Mathf.Max(0, ((2 * JumpAmplitude) / Physics.gravity.magnitude) - _AirJumpPhysicsDelay);
+            //Debug.Log($"Total time before fall: {JumpDuration}");
+            PlayerOgYPosition = _playerObject.transform.position.y;
+            PlayerOgRotation = _playerObject.transform.rotation;
+            //Debug.Log($"Time player will spend in air: {Mathf.Max(0, AirTime - _AirJumpPhysicsDelay)}");
+            _AirJumpPhysicsDelay = 0;
+            TimeInAirSet = true;
+            estimatedAirTime = JumpDuration;
 
-            }
+            tempTimeInAir = estimatedAirTime;
 
         }
         else
         {
-            //Debug.Log($"tempTimeInAir: {Mathf.Max(0, tempTimeInAir)}");
-
+            PreviousYPosition = _playerObject.transform.position.y;
             if (tempTimeInAir < 0)
             {
                 tempTimeInAir = 0.0f;
@@ -191,27 +195,12 @@ public class OnSplineMovementController : MonoBehaviour
             else
             {
                 tempTimeInAir -= Time.deltaTime;
-                _TimeInAirRatio = Mathf.Clamp(1 - (tempTimeInAir / estimatedAirTime), 0.0f, 1.0f);
-                if(_TimeInAirRatio > 0.495f && _TimeInAirRatio < 0.505f)
-                {
-                    float height = _playerObject.transform.position.y - _spline.EvaluatePosition(_splineManager.AppliedBounds[0].Positions[0].Position).y;
-                    Debug.Log($"TimeInAir ratio: {_TimeInAirRatio} \n Falling time: {(Mathf.Sqrt((2 * height) / (-Physics.gravity.y)))}");
-                }
-                //Debug.Log($"{_TimeInAirRatio}");
+                _TimeInAirRatio = Mathf.Clamp(1 - (tempTimeInAir / JumpDuration), 0.0f, 1.0f);
+                _playerObject.transform.position = new Vector3(_playerObject.transform.position.x, PlayerOgYPosition + (_StandardJumpCurve.Evaluate(_TimeInAirRatio)) * JumpAmplitude, _playerObject.transform.position.z);
+                GameObject _playerMeshObject = _playerObject.transform.GetChild(0).gameObject;
+                //_playerMeshObject.transform.rotation = Quaternion.Euler(_playerMeshObject.transform.rotation.x * (1.0f - ((_TimeInAirRatio * 2) - 1.0f) * .5f), _playerMeshObject.transform.rotation.y, _playerMeshObject.transform.rotation.z);
             }
         }
-    }
-
-    public void SwapPhysicsToRB()
-    {
-        float _JumpForce = Mathf.Min((Mathf.Abs(_velocity) * -1) * (_sideJumpImpulseForce * -1), _sideJumpMaxHeight);
-
-        _velocity = 0.0f;
-        _Airborne = true;
-        //Debug.Log($"<color=#00FF00>Begin Airborne</color>");
-        _rb.useGravity = true;
-        _rb.isKinematic = false;
-        _rb.AddForce(new Vector3(0.0f, _JumpForce, 0.0f), ForceMode.Impulse);
     }
 
     public void ResumePositionOnSpline()
@@ -219,7 +208,7 @@ public class OnSplineMovementController : MonoBehaviour
         _Airborne = false;
         _CanAirAgain = false;
 
-        float _landingVelocity = Mathf.Min(_LandingMaxVelocity, _rb.velocity.y * (_LandingVelocityBoostMultiplier - 1));
+        float _landingVelocity = Mathf.Min(_LandingMaxVelocity, JumpAmplitude * (_LandingVelocityBoostMultiplier - 1));
 
         _tempCooldownAfterGroundCheck = _cooldownAfterGroundCheck;
         _tempPostLandingDecelerationTransitionTime = _postLandingDecelerationTransitionTime;
@@ -233,7 +222,6 @@ public class OnSplineMovementController : MonoBehaviour
 
         SetSplinePositionOffset(_splinePositionToGoBackTo);
         _playerObject.transform.position = _spline.EvaluatePosition(_splinePositionToGoBackTo);
-        _playerObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, _spline.EvaluateUpVector(_splinePositionToGoBackTo));
     }
     #endregion
 
@@ -297,7 +285,7 @@ public class OnSplineMovementController : MonoBehaviour
 
         //Set player on corresponding spline position
         _playerObject.transform.position = _spline.EvaluatePosition(_positionOnSpline);
-        _playerObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, _spline.EvaluateUpVector(_positionOnSpline)) /* _playerObject.transform.rotation*/;
+        _playerObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, _spline.EvaluateUpVector(_positionOnSpline));
     }
     public void UpdateXDirection(float XDirection)
     {
@@ -356,13 +344,24 @@ public class OnSplineMovementController : MonoBehaviour
                     {
                         if (_positionOnSpline < 0.5f && _splineManager.CurrentBounds.Positions[0].PositionPointType == SplinePointPositionType.JUMP_POINT)
                         {
-                            _splinePositionToGoBackTo = _positionOnSpline + 0.007f;
-                            SwapPhysicsToRB();
+                            if(_velocity > _minimumVelocityForJump)
+                            {
+                                JumpAmplitude = Mathf.Clamp((Mathf.Abs(_velocity) * -1) * (_sideJumpImpulseForce * -1), MinJumpAmplitude, MaxJumpAmplitude);
+                                _velocity = 0.0f;
+                                _Airborne = true;
+                                _splinePositionToGoBackTo = _positionOnSpline + 0.007f;
+                            }
                         }
                         if (_positionOnSpline >= 0.5f && _splineManager.CurrentBounds.Positions[1].PositionPointType == SplinePointPositionType.JUMP_POINT)
                         {
-                            _splinePositionToGoBackTo = _positionOnSpline - 0.007f;
-                            SwapPhysicsToRB();
+                            if (-_velocity > _minimumVelocityForJump)
+                            {
+                                JumpAmplitude = Mathf.Clamp((Mathf.Abs(_velocity) * -1) * (_sideJumpImpulseForce * -1), MinJumpAmplitude, MaxJumpAmplitude);
+                                _velocity = 0.0f;
+                                _Airborne = true;
+                                _splinePositionToGoBackTo = _positionOnSpline - 0.007f;
+                            }
+
                         }
                     }
                 }

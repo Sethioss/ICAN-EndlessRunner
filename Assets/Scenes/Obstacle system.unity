@@ -834,22 +834,22 @@ PrefabInstance:
     - target: {fileID: 5373699142788002625, guid: 3d31b47f3a188a44490a4d302b1769b5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.47000003
+      value: 1.46
       objectReference: {fileID: 0}
     - target: {fileID: 5373699142788002625, guid: 3d31b47f3a188a44490a4d302b1769b5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.74
+      value: -4.54
       objectReference: {fileID: 0}
     - target: {fileID: 5373699142788002625, guid: 3d31b47f3a188a44490a4d302b1769b5,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9999958
+      value: 0.99944615
       objectReference: {fileID: 0}
     - target: {fileID: 5373699142788002625, guid: 3d31b47f3a188a44490a4d302b1769b5,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0028880483
+      value: 0.03327794
       objectReference: {fileID: 0}
     - target: {fileID: 5373699142788002625, guid: 3d31b47f3a188a44490a4d302b1769b5,
         type: 3}
@@ -1425,35 +1425,8 @@ MonoBehaviour:
     ForcedCooldown: 0
   GenerationPools:
   - _minDistance: 0
-    _poolLength: 400
+    _poolLength: 5000
     _activities:
-    - weightCurve:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 1
-          value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      activitySO: {fileID: 11400000, guid: 5cbe4a11bdbf83a47a5976d20135f8db, type: 2}
-      Weight: 1
-      CooldownDuration: 0
     - weightCurve:
         serializedVersion: 2
         m_Curve:
@@ -1487,9 +1460,9 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
+      weight: 1
       activitySO: {fileID: 11400000, guid: d4d71adb0561aae47b835384a12eab5f, type: 2}
-      Weight: 0.2
-      CooldownDuration: 0
+      _cooldown: 0
   - _minDistance: 0
     _poolLength: 500
     _activities:
@@ -1517,9 +1490,9 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
+      weight: 1
       activitySO: {fileID: 11400000, guid: 47013a0f9d542b5498e3958b4f1dd959, type: 2}
-      Weight: 1
-      CooldownDuration: 0
+      _cooldown: 0
   InsertionProcessors:
   - _activitySOToCheck: {fileID: 11400000, guid: 47013a0f9d542b5498e3958b4f1dd959,
       type: 2}
@@ -1821,8 +1794,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1132109945}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0028880483, y: 0, z: 0, w: 0.9999958}
-  m_LocalPosition: {x: 0, y: 0.47000003, z: -4.74}
+  m_LocalRotation: {x: 0.03327794, y: 0, z: 0, w: 0.99944615}
+  m_LocalPosition: {x: 0, y: 1.46, z: -4.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1862,10 +1835,45 @@ MonoBehaviour:
   _previewPlayerStartPos: 0
   _startPosition: 0.5
   _playerObject: {fileID: 1814874660}
-  _sideJumpImpulseForce: 400
-  _sideJumpMaxHeight: 3
+  _minimumVelocityForJump: 0.006
+  _sideJumpImpulseForce: 200
+  MinJumpAmplitude: 2
+  MaxJumpAmplitude: 6
   _Airborne: 0
-  _LandingVelocityBoostMultiplier: 0.9985
+  _StandardJumpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.5918949
+      outSlope: 2.5918949
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.36000004
+    - serializedVersion: 3
+      time: 0.6433301
+      value: 0.98314357
+      inSlope: 0.06668196
+      outSlope: -0.55146134
+      tangentMode: 1
+      weightedMode: 3
+      inWeight: 0.7032239
+      outWeight: 0.5034517
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -3.6735144
+      outSlope: -3.6735144
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.34482533
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _LandingVelocityBoostMultiplier: 1.003
   _LandingMaxVelocity: 0.003
   _cooldownAfterGroundCheck: 0.2
   _landingDeceleration: 0.005
