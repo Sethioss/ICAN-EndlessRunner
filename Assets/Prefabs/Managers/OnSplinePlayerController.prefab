@@ -46,54 +46,118 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _splineManager: {fileID: 0}
-  _previewPlayerStartPos: 1
+  _previewPlayerStartPos: 0
   _startPosition: 0.5
   _playerObject: {fileID: 0}
-  _sideJumpImpulseForce: 800
-  _sideJumpMaxHeight: 6
+  _minimumVelocityForJump: 0.006
+  _sideJumpImpulseForce: 200
+  MinJumpAmplitude: 4
+  MaxJumpAmplitude: 8
   _Airborne: 0
-  _LandingVelocityBoostMultiplier: 0.99926
-  _LandingMaxVelocity: 0.005
-  _cooldownAfterGroundCheck: 1
-  _landingDeceleration: -0.1
-  _postLandingDecelerationTransitionTime: -1
+  _StandardJumpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.5918949
+      outSlope: 2.5918949
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.36000004
+    - serializedVersion: 3
+      time: 0.6433301
+      value: 0.98314357
+      inSlope: 0.06668196
+      outSlope: -0.55146134
+      tangentMode: 1
+      weightedMode: 3
+      inWeight: 0.7032239
+      outWeight: 0.5034517
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -3.6735144
+      outSlope: -3.6735144
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.34482533
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  JumpCurves:
+  - MinimumRequiredVelocity: 0.006
+    SideJumpImpulseForce: 200
+    MinJumpHeight: 4
+    MaxJumpHeight: 8
+    Curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 2.5918949
+        outSlope: 2.5918949
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.36000004
+      - serializedVersion: 3
+        time: 0.6433301
+        value: 0.98314357
+        inSlope: 0.06668196
+        outSlope: -0.55146134
+        tangentMode: 1
+        weightedMode: 3
+        inWeight: 0.7032239
+        outWeight: 0.5034517
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: -3.6735144
+        outSlope: -3.6735144
+        tangentMode: 0
+        weightedMode: 3
+        inWeight: 0.34482533
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  _LandingVelocityBoostMultiplier: 1.003
+  _LandingMaxVelocity: 0.003
+  _cooldownAfterGroundCheck: 0.2
+  _landingDeceleration: 0.005
+  _postLandingDecelerationTransitionTime: 0.5
   _AngularRotationMultiplierOnAir: 2
   _velocity: 0
   _AngularRotationMultiplier: 10000
-  _maxSpeed: 0.01
-  _minSpeed: 0.0001
+  _maxSpeed: 0.25
+  _minSpeed: 0
   normalAccel: 0.025
   changeSideDeceleration: 0.1
-  deceleration: -0.1
+  deceleration: 0.005
   accelCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.0031893402
-      value: 0.005509898
-      inSlope: 0.14640301
-      outSlope: 0.14640301
+      time: 0
+      value: 0
+      inSlope: -0.0040390366
+      outSlope: -0.0040390366
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.31235173
+      outWeight: 0.493678
     - serializedVersion: 3
-      time: 0.2692371
-      value: 0.02887924
-      inSlope: 0.020750705
-      outSlope: 0.020750705
+      time: 0.9791667
+      value: 0.050471697
+      inSlope: -0.0010376195
+      outSlope: -0.0010376195
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.36178136
-      outWeight: 0.19224991
-    - serializedVersion: 3
-      time: 0.97465724
-      value: 0.03649323
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.1522893
+      inWeight: 0.21666664
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -102,27 +166,27 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.002380371
-      value: 0
-      inSlope: 0.009745254
-      outSlope: 0.009745254
+      time: 0.0083351135
+      value: 0.0039978027
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.17628206
+      outWeight: 0
     - serializedVersion: 3
-      time: 2.0032043
-      value: 0.024066145
-      inSlope: 0.03291008
-      outSlope: 0.03291008
+      time: 1
+      value: 0.05
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.110401265
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _TimeInAirRatio: 1
+  _TimeInAirRatio: 0
   _OnGroundVelocityRatio: 0
   _ParticleRight: {fileID: 0}
   _ParticleLeft: {fileID: 0}

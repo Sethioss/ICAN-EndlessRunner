@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Splines;
 
-[ExecuteInEditMode]
 public class SplineBoundsEditPlanePreviewer : MonoBehaviour
 {
     [SerializeField] bool PreviewerEnabled = false;
@@ -26,17 +25,20 @@ public class SplineBoundsEditPlanePreviewer : MonoBehaviour
 
     private void OnEnable()
     {
-        if(boundsPlane)
+        if(!Application.IsPlaying(this))
         {
-            pointInfos.Add(boundsPlane.pointInfo);
-        }
-        else
-        {
-            boundsPlane = GetComponent<SplineBoundsEditPlane>();
+            if (boundsPlane)
+            {
+                pointInfos.Add(boundsPlane.pointInfo);
+            }
+            else
+            {
+                boundsPlane = GetComponent<SplineBoundsEditPlane>();
+            }
         }
     }
 
-    private void Update()
+public void OnDrawGizmos()
     {
         if (boundsPlane && boundsPlane.pointInfo.Positions.Count == 2)
         {
@@ -47,10 +49,7 @@ public class SplineBoundsEditPlanePreviewer : MonoBehaviour
         {
             ValidData = false;
         }
-    }
 
-public void OnDrawGizmos()
-    {
         if (PreviewerEnabled && ValidData && boundsPlane.PreviewEditPlane)
         {
             Gizmos.color = Color.black;

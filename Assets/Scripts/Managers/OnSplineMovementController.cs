@@ -98,6 +98,44 @@ public class OnSplineMovementController : MonoBehaviour
     [SerializeField] private ParticleSystem _ParticleRight;
     [SerializeField] private ParticleSystem _ParticleLeft;
 
+
+    //Used when bounds change
+    public void CorrectPlayerBackOnSpline()
+    {
+        bool IsOutOfBounds = false;
+        bool SplinePassesByOrigin = _splineManager.CurrentBoundPassesByOrigin(_splineManager.CurrentBounds);
+        if (SplinePassesByOrigin)
+        {
+            IsOutOfBounds = _positionOnSpline >= _splineManager.CurrentBounds.Positions[0].Position && _positionOnSpline <= _splineManager.CurrentBounds.Positions[1].Position;
+            if (IsOutOfBounds)
+            {
+                if (Mathf.Abs(_positionOnSpline - _splineManager.CurrentBounds.Positions[0].Position) > Mathf.Abs(_positionOnSpline - _splineManager.CurrentBounds.Positions[1].Position))
+                {
+                    SetSplinePositionOffset(_splineManager.CurrentBounds.Positions[0].Position);
+                }
+                else
+                {
+                    SetSplinePositionOffset(_splineManager.CurrentBounds.Positions[1].Position);
+                }
+            }
+        }
+        else
+        {
+            IsOutOfBounds = !(_positionOnSpline >= _splineManager.CurrentBounds.Positions[0].Position && _positionOnSpline <= _splineManager.CurrentBounds.Positions[1].Position);
+            if (IsOutOfBounds)
+            {
+                if (Mathf.Abs(_positionOnSpline - _splineManager.CurrentBounds.Positions[0].Position) > Mathf.Abs(_positionOnSpline - _splineManager.CurrentBounds.Positions[1].Position))
+                {
+                    SetSplinePositionOffset(_splineManager.CurrentBounds.Positions[1].Position);
+                }
+                else
+                {
+                    SetSplinePositionOffset(_splineManager.CurrentBounds.Positions[0].Position);
+                }
+            }
+        }
+    }
+
     // Start is called before the first frame update
     protected virtual void OnEnable()
     {
@@ -382,7 +420,7 @@ public class OnSplineMovementController : MonoBehaviour
                                 JumpAmplitude = Mathf.Clamp((Mathf.Abs(_velocity) * -1) * (_sideJumpImpulseForce * -1), MinJumpAmplitude, MaxJumpAmplitude);
                                 _velocity = 0.0f;
                                 _Airborne = true;
-                                _splinePositionToGoBackTo = _positionOnSpline + 0.007f;
+                                _splinePositionToGoBackTo = _splineManager.CurrentBounds.Positions[0].Position + 0.007f;
                             }
                         }
                         if (_positionOnSpline >= 0.5f && _splineManager.CurrentBounds.Positions[1].PositionPointType == SplinePointPositionType.JUMP_POINT)
@@ -393,7 +431,7 @@ public class OnSplineMovementController : MonoBehaviour
                                 JumpAmplitude = Mathf.Clamp((Mathf.Abs(_velocity) * -1) * (_sideJumpImpulseForce * -1), MinJumpAmplitude, MaxJumpAmplitude);
                                 _velocity = 0.0f;
                                 _Airborne = true;
-                                _splinePositionToGoBackTo = _positionOnSpline - 0.007f;
+                                _splinePositionToGoBackTo = _splineManager.CurrentBounds.Positions[1].Position - 0.007f;
                             }
 
                         }

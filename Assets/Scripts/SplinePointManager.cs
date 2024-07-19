@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -18,6 +19,38 @@ public enum SplinePointPositionType
 [System.Serializable]
 public struct SplinePointInfo
 {
+    public static bool operator == (SplinePointInfo left, SplinePointInfo right)
+    {
+        if(left.Positions.Count != right.Positions.Count)
+        {
+            return false;
+        }
+
+        for(int i = 0; i < left.Positions.Count; ++i)
+        {
+            if ((left.Positions[i].PositionPointType != right.Positions[i].PositionPointType) || (left.Positions[i].Position != right.Positions[i].Position))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static bool operator != (SplinePointInfo left, SplinePointInfo right)
+    {
+        if (left.Positions.Count == right.Positions.Count)
+        {
+            for (int i = 0; i < left.Positions.Count; ++i)
+            {
+                if ((left.Positions[i].PositionPointType == right.Positions[i].PositionPointType) && (left.Positions[i].Position == right.Positions[i].Position))
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     [SerializeField]
     //TODO: Find a way to store these in an array rather than a list, a solution might be to turn this into a class
     [Header("Only put two positions, it might lead to undefined behaviour, and \nonly the first and last point will be taken in consideration anyway")]
@@ -56,8 +89,8 @@ public class SplinePointManager : MonoBehaviour
     private void Start()
     {
         //DEBUG - REMOVE LATER
-        gameObject.GetComponent<SplineManager>().ChangeBounds(pointInfos);
-        gameObject.GetComponent<SplineManager>().ChangeCurrentBounds(pointInfos[0]);
+        //gameObject.GetComponent<SplineManager>().ChangeBounds(pointInfos);
+        //gameObject.GetComponent<SplineManager>().ChangeCurrentBounds(pointInfos[0]);
     }
 
 #if UNITY_EDITOR

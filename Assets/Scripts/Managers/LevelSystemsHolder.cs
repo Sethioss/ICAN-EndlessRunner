@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class LevelSystemsHolder : MonoBehaviour
 {
-    [SerializeField] SplineManager splineManager;
-    [SerializeField] OnSplineMovementController onSplineMovementController;
+    [SerializeField] public SplineManager splineManager;
+    [SerializeField] public OnSplineMovementController onSplineMovementController;
     [SerializeField] public ActivitiesSequenceGenerator obstacleManager;
     [SerializeField] public LevelScroller levelScroller;
 

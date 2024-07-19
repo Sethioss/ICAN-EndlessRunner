@@ -301,6 +301,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlocLD-Haut
       objectReference: {fileID: 0}
+    - target: {fileID: 2131427709255652583, guid: 18fd4e93ecdd23648b9ff44796579fbf,
+        type: 3}
+      propertyPath: PreviewerEnabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3416414943359029759, guid: 18fd4e93ecdd23648b9ff44796579fbf,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -360,6 +365,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4504704698755261843, guid: 18fd4e93ecdd23648b9ff44796579fbf,
+        type: 3}
+      propertyPath: pointInfo.Positions.Array.data[0].Position
+      value: 0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 4504704698755261843, guid: 18fd4e93ecdd23648b9ff44796579fbf,
+        type: 3}
+      propertyPath: pointInfo.Positions.Array.data[1].Position
+      value: 0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 4504704698755261843, guid: 18fd4e93ecdd23648b9ff44796579fbf,
+        type: 3}
+      propertyPath: pointInfo.Positions.Array.data[1].PositionPointType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5496859885997138862, guid: 18fd4e93ecdd23648b9ff44796579fbf,
         type: 3}

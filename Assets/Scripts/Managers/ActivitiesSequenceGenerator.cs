@@ -48,6 +48,8 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
 
         InstantiatedActivitiesGO.Insert(0, LeadingActivityObject.gameObject);
         LeadingActivityGeometry = LeadingActivityObject.GetComponent<ActivityGeometry>();
+        _levelSystemsHolder.splineManager.ChangeCurrentBounds(LeadingActivityGeometry._firstBoundsEditPlane.pointInfo, LeadingActivityGeometry._firstBoundsEditPlane);
+        _levelSystemsHolder.onSplineMovementController.CorrectPlayerBackOnSpline();
 
         SpawnActivitiesGeometry();
     }
