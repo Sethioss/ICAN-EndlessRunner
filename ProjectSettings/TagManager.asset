@@ -8,7 +8,7 @@ TagManager:
   - Bonus
   - RemoveTrigger
   - Tile
-  - SideJumpTrigger
+  - BoundsChangePlane
   layers:
   - Default
   - TransparentFX
@@ -16,7 +16,7 @@ TagManager:
   - Player
   - Water
   - UI
-  - 
+  - BoundsEditChangePoint
   - 
   - 
   - 

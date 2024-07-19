@@ -1604,6 +1604,26 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 35.1
       objectReference: {fileID: 0}
+    - target: {fileID: 5496859885997138862, guid: 18fd4e93ecdd23648b9ff44796579fbf,
+        type: 3}
+      propertyPath: pointInfos.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5496859885997138862, guid: 18fd4e93ecdd23648b9ff44796579fbf,
+        type: 3}
+      propertyPath: pointInfo.Positions.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5496859885997138862, guid: 18fd4e93ecdd23648b9ff44796579fbf,
+        type: 3}
+      propertyPath: pointInfo.Positions.Array.data[1].Position
+      value: 0.251
+      objectReference: {fileID: 0}
+    - target: {fileID: 5496859885997138862, guid: 18fd4e93ecdd23648b9ff44796579fbf,
+        type: 3}
+      propertyPath: pointInfos.Array.data[0].Positions.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5625095586179561193, guid: 18fd4e93ecdd23648b9ff44796579fbf,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -1618,6 +1638,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Center.z
       value: 213.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 8026357299536790605, guid: 18fd4e93ecdd23648b9ff44796579fbf,
+        type: 3}
+      propertyPath: pointInfos.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8026357299536790605, guid: 18fd4e93ecdd23648b9ff44796579fbf,
+        type: 3}
+      propertyPath: pointInfos.Array.data[0].Positions.Array.data[1].Position
+      value: 0.251
       objectReference: {fileID: 0}
     - target: {fileID: 8966813236126251231, guid: 18fd4e93ecdd23648b9ff44796579fbf,
         type: 3}
@@ -1716,7 +1746,11 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6032031541063053156}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1642396267427399281, guid: 18fd4e93ecdd23648b9ff44796579fbf,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 763975462954175515}
   m_SourcePrefab: {fileID: 100100000, guid: 18fd4e93ecdd23648b9ff44796579fbf, type: 3}
 --- !u!4 &1533872710484420643 stripped
 Transform:
@@ -1724,6 +1758,38 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5994825681051139351}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5042642375432813414 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1642396267427399281, guid: 18fd4e93ecdd23648b9ff44796579fbf,
+    type: 3}
+  m_PrefabInstance: {fileID: 5994825681051139351}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &763975462954175515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5042642375432813414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e54fa21148cdcc41ad7c0ee02bdb920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PreviewerEnabled: 1
+  pointInfos:
+  - Positions:
+    - Position: 0.246
+      PositionPointType: 0
+    - Position: 0.251
+      PositionPointType: 0
+    PointPreviewType: 2
+  boundsPlane: {fileID: 0}
+  Precision: 2
+  PlayerSpline: {fileID: 6144484082644208719, guid: 50317dcb922b6e54cbc788bd883595b5,
+    type: 3}
+  splineManager: {fileID: 7295276456588010105, guid: f739e57addb7bd44d98567feed85e122,
+    type: 3}
 --- !u!4 &8960031836540595432 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3416414943359029759, guid: 18fd4e93ecdd23648b9ff44796579fbf,
