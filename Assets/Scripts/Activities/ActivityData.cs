@@ -4,10 +4,27 @@ using UnityEngine;
 public class ActivityData
 {
     [SerializeField] public AnimationCurve weightCurve;
+    [SerializeField, Range(0, 1)] public float weight = 1;
     [SerializeField] public SOActivity activitySO;
+    [SerializeField] public int _cooldown;
 
-    public float GetFinalWeightFromCurve(float t)
+    private int Cooldown;
+
+    public void SetCooldown(int newCoolDown)
     {
-        return weightCurve.Evaluate(t);
+        Cooldown = newCoolDown;
+    }
+    public void SetCooldown()
+    {
+        Cooldown = _cooldown;
+    }
+    public void DecreaseCooldown()
+    {
+        Cooldown--;
+    }
+    public float GetFinalWeightAt(float t)
+    {
+        float mul = Cooldown < 0 ? 1 : 0;
+        return weightCurve.Evaluate(t) * weight * mul;
     }
 }

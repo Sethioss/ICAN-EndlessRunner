@@ -48,9 +48,9 @@ public class LevelScroller : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < ActivitiesSequenceGenerator.InstantiatedActivities.Count; ++i)
+        for (int i = 0; i < ActivitiesSequenceGenerator.InstantiatedActivitiesGO.Count; ++i)
         {
-            GameObject obj = ActivitiesSequenceGenerator.InstantiatedActivities[i].gameObject;
+            GameObject obj = ActivitiesSequenceGenerator.InstantiatedActivitiesGO[i].gameObject;
             obj.transform.position += ((-obj.transform.forward) * ScrollSpeed) * Time.deltaTime;
         }
     }

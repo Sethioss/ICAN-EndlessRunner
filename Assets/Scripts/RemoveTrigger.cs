@@ -7,7 +7,17 @@ public class RemoveTrigger : MonoBehaviour
     {
         if(other.CompareTag("Tile"))
         {
-            om.CreateNewActivity(other.gameObject);
+            //om.Temp++;
+            om.DeleteActivity(other.gameObject);
+            //if(om.Temp >= om.NumberOfActivitiesSpawnedOnStart / 2)
+            //{
+            //    Debug.Log("Spawn new");
+            //
+            //    om.MakeNewIncomingActivitiesList(om.NumberOfActivitiesSpawnedOnStart / 2);
+            //    om.SpawnActivitiesGeometry();
+            //
+            //    om.Temp = 0;
+            //}
         }
     }
 }
