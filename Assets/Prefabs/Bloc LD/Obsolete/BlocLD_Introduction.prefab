@@ -73,6 +73,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tail: {fileID: 7270189798746167611}
   _firstBoundsEditPlane: {fileID: 4504704698755261843}
+  _boundsArchetype: 0
 --- !u!1 &2099084320812739806
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,7 +447,7 @@ PrefabInstance:
     - target: {fileID: 1317957132422055148, guid: 4b637a3e871854843b58d056cb7007f1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1.52
       objectReference: {fileID: 0}
     - target: {fileID: 1317957132422055148, guid: 4b637a3e871854843b58d056cb7007f1,
         type: 3}
@@ -516,7 +517,7 @@ PrefabInstance:
     - target: {fileID: 7891510284207016650, guid: 4b637a3e871854843b58d056cb7007f1,
         type: 3}
       propertyPath: PreviewerEnabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7891510284207016650, guid: 4b637a3e871854843b58d056cb7007f1,
         type: 3}

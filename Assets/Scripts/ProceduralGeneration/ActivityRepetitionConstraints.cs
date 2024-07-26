@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
-public class RepetitionObstacleConstraint
+public class ActivityRepetitionConstraints
 {
     [SerializeField] private SOActivity activitySO;
     [SerializeField] private int MaxRepetitions = 1;
