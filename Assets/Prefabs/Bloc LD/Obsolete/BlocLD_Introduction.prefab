@@ -73,7 +73,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tail: {fileID: 7270189798746167611}
   _firstBoundsEditPlane: {fileID: 4504704698755261843}
-  _boundsArchetype: 0
+  _boundsArchetype: 1
 --- !u!1 &2099084320812739806
 GameObject:
   m_ObjectHideFlags: 0

@@ -95,8 +95,27 @@ public void OnDrawGizmos()
                         foreach (SplinePoint point in pointInfos[i].Positions)
                         {
 
-                            Random.InitState(((int)point.PositionPointType));
-                            Gizmos.color = new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
+                            switch ((int)point.PositionPointType)
+                            {
+                                //Jump point
+                                case 0:
+                                    {
+                                        Gizmos.color = Color.green;
+                                        break;
+                                    }
+                                //Bounds
+                                case 1:
+                                    {
+                                        Gizmos.color = Color.red;
+                                        break;
+                                    }
+                                //Other
+                                default:
+                                    {
+                                        Gizmos.color = Color.black;
+                                        break;
+                                    }
+                            }
                             TempPoint = PlayerSpline.EvaluatePosition(Mathf.Repeat(point.Position + splineManager.PlayerSpline.Origin, 1.0f));
                             TempPoint += transform.position;
                             Gizmos.DrawSphere(TempPoint, 0.4f);
