@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] CoinStreakManager coinStreakManager;
     [SerializeField] OnSplineMovementController MovementController;
     [SerializeField] LevelScroller LevelScroller;
 
@@ -37,6 +38,7 @@ public class Player : MonoBehaviour
             isSpecialStatus = true;
             tempSpecialStatusTime = 0;
             other.gameObject.SetActive(false);
+            coinStreakManager.PickupCoin(other.GetComponent<Coin>());
             PlayerMesh.material = RichMat;
         }
     }

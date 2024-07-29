@@ -37,7 +37,7 @@ public class ActivitySplineBoundsBasedInsertionProcessor
 
                 if (SelectedTransition == null || SelectedTransition._activity == null)
                 {
-                   Debug.LogError($"<color=#FFFF00>SplineBoundsBasedProcessor:: The selected transition or relevant activity was NULL. Please check the processor's configuration. Reverting to default</color>" +
+                   Debug.LogError($"<color=#FFFF00>ActivitySplineBoundsBasedInsertionProcessor.cs - The selected transition or relevant activity was NULL. Please check the processor's configuration. Reverting to default</color>" +
                        $"<color=#CFB01F>\n Info: ActivityTransition supposed to trigger: {Geometries[i].name} at index <color=#d512be>{i}</color> to {Geometries[i + 1].name} at index <color=#d512be>{i + 1}</color> ({Geometries[i]._boundsArchetype} to {Geometries[i + 1]._boundsArchetype}</color>)");
                 }
                 else
