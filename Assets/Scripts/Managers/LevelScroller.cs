@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,6 +22,9 @@ public class LevelScroller : MonoBehaviour
 
     private void Start()
     {
+#if UNITY_EDITOR
+        //ScrollSpeed *= (10.0f/25.0f);
+#endif
         MaxScrollSpeed = ScrollSpeed;
     }
 

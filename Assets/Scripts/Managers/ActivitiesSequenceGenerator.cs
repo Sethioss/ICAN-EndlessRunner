@@ -9,23 +9,22 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
     [HideInInspector] public int Temp = 0;
 
     [SerializeField] public int NumberOfActivitiesSpawnedOnStart = 5;
-    [SerializeField] public int NumberOfActivitiesToSpawnAtOnce = 5;
-    [SerializeField] private int DeloadingActivityNumber = 5;
+    private int NumberOfActivitiesToSpawnAtOnce = 5;
 
     //New activity system
     [SerializeField] private LevelSystemsHolder _levelSystemsHolder;
     [SerializeField] private ActivityGeometry LeadingActivityGeometry;
-    [HideInInspector] public GameObject LeadingActivityObject;
+    private GameObject LeadingActivityObject;
 
     private List<ActivityData> PossibleActivities = new List<ActivityData>();
     private List<SOActivity> WaitingActivities = new List<SOActivity>();
-    /*[HideInInspector]*/
-    public List<GameObject> InstantiatedActivitiesGO = new List<GameObject>();
+    [HideInInspector] public List<GameObject> InstantiatedActivitiesGO = new List<GameObject>();
     private List<GameObject> PassedActivities = new List<GameObject>();
 
-    [SerializeField] private List<RepetitionObstacleConstraint> RepetitionConstraints;
+    [SerializeField] private List<ActivityRepetitionConstraints> RepetitionConstraints;
     [SerializeField] private List<ActivityGenerationPool> GenerationPools = new List<ActivityGenerationPool>();
-    [SerializeField] private List<InsertionObstacleProcessor> InsertionProcessors = new List<InsertionObstacleProcessor>();
+    [SerializeField] private List<ActivityInsertionProcessor> InsertionProcessors = new List<ActivityInsertionProcessor>();
+    [SerializeField] private List<ActivitySplineBoundsBasedInsertionProcessor> SplineBoundsBasedInsertionProcessors = new List<ActivitySplineBoundsBasedInsertionProcessor>();
 
     int CurrentPool = 0;
     int AccumulatedDistance = 0;
@@ -48,6 +47,8 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
 
         InstantiatedActivitiesGO.Insert(0, LeadingActivityObject.gameObject);
         LeadingActivityGeometry = LeadingActivityObject.GetComponent<ActivityGeometry>();
+        _levelSystemsHolder.splineManager.ChangeCurrentBounds(LeadingActivityGeometry._firstBoundsEditPlane.pointInfo, LeadingActivityGeometry._firstBoundsEditPlane);
+        _levelSystemsHolder.onSplineMovementController.CorrectPlayerBackOnSpline();
 
         SpawnActivitiesGeometry();
     }
@@ -87,6 +88,7 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
         }
 
         ApplyInsertionProcessing();
+        ApplySplineBoundsInsertionProcessing();
     }
 
     public ActivityData SelectActivity(ActivityGenerationPool CurrentGenPool)
@@ -130,20 +132,31 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
         }
     }
 
+    public void ApplySplineBoundsInsertionProcessing()
+    {
+        foreach (ActivitySplineBoundsBasedInsertionProcessor Processor in SplineBoundsBasedInsertionProcessors)
+        {
+            List<SOActivity> ProcessedList = new List<SOActivity>(WaitingActivities);
+            ProcessedList = Processor.Process(ProcessedList, InstantiatedActivitiesGO.Count > 0 ? InstantiatedActivitiesGO[0].GetComponent<ActivityGeometry>() : null);
+            NumberOfActivitiesToSpawnAtOnce = NumberOfActivitiesToSpawnAtOnce + (ProcessedList.Count - WaitingActivities.Count);
+            WaitingActivities = ProcessedList;
+        }
+    }
+
     public void ApplyInsertionProcessing()
     {
-        foreach (InsertionObstacleProcessor Processor in InsertionProcessors)
+        foreach (ActivityInsertionProcessor Processor in InsertionProcessors)
         {
             List<SOActivity> ProcessedList = new List<SOActivity>(WaitingActivities);
             ProcessedList = Processor.Process(ProcessedList);
-            DeloadingActivityNumber = NumberOfActivitiesToSpawnAtOnce + (ProcessedList.Count - WaitingActivities.Count);
+            NumberOfActivitiesToSpawnAtOnce = NumberOfActivitiesToSpawnAtOnce + (ProcessedList.Count - WaitingActivities.Count);
             WaitingActivities = ProcessedList;
         }
     }
 
     public void ApplyRepetitionConstraints()
     {
-        foreach (RepetitionObstacleConstraint Constraint in RepetitionConstraints)
+        foreach (ActivityRepetitionConstraints Constraint in RepetitionConstraints)
         {
             if (Constraint.DoesConstraintApply(WaitingActivities))
             {
@@ -195,7 +208,7 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
         PassedActivities.Insert(0, RemovedGO);
         RemovedGO.SetActive(false);
 
-        if (PassedActivities.Count >= DeloadingActivityNumber)
+        if (PassedActivities.Count >= NumberOfActivitiesToSpawnAtOnce)
         {
             WaitingActivities.Clear();
             MakeNewIncomingActivitiesList(false);

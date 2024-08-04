@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8041387905091915458
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1317957132422055148}
+  - component: {fileID: 1951216327335780247}
+  - component: {fileID: 5662135177519627198}
+  - component: {fileID: 7891510284207016650}
+  m_Layer: 6
+  m_Name: BoundsEditPlane
+  m_TagString: BoundsEditPlane
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1317957132422055148
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8041387905091915458}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.16, y: -0.27427047, z: -10.71}
+  m_LocalScale: {x: 25.416, y: 28.49354, z: 3.1171029}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1951216327335780247
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8041387905091915458}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5662135177519627198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8041387905091915458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bf97e9e8c0f114498fc3f420fb4baad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PreviewEditPlane: 1
+  pointInfo:
+    Positions:
+    - Position: 0.288
+      PositionPointType: 0
+    - Position: 0.691
+      PositionPointType: 0
+    PointPreviewType: 2
+  relatedGeometry: {fileID: 0}
+--- !u!114 &7891510284207016650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8041387905091915458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e54fa21148cdcc41ad7c0ee02bdb920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PreviewerEnabled: 0
+  boundsPlane: {fileID: 5662135177519627198}
+  Precision: 4
+  PlayerSpline: {fileID: 6144484082644208719, guid: 50317dcb922b6e54cbc788bd883595b5,
+    type: 3}
+  splineManager: {fileID: 7295276456588010105, guid: f739e57addb7bd44d98567feed85e122,
+    type: 3}

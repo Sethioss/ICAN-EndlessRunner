@@ -15,6 +15,7 @@ public class SplineManager : MonoBehaviour
     [SerializeField] public SplineInfo PlayerSpline;
     [SerializeField] public List<SplinePointInfo> AppliedBounds;
     [SerializeField] public SplinePointInfo CurrentBounds;
+    [SerializeField] public SplineBoundsEditPlane CurrentBoundsEditPlane;
 
     public void ChangeBounds(List<SplinePointInfo> newBounds)
     {
@@ -24,6 +25,12 @@ public class SplineManager : MonoBehaviour
     public void ChangeCurrentBounds(SplinePointInfo newBounds)
     {
         CurrentBounds = newBounds;
+    }
+
+    public void ChangeCurrentBounds(SplinePointInfo newBounds, SplineBoundsEditPlane BoundsEditPlane)
+    {
+        CurrentBounds = newBounds;
+        CurrentBoundsEditPlane = BoundsEditPlane;
     }
 
     public float[] GetCurrentBoundsPositions()

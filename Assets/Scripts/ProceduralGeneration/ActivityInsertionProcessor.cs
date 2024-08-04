@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -11,38 +10,13 @@ public enum InsertionType
 }
 
 [System.Serializable]
-public class InsertionObstacleProcessor
+public class ActivityInsertionProcessor
 {
     [SerializeField] private SOActivity _activitySOToCheck;
     [SerializeField] private SOActivity _activitySOToInsert;
     [SerializeField] private int _replacingActivitiesNumber;
     [SerializeField] private int _MaxRepetitions = 1;
     [SerializeField] private InsertionType _InsertType;
-
-    public SOActivity ProcessSingle(SOActivity CurrentActivity, List<SOActivity> SelectedActivities)
-    {
-        int Repetition = _MaxRepetitions;
-
-        for (int i = SelectedActivities.Count - 1; i < 0; --i)
-        {
-            if (SelectedActivities[i] != _activitySOToCheck)
-            {
-                Repetition = _MaxRepetitions;
-                continue;
-            }
-
-            if (Repetition <= 0)
-            {
-                Debug.Log("Found repetition");
-                return _activitySOToInsert;
-            }
-            else
-            {
-                Repetition--;
-            }
-        }
-        return CurrentActivity;
-    }
 
     public List<SOActivity> Process(List<SOActivity> SelectedActivities)
     {

@@ -205,7 +205,7 @@ PrefabInstance:
     - target: {fileID: 1642396267427399281, guid: 18fd4e93ecdd23648b9ff44796579fbf,
         type: 3}
       propertyPath: m_Name
-      value: BlocLD-Bas
+      value: BlocLD-Bas 1
       objectReference: {fileID: 0}
     - target: {fileID: 3416414943359029759, guid: 18fd4e93ecdd23648b9ff44796579fbf,
         type: 3}
@@ -267,6 +267,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5496859885997138862, guid: 18fd4e93ecdd23648b9ff44796579fbf,
+        type: 3}
+      propertyPath: _boundsArchetype
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5496859885997138862, guid: 18fd4e93ecdd23648b9ff44796579fbf,
+        type: 3}
+      propertyPath: pointInfo.Positions.Array.data[0].Position
+      value: 0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 5496859885997138862, guid: 18fd4e93ecdd23648b9ff44796579fbf,
+        type: 3}
+      propertyPath: pointInfo.Positions.Array.data[1].Position
+      value: 0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 5496859885997138862, guid: 18fd4e93ecdd23648b9ff44796579fbf,
+        type: 3}
+      propertyPath: pointInfo.Positions.Array.data[0].PositionPointType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5496859885997138862, guid: 18fd4e93ecdd23648b9ff44796579fbf,
+        type: 3}
+      propertyPath: pointInfo.Positions.Array.data[1].PositionPointType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5625095586179561193, guid: 18fd4e93ecdd23648b9ff44796579fbf,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -276,6 +301,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8026357299536790605, guid: 18fd4e93ecdd23648b9ff44796579fbf,
+        type: 3}
+      propertyPath: PreviewerEnabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8026357299536790605, guid: 18fd4e93ecdd23648b9ff44796579fbf,
+        type: 3}
+      propertyPath: pointInfos.Array.data[0].Positions.Array.data[0].Position
+      value: 0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 8026357299536790605, guid: 18fd4e93ecdd23648b9ff44796579fbf,
+        type: 3}
+      propertyPath: pointInfos.Array.data[0].Positions.Array.data[1].Position
+      value: 0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 8026357299536790605, guid: 18fd4e93ecdd23648b9ff44796579fbf,
+        type: 3}
+      propertyPath: pointInfos.Array.data[0].Positions.Array.data[0].PositionPointType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8026357299536790605, guid: 18fd4e93ecdd23648b9ff44796579fbf,
+        type: 3}
+      propertyPath: pointInfos.Array.data[0].Positions.Array.data[1].PositionPointType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9031065261771421866, guid: 18fd4e93ecdd23648b9ff44796579fbf,
         type: 3}
