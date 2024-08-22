@@ -199,7 +199,7 @@ PrefabInstance:
     - target: {fileID: 2131427709255652583, guid: 18fd4e93ecdd23648b9ff44796579fbf,
         type: 3}
       propertyPath: PreviewerEnabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3416414943359029759, guid: 18fd4e93ecdd23648b9ff44796579fbf,
         type: 3}
@@ -264,7 +264,7 @@ PrefabInstance:
     - target: {fileID: 4504704698755261843, guid: 18fd4e93ecdd23648b9ff44796579fbf,
         type: 3}
       propertyPath: PreviewEditPlane
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4504704698755261843, guid: 18fd4e93ecdd23648b9ff44796579fbf,
         type: 3}
