@@ -8,8 +8,9 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
     [SerializeField] Transform FirstTileLocation;
     [HideInInspector] public int Temp = 0;
 
-    [SerializeField] public int NumberOfActivitiesSpawnedOnStart = 5;
-    private int NumberOfActivitiesToSpawnAtOnce = 5;
+    [SerializeField] private int NumberOfActivitiesSpawnedOnStart = 5;
+    [Header("Also serves as the number of obstacles to pass to launch next generation batch; so always keep \n below or equal to NumberOfActivitiesSpawnedOnStart")]
+    [SerializeField] private int NumberOfActivitiesToSpawnAtOnce = 5;
 
     //New activity system
     [SerializeField] private LevelSystemsHolder _levelSystemsHolder;
@@ -76,7 +77,7 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
         int NumberToGenerate = FirstSpawn ? NumberOfActivitiesSpawnedOnStart : NumberOfActivitiesToSpawnAtOnce;
         for (int i = 0; i < NumberToGenerate; ++i)
         {
-            ActivityData rdActivity = SelectActivity(CurrentGenPool);
+            ActivityData rdActivity = SelectActivity(CurrentGenPool, FirstSpawn);
             rdActivity.SetCooldown();
 
             WaitingActivities.Add(rdActivity.activitySO);
@@ -91,7 +92,7 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
         ApplySplineBoundsInsertionProcessing();
     }
 
-    public ActivityData SelectActivity(ActivityGenerationPool CurrentGenPool)
+    public ActivityData SelectActivity(ActivityGenerationPool CurrentGenPool, bool FirstSpawn)
     {
         //Apply constraints
         ApplyRepetitionConstraints();
@@ -102,14 +103,18 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
 
         float CurrentPoolRatio = Mathf.InverseLerp(AccumulatedDistance, NextPoolStart, _levelSystemsHolder.levelScroller.DistanceTraveled);
 
-        float TotalWeight = PossibleActivities.Sum(x => x.GetFinalWeightAt(CurrentPoolRatio));
+        float TotalWeight = PossibleActivities.Sum(x => x.GetFinalWeightAt(CurrentPoolRatio, FirstSpawn));
+        Debug.Log($"Total weight: {TotalWeight}");
+
         float sum = TotalWeight;
+        Debug.Log($"Sum: {sum}");
         float rdValue = Random.value;
         float rd = rdValue * TotalWeight;
+        Debug.Log($"Selected weight: {rd}");
 
         for (int j = 0; j < CurrentGenPool._activities.Count; j++)
         {
-            float weight = PossibleActivities[j].GetFinalWeightAt(CurrentPoolRatio);
+            float weight = PossibleActivities[j].GetFinalWeightAt(CurrentPoolRatio, FirstSpawn);
             if (rd < weight)
             {
                 return PossibleActivities[j];
