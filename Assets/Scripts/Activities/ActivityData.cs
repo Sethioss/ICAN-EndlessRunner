@@ -22,9 +22,14 @@ public class ActivityData
     {
         Cooldown--;
     }
-    public float GetFinalWeightAt(float t)
+    public float GetFinalWeightAt(float t, bool FirstSpawn)
     {
-        float mul = Cooldown < 0 ? 1 : 0;
+        float mul = 1.0f;
+        if(!FirstSpawn)
+        {
+            mul = Cooldown < 0 ? 1 : 0;
+        }
+
         return weightCurve.Evaluate(t) * weight * mul;
     }
 }
