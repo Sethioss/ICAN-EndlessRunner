@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 1642396267427399281, guid: 18fd4e93ecdd23648b9ff44796579fbf,
         type: 3}
       propertyPath: m_Name
-      value: BlocLD-HalfPipeFacileS1
+      value: BlocLD-HalfPipeCourtFacileS1
       objectReference: {fileID: 0}
     - target: {fileID: 3416414943359029759, guid: 18fd4e93ecdd23648b9ff44796579fbf,
         type: 3}
@@ -96,7 +96,7 @@ PrefabInstance:
     - target: {fileID: 7155877650653870578, guid: 18fd4e93ecdd23648b9ff44796579fbf,
         type: 3}
       propertyPath: m_Center.z
-      value: 944.7
+      value: 36.42
       objectReference: {fileID: 0}
     - target: {fileID: 7155877650653870578, guid: 18fd4e93ecdd23648b9ff44796579fbf,
         type: 3}

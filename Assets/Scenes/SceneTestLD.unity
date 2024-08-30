@@ -6831,6 +6831,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1114308233811826973}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1580635021 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8932659241067603765, guid: 4691d1a126e7dee45a64bb7251a02216,
+    type: 3}
+  m_PrefabInstance: {fileID: 2002547961}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 679399baad183c34bb0b2f31b1954332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1732945693
 GameObject:
   m_ObjectHideFlags: 0
@@ -7219,7 +7231,7 @@ MonoBehaviour:
   RepetitionConstraints: []
   GenerationPools:
   - _minDistance: 0
-    _poolLength: 0
+    _poolLength: 1
     _activities:
     - weightCurve:
         serializedVersion: 2
@@ -7409,36 +7421,6 @@ MonoBehaviour:
         m_RotationOrder: 4
       weight: 1
       activitySO: {fileID: 11400000, guid: 71774ed93964d634886f2c7ed6dff11d, type: 2}
-      _cooldown: 0
-  - _minDistance: 0
-    _poolLength: 0
-    _activities:
-    - weightCurve:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        - serializedVersion: 3
-          time: 1
-          value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      weight: 1
-      activitySO: {fileID: 11400000, guid: 034f1dbc6bfdd6041b1c9a5cc3b81964, type: 2}
       _cooldown: 0
   InsertionProcessors: []
   SplineBoundsBasedInsertionProcessors: []
@@ -8315,7 +8297,7 @@ PrefabInstance:
         type: 3}
       propertyPath: onSplineMovementController
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1580635021}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
