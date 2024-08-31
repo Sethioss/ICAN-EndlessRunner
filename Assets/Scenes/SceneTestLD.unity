@@ -7223,8 +7223,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FirstTileLocation: {fileID: 339921853}
   Temp: 0
-  NumberOfActivitiesSpawnedOnStart: 10
-  NumberOfActivitiesToSpawnAtOnce: 10
+  NumberOfActivitiesSpawnedOnStart: 8
+  NumberOfActivitiesToSpawnAtOnce: 3
   _levelSystemsHolder: {fileID: 1192635327}
   LeadingActivityGeometry: {fileID: 2267882098566438585, guid: ff8816e5a4a4aa54cacf390f630713b1,
     type: 3}
