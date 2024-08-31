@@ -86,7 +86,7 @@ public class OnSplineMovementController : MonoBehaviour
     private float _movementLerpValue;
 
     [Header("Ratios - Used for animation")]
-    [SerializeField][Range(-1, 1)] private float _OnGroundVelocityRatio;
+    [SerializeField][Range(-1, 1)] public float _OnGroundVelocityRatio;
     private float _lastDir = 0;
 
     private float _positionOnSpline = 0;
