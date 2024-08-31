@@ -471,7 +471,8 @@ public class OnSplineMovementController : MonoBehaviour
 
         public void HandleFingerDebug(List<LeanFinger> Fingers)
         {
-            if (Fingers.Count > 2)
+#if UNITY_EDITOR
+        if (Fingers.Count > 3)
             {
                 if (Fingers[1].Age > 2.0f)
                 {
@@ -480,7 +481,8 @@ public class OnSplineMovementController : MonoBehaviour
                     SceneManager.LoadScene(currentSceneName);
                 }
             }
-        }
+#endif
+    }
 
         public void HandleFingerUp(LeanFinger finger)
         {
@@ -490,7 +492,7 @@ public class OnSplineMovementController : MonoBehaviour
 
         public void UpdateFinger(LeanFinger finger)
         {
-            if (finger.Index == 0)
+            if (finger.Index == 0 && finger.ScreenPosition.y <= Screen.height / 1.5f)
             {
                 UpdateXDirection(GetNormalisedXDirection(finger.ScreenPosition.x));
             }
@@ -498,7 +500,7 @@ public class OnSplineMovementController : MonoBehaviour
 
         public void HandleFingerDown(LeanFinger finger)
         {
-            if (finger.Index == 0)
+            if (finger.Index == 0 && finger.ScreenPosition.y <= Screen.height / 1.5f)
             {
                 float Dir = GetNormalisedXDirection(finger.ScreenPosition.x);
                 if (Dir < 0)
