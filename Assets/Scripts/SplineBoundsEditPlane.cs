@@ -1,6 +1,9 @@
 using UnityEngine;
 
-[System.Serializable, RequireComponent(typeof(SplineBoundsEditPlanePreviewer))]
+#if UNITY_EDITOR
+[System.Serializable, 
+RequireComponent(typeof(SplineBoundsEditPlanePreviewer))]
+#endif
 public class SplineBoundsEditPlane : MonoBehaviour
 {
     [SerializeField] public bool PreviewEditPlane = false;

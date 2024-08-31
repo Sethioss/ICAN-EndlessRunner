@@ -74,6 +74,8 @@ public class LevelScroller : MonoBehaviour
                 GameObject obj = ActivitiesSequenceGenerator.InstantiatedActivitiesGO[i].gameObject;
                 obj.transform.position += ((-obj.transform.forward) * ScrollSpeed) * Time.deltaTime;
             }
+
+            UIManager.GetInstance().UpdateDistanceTravelled(Mathf.FloorToInt(DistanceTraveled));
         }     
     }
 

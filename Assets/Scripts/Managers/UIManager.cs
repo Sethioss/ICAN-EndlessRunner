@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -7,6 +8,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] Canvas Canva;
     [SerializeField] List<UIMenuCanva> MenuCanvaList;
+    [SerializeField] TextMeshProUGUI DistanceTravelledUI;
 
     private void Awake()
     {
@@ -44,7 +46,7 @@ public class UIManager : MonoBehaviour
         MenuCanvaList[index].gameObject.SetActive(true);
     }
 
-    public UIManager GetInstance()
+    public static UIManager GetInstance()
     {
         return _instance;
     }
@@ -57,5 +59,10 @@ public class UIManager : MonoBehaviour
     public void SendSceneChangeCommand()
     {
         GameManager.GetInstance().GetComponent<SceneLoader>().LoadScenes();
+    }
+
+    public void UpdateDistanceTravelled(int DistanceTravelled)
+    {
+        DistanceTravelledUI.text = DistanceTravelled + " m";
     }
 }
