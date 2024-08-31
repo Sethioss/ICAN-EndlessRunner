@@ -48,6 +48,17 @@ MonoBehaviour:
   _onGameSceneLoaded:
     m_PersistentCalls:
       m_Calls: []
+  _onPause:
+    m_PersistentCalls:
+      m_Calls: []
+  _onResume:
+    m_PersistentCalls:
+      m_Calls: []
+  _onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  GamePaused: 0
+  GameLost: 0
 --- !u!114 &8182092402102872242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,7 +95,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   - SceneLoadingActionType: 3
-    SceneToLoad: PersistenScene
+    SceneToLoad: PersistentScene
     LoadSceneOnStart: 0
     ChangeActiveSceneOnLoad: 1
     onSceneChanged:

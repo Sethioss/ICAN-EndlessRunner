@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/GameFlow/PersistentScene.unity
     guid: 19957ec7178a3c343a91165ba1199629
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/GameFlow/GameScene.unity
     guid: c850ee8c3b14cc8459e7e186857cf567
   - enabled: 0
@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SceneTestLD.unity
     guid: b30aff4c56ee99e46b8d41f945cee0f5
+  - enabled: 1
+    path: Assets/Scenes/Obstacle system.unity
+    guid: 5865a5c6fd027ad46998b50bd9d99a91
   m_configObjects:
     com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000,
       guid: a39f9a748acea9a409e9cbf351265638, type: 2}

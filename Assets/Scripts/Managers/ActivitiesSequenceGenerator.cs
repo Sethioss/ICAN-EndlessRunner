@@ -104,13 +104,10 @@ public class ActivitiesSequenceGenerator : MonoBehaviour
         float CurrentPoolRatio = Mathf.InverseLerp(AccumulatedDistance, NextPoolStart, _levelSystemsHolder.levelScroller.DistanceTraveled);
 
         float TotalWeight = PossibleActivities.Sum(x => x.GetFinalWeightAt(CurrentPoolRatio, FirstSpawn));
-        Debug.Log($"Total weight: {TotalWeight}");
 
         float sum = TotalWeight;
-        Debug.Log($"Sum: {sum}");
         float rdValue = Random.value;
         float rd = rdValue * TotalWeight;
-        Debug.Log($"Selected weight: {rd}");
 
         for (int j = 0; j < CurrentGenPool._activities.Count; j++)
         {

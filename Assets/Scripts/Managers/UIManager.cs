@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private GameManager _gm;
     private static UIManager _instance;
 
     [SerializeField] Canvas Canva;
@@ -52,11 +51,11 @@ public class UIManager : MonoBehaviour
 
     public void SendSceneChangeCommandSpecific(int index)
     {
-        _gm.GetInstance().GetComponent<SceneLoader>().LoadSceneSpecific(index);
+        GameManager.GetInstance().GetComponent<SceneLoader>().LoadSceneSpecific(index);
     }
 
     public void SendSceneChangeCommand()
     {
-        _gm.GetInstance().GetComponent<SceneLoader>().LoadScenes();
+        GameManager.GetInstance().GetComponent<SceneLoader>().LoadScenes();
     }
 }

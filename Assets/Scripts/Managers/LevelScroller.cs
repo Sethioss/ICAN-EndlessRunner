@@ -20,6 +20,23 @@ public class LevelScroller : MonoBehaviour
 
     List<float> TempFloats = new List<float>();
 
+    //TODO: Put this in a component, interface or system that can easily be placed in multiple scripts ("GameStateDependantExecution?")
+    private bool bAllowedToProceed = true;
+
+    protected virtual void OnEnable()
+    {
+        GameManager.GetInstance()._onDeath.AddListener(() => bAllowedToProceed = false);
+        GameManager.GetInstance()._onPause.AddListener(() => bAllowedToProceed = false);
+        GameManager.GetInstance()._onResume.AddListener(() => bAllowedToProceed = true);
+    }
+
+    void OnDisable()
+    {
+        GameManager.GetInstance()._onDeath.RemoveListener(() => bAllowedToProceed = false);
+        GameManager.GetInstance()._onPause.RemoveListener(() => bAllowedToProceed = false);
+        GameManager.GetInstance()._onResume.RemoveListener(() => bAllowedToProceed = true);
+    }
+
     private void Start()
     {
 #if UNITY_EDITOR
@@ -30,31 +47,34 @@ public class LevelScroller : MonoBehaviour
 
     private void Update()
     {
-        DistanceTraveled += ScrollSpeed * Time.deltaTime;
-
-        if(slowed)
+        if(bAllowedToProceed)
         {
-            temp = Mathf.Max(temp - Time.deltaTime, 0.0f);
-            if(ScrollResumeTime > 0.0f)
+            DistanceTraveled += ScrollSpeed * Time.deltaTime;
+
+            if (slowed)
             {
-                ScrollSpeed = Mathf.Lerp(MaxScrollSpeed, OnDamageTargetScroll, ScrollResumeCurve.Evaluate(temp / ScrollResumeTime));
-            }
-            else
-            {
-                ScrollSpeed = MaxScrollSpeed;
+                temp = Mathf.Max(temp - Time.deltaTime, 0.0f);
+                if (ScrollResumeTime > 0.0f)
+                {
+                    ScrollSpeed = Mathf.Lerp(MaxScrollSpeed, OnDamageTargetScroll, ScrollResumeCurve.Evaluate(temp / ScrollResumeTime));
+                }
+                else
+                {
+                    ScrollSpeed = MaxScrollSpeed;
+                }
+
+                if (temp < 0.0f)
+                {
+                    slowed = false;
+                }
             }
 
-            if(temp < 0.0f )
-            { 
-                slowed = false;
+            for (int i = 0; i < ActivitiesSequenceGenerator.InstantiatedActivitiesGO.Count; ++i)
+            {
+                GameObject obj = ActivitiesSequenceGenerator.InstantiatedActivitiesGO[i].gameObject;
+                obj.transform.position += ((-obj.transform.forward) * ScrollSpeed) * Time.deltaTime;
             }
-        }
-
-        for (int i = 0; i < ActivitiesSequenceGenerator.InstantiatedActivitiesGO.Count; ++i)
-        {
-            GameObject obj = ActivitiesSequenceGenerator.InstantiatedActivitiesGO[i].gameObject;
-            obj.transform.position += ((-obj.transform.forward) * ScrollSpeed) * Time.deltaTime;
-        }
+        }     
     }
 
     public void SlowLevelBecauseOfHit()

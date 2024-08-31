@@ -5016,6 +5016,7 @@ GameObject:
   - component: {fileID: 6566076826153266456}
   - component: {fileID: 3622613474124992670}
   - component: {fileID: 1637433769231745509}
+  - component: {fileID: 5212925961021959220}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -5153,6 +5154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce48279da0fd9c40abb87943c3b5512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinStreakManager: {fileID: 0}
   MovementController: {fileID: 0}
   LevelScroller: {fileID: 0}
   PlayerMesh: {fileID: 5515578617373481121}
@@ -5160,6 +5162,21 @@ MonoBehaviour:
   HurtMat: {fileID: 2100000, guid: f8a69983df61d2c4a90d5c1dca03a1ca, type: 2}
   RichMat: {fileID: 2100000, guid: ebc98878140d1b741b86fcb7c9bc94da, type: 2}
   specialStatusTime: 2
+  hitCooldownTime: 2
+--- !u!114 &5212925961021959220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589946590184626529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 869cb3473044bf444b1e88b89c558eec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 1
+  MaxHealth: 1
 --- !u!1 &5517586526265295948
 GameObject:
   m_ObjectHideFlags: 0

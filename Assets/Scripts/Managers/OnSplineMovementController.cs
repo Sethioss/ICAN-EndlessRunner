@@ -57,9 +57,6 @@ public class OnSplineMovementController : MonoBehaviour
     private float _splinePositionToGoBackTo;
     bool _CanAirAgain = true;
 
-
-
-
     [Header("Controls - Higher values = More drag")]
     [SerializeField] private float _velocity = 0;
     [Tooltip("VelocityBasedRotationMultiplier")]
@@ -98,6 +95,29 @@ public class OnSplineMovementController : MonoBehaviour
     [SerializeField] private ParticleSystem _ParticleRight;
     [SerializeField] private ParticleSystem _ParticleLeft;
 
+    //TODO: Put this in a component, interface or system that can easily be placed in multiple scripts ("GameStateDependantExecution?")
+    private bool bAllowedToProceed = true;
+
+    // Start is called before the first frame update
+    protected virtual void OnEnable()
+    {
+        // Hook into the events we need
+        LeanTouch.OnGesture += HandleFingerDebug;
+        LeanTouch.OnFingerUpdate += UpdateFinger;
+        LeanTouch.OnFingerDown += HandleFingerDown;
+        LeanTouch.OnFingerUp += HandleFingerUp;
+
+        GameManager.GetInstance()._onDeath.AddListener(() => bAllowedToProceed = false);
+        GameManager.GetInstance()._onPause.AddListener(() => bAllowedToProceed = false);
+        GameManager.GetInstance()._onResume.AddListener(() => bAllowedToProceed = true);
+    }
+
+    void OnDisable()
+    {
+        GameManager.GetInstance()._onDeath.RemoveListener(() => bAllowedToProceed = false);
+        GameManager.GetInstance()._onPause.RemoveListener(() => bAllowedToProceed = false);
+        GameManager.GetInstance()._onResume.RemoveListener(() => bAllowedToProceed = true);
+    }
 
     //Used when bounds change
     public void CorrectPlayerBackOnSpline()
@@ -137,16 +157,6 @@ public class OnSplineMovementController : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    protected virtual void OnEnable()
-    {
-        // Hook into the events we need
-        LeanTouch.OnGesture += HandleFingerDebug;
-        LeanTouch.OnFingerUpdate += UpdateFinger;
-        LeanTouch.OnFingerDown += HandleFingerDown;
-        LeanTouch.OnFingerUp += HandleFingerUp;
-    }
-
-    // Start is called before the first frame update
     void Start()
     {
         _mainCam = Camera.main;
@@ -160,33 +170,36 @@ public class OnSplineMovementController : MonoBehaviour
 
     private void Update()
     {
-        if (_Airborne)
+        if(bAllowedToProceed)
         {
-            CheckForLanding();
-        }
-        else
-        {
-            if(_tempPostLandingDecelerationTransitionTime > 0)
+            if (_Airborne)
             {
-                _tempPostLandingDecelerationTransitionTime -= Time.deltaTime;
-                deceleration = Mathf.Lerp(tempDeceleration, _landingDeceleration, (float)_tempPostLandingDecelerationTransitionTime / (float)_postLandingDecelerationTransitionTime);
-            }
-            if(_tempPostLandingDecelerationTransitionTime > 0)
-            {
-                _tempPostLandingDecelerationTransitionTime = Time.deltaTime;
-            }
-
-            if (_tempCooldownAfterGroundCheck > 0)
-            {
-                _tempCooldownAfterGroundCheck -= Time.deltaTime;
+                CheckForLanding();
             }
             else
             {
-                _CanAirAgain = true;
+                if (_tempPostLandingDecelerationTransitionTime > 0)
+                {
+                    _tempPostLandingDecelerationTransitionTime -= Time.deltaTime;
+                    deceleration = Mathf.Lerp(tempDeceleration, _landingDeceleration, (float)_tempPostLandingDecelerationTransitionTime / (float)_postLandingDecelerationTransitionTime);
+                }
+                if (_tempPostLandingDecelerationTransitionTime > 0)
+                {
+                    _tempPostLandingDecelerationTransitionTime = Time.deltaTime;
+                }
+
+                if (_tempCooldownAfterGroundCheck > 0)
+                {
+                    _tempCooldownAfterGroundCheck -= Time.deltaTime;
+                }
+                else
+                {
+                    _CanAirAgain = true;
+                }
+                UpdateMove();
             }
-            UpdateMove();
-        }
-        RotatePlayerBasedOnVelocity(_Airborne);
+            RotatePlayerBasedOnVelocity(_Airborne);
+        }     
     }
 
     #region Misc
