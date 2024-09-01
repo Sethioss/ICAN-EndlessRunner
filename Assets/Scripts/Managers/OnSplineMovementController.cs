@@ -311,17 +311,17 @@ public class OnSplineMovementController : MonoBehaviour
     #region Rotation
     private void RotatePlayerBasedOnVelocity(bool isAirborne)
     {
-        Transform playerMeshTransform = _playerObject.GetComponent<Player>().PlayerMesh.gameObject.transform;
-        if (isAirborne)
-        {
-            float zRotation = 1 - (((_rb.velocity.y * _AngularRotationMultiplierOnAir) * GetPositionSideBasedOnSplineValue(_positionOnSpline)));
-            playerMeshTransform.localRotation = Quaternion.Euler(-90.0f, 0, Mathf.Clamp(zRotation, -70f, 70f));
-        }
-        else
-        {
-            float zRotation = _velocity * _AngularRotationMultiplier;
-            playerMeshTransform.localRotation = Quaternion.Euler(-90.0f, 0, Mathf.Clamp(zRotation, -70f, 70f));
-        }
+        //Transform playerMeshTransform = _playerObject.GetComponent<Player>().PlayerMesh.gameObject.transform;
+        //if (isAirborne)
+        //{
+        //    float zRotation = 1 - (((_rb.velocity.y * _AngularRotationMultiplierOnAir) * GetPositionSideBasedOnSplineValue(_positionOnSpline)));
+        //    playerMeshTransform.localRotation = Quaternion.Euler(-90.0f, 0, Mathf.Clamp(zRotation, -70f, 70f));
+        //}
+        //else
+        //{
+        //    float zRotation = _velocity * _AngularRotationMultiplier;
+        //    playerMeshTransform.localRotation = Quaternion.Euler(-90.0f, 0, Mathf.Clamp(zRotation, -70f, 70f));
+        //}
     }
     #endregion
 
