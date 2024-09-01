@@ -340,19 +340,20 @@ public class OnSplineMovementController : MonoBehaviour
 
         if (_direction == 0f)
         {
-            if (_velocity > 0.00001f || _velocity < -0.00001f)
+            if (_velocity < -0.00001f || _velocity > 0.00001f)
             {
                 accel = deceleration;
                 float _calculatedVelocity = _velocity + decelCurve.Evaluate(_movementLerpValue) * -(Mathf.Sign(_velocity)) * Time.deltaTime;
-                _velocity = Mathf.Clamp(_calculatedVelocity, -_maxSpeed, _maxSpeed);
 
-                //Never fully stop after having pressed a direction at least once
-                if (_velocity <= _minSpeed && _velocity >= -_minSpeed && _velocity != 0.0f)
+                //Debug.Log(_velocity);
+                if(_velocity >= 0.0f)
                 {
-                    float _negativeVelocity = _velocity >= 0.0f ? 1 : -1;
-                    _velocity = _minSpeed * _negativeVelocity;
+                    _velocity = Mathf.Clamp(_calculatedVelocity, _minSpeed, _maxSpeed);
                 }
-                _movementLerpValue += Time.deltaTime;
+                if (_velocity <= 0.0f)
+                {
+                    _velocity = Mathf.Clamp(_calculatedVelocity, -_maxSpeed, -_minSpeed);
+                }
             }
             else
             {
@@ -432,6 +433,7 @@ public class OnSplineMovementController : MonoBehaviour
                                 _StandardJumpCurve = SetJumpCurve(Mathf.Abs(_velocity));
                                 JumpAmplitude = Mathf.Clamp((Mathf.Abs(_velocity) * -1) * (_sideJumpImpulseForce * -1), MinJumpAmplitude, MaxJumpAmplitude);
                                 _velocity = 0.0f;
+                                _OnGroundVelocityRatio = 0.0f;
                                 _Airborne = true;
                                 _splinePositionToGoBackTo = _splineManager.CurrentBounds.Positions[0].Position + 0.007f;
                             }
@@ -443,6 +445,7 @@ public class OnSplineMovementController : MonoBehaviour
                                 _StandardJumpCurve = SetJumpCurve(Mathf.Abs(_velocity));
                                 JumpAmplitude = Mathf.Clamp((Mathf.Abs(_velocity) * -1) * (_sideJumpImpulseForce * -1), MinJumpAmplitude, MaxJumpAmplitude);
                                 _velocity = 0.0f;
+                                _OnGroundVelocityRatio = 0.0f;
                                 _Airborne = true;
                                 _splinePositionToGoBackTo = _splineManager.CurrentBounds.Positions[1].Position - 0.007f;
                             }
@@ -452,6 +455,7 @@ public class OnSplineMovementController : MonoBehaviour
                 }
 
                 _velocity = 0;
+                _OnGroundVelocityRatio = 0.0f;
             }
         }
         else
