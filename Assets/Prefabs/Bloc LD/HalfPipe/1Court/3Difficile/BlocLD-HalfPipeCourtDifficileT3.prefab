@@ -427,7 +427,7 @@ PrefabInstance:
     - target: {fileID: 1642396267427399281, guid: 18fd4e93ecdd23648b9ff44796579fbf,
         type: 3}
       propertyPath: m_Name
-      value: BlocLD-HalfPipeDifficileT3
+      value: BlocLD-HalfPipeCourtDifficileT3
       objectReference: {fileID: 0}
     - target: {fileID: 3416414943359029759, guid: 18fd4e93ecdd23648b9ff44796579fbf,
         type: 3}
@@ -570,6 +570,10 @@ PrefabInstance:
         type: 3}
       insertIndex: 4
       addedObject: {fileID: 3742524498912884908}
+    - targetCorrespondingSourceObject: {fileID: 3416414943359029759, guid: 18fd4e93ecdd23648b9ff44796579fbf,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4040192926495602597}
     - targetCorrespondingSourceObject: {fileID: 5077965997364204852, guid: 18fd4e93ecdd23648b9ff44796579fbf,
         type: 3}
       insertIndex: -1
@@ -790,4 +794,78 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4526ac190b67ff442b1d0774ba676868,
     type: 3}
   m_PrefabInstance: {fileID: 6974036540817666201}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7694117270647617705
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8960031836540595432}
+    m_Modifications:
+    - target: {fileID: 5174806492554963817, guid: 45e2dec3c203d0348a68b7993046079e,
+        type: 3}
+      propertyPath: m_Name
+      value: PrefabBordurePipe 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5969337601586810636, guid: 45e2dec3c203d0348a68b7993046079e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5969337601586810636, guid: 45e2dec3c203d0348a68b7993046079e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5969337601586810636, guid: 45e2dec3c203d0348a68b7993046079e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5969337601586810636, guid: 45e2dec3c203d0348a68b7993046079e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5969337601586810636, guid: 45e2dec3c203d0348a68b7993046079e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5969337601586810636, guid: 45e2dec3c203d0348a68b7993046079e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5969337601586810636, guid: 45e2dec3c203d0348a68b7993046079e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5969337601586810636, guid: 45e2dec3c203d0348a68b7993046079e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5969337601586810636, guid: 45e2dec3c203d0348a68b7993046079e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5969337601586810636, guid: 45e2dec3c203d0348a68b7993046079e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 45e2dec3c203d0348a68b7993046079e, type: 3}
+--- !u!4 &4040192926495602597 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5969337601586810636, guid: 45e2dec3c203d0348a68b7993046079e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7694117270647617705}
   m_PrefabAsset: {fileID: 0}
