@@ -640,7 +640,7 @@ PrefabInstance:
     - target: {fileID: 5662135177519627198, guid: 4b637a3e871854843b58d056cb7007f1,
         type: 3}
       propertyPath: pointInfo.Positions.Array.data[0].PositionPointType
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7891510284207016650, guid: 4b637a3e871854843b58d056cb7007f1,
         type: 3}
