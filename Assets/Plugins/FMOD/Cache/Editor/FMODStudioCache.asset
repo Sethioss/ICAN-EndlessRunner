@@ -28,33 +28,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 264100
---- !u!114 &-7394392294153768062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player/SOUND-HitPlayer
-  m_EditorClassIdentifier: 
-  Path: event:/Player/SOUND-HitPlayer
-  Guid:
-    Data1: -131695537
-    Data2: 1172196837
-    Data3: -1399380583
-    Data4: -1613243541
-  Banks:
-  - {fileID: -7248849312909641185}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 850
 --- !u!114 &-7248849312909641185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,10 +43,10 @@ MonoBehaviour:
   Path: FMOD/FMODSOUND/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638597655989131700
+  lastModified: 638608331210044893
   FileSizes:
   - Name: Desktop
-    Value: 9288960
+    Value: 9327488
   Exists: 1
 --- !u!114 &-6406903823527771057
 MonoBehaviour:
@@ -102,6 +75,60 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 800
+--- !u!114 &-5516144272426164921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enviro/SOUND-Boost
+  m_EditorClassIdentifier: 
+  Path: event:/Enviro/SOUND-Boost
+  Guid:
+    Data1: 1102941060
+    Data2: 1291761217
+    Data3: -1910177915
+    Data4: 2021921302
+  Banks:
+  - {fileID: -7248849312909641185}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 5491
+--- !u!114 &-3030021444262932267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/SOUND-Coin3
+  m_EditorClassIdentifier: 
+  Path: event:/UI/SOUND-Coin3
+  Guid:
+    Data1: 639828339
+    Data2: 1333611919
+    Data3: 1489442949
+    Data4: 8209326
+  Banks:
+  - {fileID: -7248849312909641185}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 887
 --- !u!114 &-1780573240855032457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,10 +198,10 @@ MonoBehaviour:
   Path: FMOD/FMODSOUND/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638597655989155882
+  lastModified: 638608331210079925
   FileSizes:
   - Name: Desktop
-    Value: 1406
+    Value: 1590
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -196,7 +223,6 @@ MonoBehaviour:
   - {fileID: 3597006732200485491}
   - {fileID: 7849262161404573896}
   - {fileID: -6406903823527771057}
-  - {fileID: -7394392294153768062}
   - {fileID: 7698583672915365902}
   - {fileID: 3691755879620088420}
   - {fileID: 7204070339812655453}
@@ -206,12 +232,18 @@ MonoBehaviour:
   - {fileID: 6311154581321632031}
   - {fileID: 7856775639653169805}
   - {fileID: -1647100969950752090}
+  - {fileID: 5166688980228854168}
+  - {fileID: 4607332726072706138}
+  - {fileID: -3030021444262932267}
+  - {fileID: 2453187015043446969}
+  - {fileID: 4073188811883553475}
+  - {fileID: -5516144272426164921}
   EditorParameters: []
   MasterBanks:
   - {fileID: -7248849312909641185}
   StringsBanks:
   - {fileID: -566615066666930269}
-  cacheTime: 638597655989155882
+  cacheTime: 638608331210079925
   cacheVersion: 131617
 --- !u!114 &156172358915291575
 MonoBehaviour:
@@ -264,6 +296,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 136843
+--- !u!114 &2453187015043446969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/SOUND-Coin1
+  m_EditorClassIdentifier: 
+  Path: event:/UI/SOUND-Coin1
+  Guid:
+    Data1: -880737879
+    Data2: 1260727769
+    Data3: -257699955
+    Data4: 296652442
+  Banks:
+  - {fileID: -7248849312909641185}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 887
 --- !u!114 &3597006732200485491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,6 +377,87 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2442
+--- !u!114 &4073188811883553475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/SOUND-Coin2
+  m_EditorClassIdentifier: 
+  Path: event:/UI/SOUND-Coin2
+  Guid:
+    Data1: 1528264621
+    Data2: 1101280851
+    Data3: 1531144087
+    Data4: 1128954441
+  Banks:
+  - {fileID: -7248849312909641185}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 887
+--- !u!114 &4607332726072706138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/SOUND-Coin4
+  m_EditorClassIdentifier: 
+  Path: event:/UI/SOUND-Coin4
+  Guid:
+    Data1: 1688889707
+    Data2: 1166313263
+    Data3: -1016551019
+    Data4: -1341829553
+  Banks:
+  - {fileID: -7248849312909641185}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 887
+--- !u!114 &5166688980228854168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/SOUND-Coin5
+  m_EditorClassIdentifier: 
+  Path: event:/UI/SOUND-Coin5
+  Guid:
+    Data1: -583005689
+    Data2: 1299053742
+    Data3: 1713530507
+    Data4: -449339371
+  Banks:
+  - {fileID: -7248849312909641185}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 887
 --- !u!114 &6311154581321632031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,7 +511,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 4000
+  Length: 2000
 --- !u!114 &7521959129660530705
 MonoBehaviour:
   m_ObjectHideFlags: 0
