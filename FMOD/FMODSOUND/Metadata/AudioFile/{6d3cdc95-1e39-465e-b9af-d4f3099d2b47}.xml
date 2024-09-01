@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{6d3cdc95-1e39-465e-b9af-d4f3099d2b47}">
+		<property name="assetPath">
+			<value>SOUND-LauchGame.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>96</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>4</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{6e659b6b-f7d6-443e-8cf5-04e48bc74f5a}</destination>
+		</relationship>
+	</object>
+</objects>
