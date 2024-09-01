@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        PlayerMesh.material = StandardMat;
+        //PlayerMesh.material = StandardMat;
         healthComponent = GetComponent<HealthComponent>();
     }
     private void OnTriggerEnter(Collider other)
@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
             if(!invincible)
             {
                 FMODUnity.RuntimeManager.PlayOneShot("event:/Player/SOUND-HitPlayer");
-                PlayerMesh.material = HurtMat;
+                //PlayerMesh.material = HurtMat;
                 LevelScroller.SlowLevelBecauseOfHit();
 
                 tempSpecialStatusTime = 0;
@@ -84,13 +84,13 @@ public class Player : MonoBehaviour
             tempSpecialStatusTime = 0;
             other.gameObject.SetActive(false);
             coinStreakManager.PickupCoin(other.GetComponent<Coin>());
-            PlayerMesh.material = RichMat;
+            //PlayerMesh.material = RichMat;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        PlayerMesh.material = StandardMat;
+        //PlayerMesh.material = StandardMat;
     }
 
     private void Update()
@@ -104,7 +104,7 @@ public class Player : MonoBehaviour
                 {
                     tempSpecialStatusTime = 0;
                     isSpecialStatus = false;
-                    PlayerMesh.material = StandardMat;
+                    //PlayerMesh.material = StandardMat;
                 }
             }
 
@@ -115,7 +115,7 @@ public class Player : MonoBehaviour
                 {
                     tempHitCooldownTime = 0;
                     invincible = false;
-                    PlayerMesh.material = StandardMat;
+                    //PlayerMesh.material = StandardMat;
                 }
             }
         }      
